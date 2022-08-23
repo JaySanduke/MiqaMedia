@@ -90,7 +90,7 @@ export default function AddWorkspace({ addWorkspace }) {
                         required
                       />
                     </div>
-                    <div class="mb-6">
+                    {/* <div class="mb-6">
                       <label
                         class="block text-gray-700 text-sm font-bold mb-4"
                         for="workspaceAssign-date"
@@ -98,7 +98,7 @@ export default function AddWorkspace({ addWorkspace }) {
                         Workspace Assign Date
                       </label>
                       <WorkspaceDatePicker />
-                    </div>
+                    </div> */}
                     <div class="mb-6">
                       <label
                         class="block text-gray-700 text-sm font-bold mb-4"
