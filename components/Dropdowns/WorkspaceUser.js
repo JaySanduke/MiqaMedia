@@ -1,149 +1,82 @@
-import * as React from "react";
-import Avatar from "@mui/joy/Avatar";
-import Box from "@mui/joy/Box";
-import Select from '@mui/material/Select';
-import Checkbox, { checkboxClasses } from "@mui/joy/Checkbox";
-import List from "@mui/joy/List";
+import * as React from 'react';
+import { useTheme } from '@mui/material/styles';
+import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
-import ListItem from "@mui/joy/ListItem";
+import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Typography from "@mui/joy/Typography";
+import Select from '@mui/material/Select';
 
-export default function WorkspaceUser({ handleWorkspaceusersChange }) {
-  const [user, setUser] = React.useState("");
-  const [members, setMembers] = React.useState("");
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
+const names = [
+  'Oliver Hansen',
+  'Van Henry',
+  'April Tucker',
+  'Ralph Hubbard',
+  'Omar Alexander',
+  'Carlos Abbott',
+  'Miriam Wagner',
+  'Bradley Wilkerson',
+  'Virginia Andrews',
+  'Kelly Snyder',
+];
+
+function getStyles(name, personName, theme) {
+  return {
+    fontWeight:
+      personName.indexOf(name) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium,
+  };
+}
+
+export default function WorkspaceUser() {
+  const theme = useTheme();
+  const [personName, setPersonName] = React.useState([]);
 
   const handleChange = (event) => {
-    setUser(event.target.value);
-    console.log(event);
+    const {
+      target: { value },
+    } = event;
+    setPersonName(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
   };
 
-  const toggleMember = (index) => (event) => {
-    const newMembers = [...members];
-    newMembers[index] = event.target.checked;
-    setMembers(newMembers);
-  };
   return (
-
-    <Box role="group" aria-labelledby="member" sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Select User</InputLabel>
+    <div>
+      <FormControl sx={{ width: 210 }}>
+        <InputLabel id="demo-multiple-name-label">Name</InputLabel>
         <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={user}
-          label="Select User"
+          labelId="demo-multiple-name-label"
+          id="demo-multiple-name"
+          multiple
+          value={personName}
           onChange={handleChange}
+          input={<OutlinedInput label="Name" />}
+          MenuProps={MenuProps}
         >
-          <List
-            sx={{
-              [`& .${checkboxClasses.root}`]: {
-                mr: "auto",
-                flexGrow: 1,
-                alignItems: "center",
-                flexDirection: "row-reverse",
-                gap: 1.5,
-              },
-            }}
-          >
-            <ListItem
-              {...(members[1] && {
-                variant: "soft",
-                color: "primary",
-              })}
+          {names.map((name) => (
+            <MenuItem
+              key={name}
+              value={name}
+              style={getStyles(name, personName, theme)}
             >
-              <Avatar aria-hidden="true" src="/static/images/avatar/2.jpg" />
-              <Checkbox
-                overlay
-                label={
-                  <React.Fragment>
-                    Satyam Sharma
-                    {members[1] && (
-                      <Typography
-                        aria-hidden="true"
-                        sx={{
-                          display: "block",
-                          fontSize: "sm",
-                          color: "neutral.500",
-                        }}
-                      >
-                        This user will become workspace memeber.
-                      </Typography>
-                    )}
-                  </React.Fragment>
-                }
-                value="satyam"
-                checked={members[1]}
-                onChange={toggleMember(1)}
-                sx={{ color: "inherit" }}
-              />
-            </ListItem>
-            <ListItem
-              {...(members[2] && {
-                variant: "soft",
-                color: "primary",
-              })}
-            >
-              <Avatar aria-hidden="true" src="/static/images/avatar/2.jpg" />
-              <Checkbox
-                overlay
-                label={
-                  <React.Fragment>
-                    Jay Sanduke
-                    {members[2] && (
-                      <Typography
-                        aria-hidden="true"
-                        sx={{
-                          display: "block",
-                          fontSize: "sm",
-                          color: "neutral.500",
-                        }}
-                      >
-                        This user will become workspace memeber.
-                      </Typography>
-                    )}
-                  </React.Fragment>
-                }
-                checked={members[2]}
-                onChange={toggleMember(2)}
-                sx={{ color: "inherit" }}
-              />
-            </ListItem>
-            <ListItem
-              {...(members[3] && {
-                variant: "soft",
-                color: "primary",
-              })}
-            >
-              <Avatar aria-hidden="true" src="/static/images/avatar/2.jpg" />
-              <Checkbox
-                overlay
-                label={
-                  <React.Fragment>
-                    Divyanshu Pateriya
-                    {members[3] && (
-                      <Typography
-                        aria-hidden="true"
-                        sx={{
-                          display: "block",
-                          fontSize: "sm",
-                          color: "neutral.500",
-                        }}
-                      >
-                        This user will become workspace memeber.
-                      </Typography>
-                    )}
-                  </React.Fragment>
-                }
-                checked={members[3]}
-                onChange={toggleMember(3)}
-                sx={{ color: "inherit" }}
-              />
-            </ListItem>
-
-          </List>
+              {name}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
-    </Box>
+    </div>
   );
 }

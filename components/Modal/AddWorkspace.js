@@ -13,11 +13,11 @@ export default function AddWorkspace({ addWorkspace }) {
 
   function setWorkspacedetails() {
     const workspacedetails = {
-      "title": title,
-      "desc": desc,
-      "assignDate": new Date().toString(),
-      "users": users,
-    }
+      title: title,
+      desc: desc,
+      assignDate: new Date().toString(),
+      users: users,
+    };
 
     addWorkspace(workspacedetails);
     console.log(workspacedetails);
@@ -99,7 +99,7 @@ export default function AddWorkspace({ addWorkspace }) {
                         required
                       />
                     </div>
-                    <div className="flex">
+                    {/* <div className="flex"> */}
                       <div class="mb-6 mr-4 flex-1">
                         <label
                           class="block text-gray-700 text-sm font-bold mb-4"
@@ -108,9 +108,7 @@ export default function AddWorkspace({ addWorkspace }) {
                           Workspace Assign Date
                         </label>
                         <WorkspaceDatePicker />
-                        {/* {workspaceAssignDate &&
-                    <WorkspaceDatePicker wvalue={workspaceAssignDate} workspaceAssigndate={handleworkspaceAssignDateChange} />
-                  } */}
+                        {/* {workspaceAssignDate && <WorkspaceDatePicker wvalue={workspaceAssignDate} workspaceAssigndate={handleworkspaceAssignDateChange} /> } */}{" "}
                       </div>
                       <div class="mb-6 flex-1">
                         <label
@@ -121,12 +119,11 @@ export default function AddWorkspace({ addWorkspace }) {
                         </label>
                         <WorkspaceUser workspaceuser={handleWorkspaceusersChange}/>
                         {/* <WorkspaceUserDropdown /> */}
-                        {/* {workspaceuser &&
-                    <UserDropdown value={workspaceuser} workspaceuser={handleworkspaceuserChange} />
-                  } */}
+                        {/* {workspaceuser && <UserDropdown value={workspaceuser} workspaceuser={handleworkspaceuserChange} /> } */}{" "}
                       </div>
-                    </div>
+                    {/* </div>{" "} */}
                     <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                      {" "}
                       <button
                         className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button"
@@ -142,10 +139,11 @@ export default function AddWorkspace({ addWorkspace }) {
                           setWorkspacedetails();
                         }}
                       >
+                        {" "}
                         Save Changes
                       </button>
                     </div>
-                  </form>
+                    </form>
                 </div>
 
               </div>
