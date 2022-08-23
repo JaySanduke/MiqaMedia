@@ -11,16 +11,16 @@ export default function AddWorkspace({ addWorkspace }) {
   const [assignDate, setAssignDate] = React.useState("");
   const [users, setUsers] = React.useState([]);
 
-  function setWorkshopdetails() {
-    const workshopdetails = {
+  function setWorkspacedetails() {
+    const workspacedetails = {
       "title": title,
       "desc": desc,
       "assignDate": new Date().toString(),
       "users": users,
     }
 
-    addWorkspace(workshopdetails);
-    console.log(workshopdetails);
+    addWorkspace(workspacedetails);
+    console.log(workspacedetails);
   }
 
   const handleWorkspacetitleChange = (e) => {
@@ -139,7 +139,7 @@ export default function AddWorkspace({ addWorkspace }) {
                         type="submit"
                         onClick={() => {
                           setShowModal(false),
-                          setWorkshopdetails();
+                          setWorkspacedetails();
                         }}
                       >
                         Save Changes

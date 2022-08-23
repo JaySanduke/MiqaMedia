@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import { useRouter } from "next/router";
+
 // components
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useEffect, useState } from "react";
@@ -17,8 +19,8 @@ export default function CardWorkspaceTable({ color, uid }) {
   const [ready, setReady] = useState(false);
   const [boardData, setBoardData] = useState([]);
 
-  const [snapshot, loading, error] = useObject(ref(database, 'users/' + uid));
-  const [data, setDate] = useState([]);
+  const [snapshot, loading, error] = useObject(ref(database, 'users/' + uid + '/workspace'));
+  const [data, setData] = useState([]);
 
   const workspacedata = [];
 
@@ -28,10 +30,30 @@ export default function CardWorkspaceTable({ color, uid }) {
     }
   }, []);
 
+  
+  const router = useRouter();
+
+  useEffect(() => {
+    if (process.browser) {
+      setReady(true);
+
+    var hostname = window.location.hostname;
+    var protocol = window.location.protocol;
+    var hsplit = hostname.split('.');
+    // if(hsplit.length >= 2){
+      hsplit.splice(0,1);
+      var workspace = protocol + "//xyz." + hsplit.join('.');
+      console.log(workspace);
+    // }
+    console.log(window.location);
+    // var workspace = hsplit[0];
+    }
+  }, []);
+
   useEffect(() => {
     if (!loading && snapshot) {
-      console.log(snapshot.val().workspace);
-      setDate(snapshot.val().workspace);
+      console.log(snapshot.val());
+      setData(snapshot.val());
     }
     else if (loading) {
       console.log('data loading ...');
