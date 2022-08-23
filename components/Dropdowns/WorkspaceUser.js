@@ -55,7 +55,7 @@ export default function WorkspaceUser() {
 
   return (
     <div>
-      <FormControl sx={{ width: 210 }}>
+      <FormControl sx={{ width: 300 }}>
         <InputLabel id="demo-multiple-name-label">Name</InputLabel>
         <Select
           labelId="demo-multiple-name-label"
