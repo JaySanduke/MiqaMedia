@@ -1,0 +1,99 @@
+[
+    {
+        "name":"To Do",
+        "tasks": [
+            {
+                "task_id":1,
+                "task_title": "Web Development",
+                "task_description": "Build a web application.",
+                "task_state": "Pending",
+                "task_users":5,
+                "task_assigndate": "1/1/2001",
+                "task_completedate": "1/1/2001"
+
+            },
+            {
+                "task_id":2,
+                "task_title": "Android Development",
+                "task_description": "Build a android application.",
+                "task_state": "Completed",
+                "task_users":15,
+                "task_assigndate": "5/1/2001",
+                "task_completedate": "1/1/2001"
+            },
+            {
+                "task_id":3,
+                "task_title": "Game Development",
+                "task_description": "Build a game application.",
+                "task_state": "Ongoing",
+                "task_users":10,
+                "task_assigndate": "10/1/2001",
+                "task_completedate": "1/1/2001"
+            }
+        ]
+    },
+    {
+        "name":"In Progress",
+        "tasks": [
+            {
+                "task_id":4,
+                "task_title": "Web Development",
+                "task_description": "Build a web application.",
+                "task_state": "Pending",
+                "task_users":5,
+                "task_assigndate": "1/1/2001",
+                "task_completedate": "1/1/2001"
+            },
+            {
+                "task_id":5,
+                "task_title": "Android Development",
+                "task_description": "Build a android application.",
+                "task_state": "Completed",
+                "task_users":15,
+                "task_assigndate": "5/1/2001",
+                "task_completedate": "1/1/2001"
+            },
+            {
+                "task_id":6,
+                "task_title": "Game Development",
+                "task_description": "Build a game application.",
+                "task_state": "Ongoing",
+                "task_users":10,
+                "task_assigndate": "10/1/2001",
+                "task_completedate": "1/1/2001"
+            }
+        ]
+    },
+    {
+        "name":"Completed",
+        "tasks": [
+            {
+                "task_id":7,
+                "task_title": "Web Development",
+                "task_description": "Build a web application.",
+                "task_state": "Pending",
+                "task_users":5,
+                "task_assigndate": "1/1/2001",
+                "task_completedate": "1/1/2001"
+            },
+            {
+                "task_id":8,
+                "task_title": "Android Development",
+                "task_description": "Build a android application.",
+                "task_state": "Completed",
+                "task_users":15,
+                "task_assigndate": "5/1/2001",
+                "task_completedate": "1/1/2001"
+            },
+            {
+                "task_id":9,
+                "task_title": "Game Development",
+                "task_description": "Build a game application.",
+                "task_state": "Ongoing",
+                "task_users":10,
+                "task_assigndate": "10/1/2001",
+                "task_completedate": "1/1/2001"
+            }
+        ]
+    }
+]

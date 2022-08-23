@@ -1,0 +1,25 @@
+[{
+    "workspaces": [
+        {
+            "workspace_id": 1,
+            "workspace_title": "Web Development",
+            "workspace_description": "Build a web application.",
+            "workspace_users": 5,
+            "workspace_date": "1/1/2001"
+        },
+        {
+            "workspace_id": 2,
+            "workspace_title": "Android Development",
+            "workspace_description": "Build a android application.",
+            "workspace_users": 15,
+            "workspace_date": "5/1/2001"
+        },
+        {
+            "workspace_id": 3,
+            "workspace_title": "Game Development",
+            "workspace_description": "Build a game application.",
+            "workspace_users": 10,
+            "workspace_date": "10/1/2001"
+        }
+    ]
+}]

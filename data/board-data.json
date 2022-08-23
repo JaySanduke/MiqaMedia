@@ -1,0 +1,126 @@
+[
+    {
+        "name":"Backlog",
+        "items": [
+            {
+                "task_id":1,
+                "task_priority": 0,
+                "task_title": "Company",
+                "task_description": "Company website redesign.",
+                "task_users": 1,
+                "task_date": "1/1/2001",
+                "task_assignees": [
+                    {
+                        "avt": "https://randomuser.me/api/portraits/men/75.jpg"
+                    }
+                ]
+            },
+            {
+                "task_id":2,
+                "task_priority": 2,
+                "task_title": "Mobile",
+                "task_description": "Mobile app login process prototype.",
+                "task_users": 10,
+                "task_date": "1/1/2001",
+                "task_assignees": [
+                    {
+                        "avt": "https://randomuser.me/api/portraits/men/67.jpg"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name":"In Progress",
+        "items": [
+            {
+                "task_id":3,
+                "task_priority": 1,
+                "task_title": "Research",
+                "task_description": "Research and strategy for upcoming project.",
+                "task_users": 0,
+                "task_date": "1/1/2001",
+                "task_assignees": [
+                    {
+                        "avt": "https://randomuser.me/api/portraits/men/79.jpg"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name":"In Review",
+        "items": [
+            {
+                "task_id":4,
+                "task_priority": 2,
+                "task_title": "Dashboard",
+                "task_description": "Dashboard layout redesign.",
+                "task_users": 13,
+                "task_date": "1/1/2001",
+                "task_assignees": [
+                    {
+                        "avt": "https://randomuser.me/api/portraits/men/75.jpg"
+                    }
+                ]
+            },
+            {
+                "task_id":5,
+                "task_priority": 0,
+                "task_title": "Social",
+                "task_description": "Social media posts",
+                "task_users": 0,
+                "task_date": "1/1/2001",
+                "task_assignees": [
+                    {
+                        "avt": "https://randomuser.me/api/portraits/men/68.jpg"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name":"Completed",
+        "items": [
+            {
+                "task_id":6,
+                "task_priority": 0,
+                "task_title": "Review",
+                "task_description": "Review client spec document and give feedback.",
+                "task_users": 13,
+                "task_date": "1/1/2001",
+                "task_assignees": [
+                    {
+                        "avt": "https://randomuser.me/api/portraits/men/75.jpg"
+                    }
+                ]
+            },
+            {
+                "task_id":7,
+                "task_priority": 1,
+                "task_title": "Navigation",
+                "task_description": "Review client spec document and give feedback.",
+                "task_users": 0,
+                "task_date": "1/1/2001",
+                "task_assignees": [
+                    {
+                        "avt": "https://randomuser.me/api/portraits/men/68.jpg"
+                    }
+                ]
+            },
+            {
+                "task_id":8,
+                "task_priority": 2,
+                "task_title": "Create",
+                "task_description": "Review client spec document and give feedback.",
+                "task_users": 5,
+                "task_date": "1/1/2001",
+                "task_assignees": [
+                    {
+                        "avt": "https://randomuser.me/api/portraits/men/64.jpg"
+                    }
+                ]
+            }
+        ]
+    }
+]
