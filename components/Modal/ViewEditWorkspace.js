@@ -3,8 +3,11 @@ import { useEffect, useState } from "react";
 import WorkspaceUserDropdown from "components/Dropdowns/WorkspaceUserDropdown";
 import WorkspaceDatePicker from "components/DatePicker/WorkspaceDatePicker";
 
-export default function ViewEditWorkspace({ wid, workspacedata, updateWorkspace }) {
-
+export default function ViewEditWorkspace({
+  wid,
+  workspacedata,
+  updateWorkspace,
+}) {
   // const [workspacetitle, setWorkspaceTitle] = useState('');
   // const [workspacedesc, setWorkspaceDesc] = useState('');
   // const [status, setStatus] = useState('');
@@ -59,24 +62,18 @@ export default function ViewEditWorkspace({ wid, workspacedata, updateWorkspace 
     <>
       <div
         className={
-          "relative bg-white flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded"
+          "relative bg-white items-center flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded"
         }
       >
-        <div className="rounded-t bg-white mb-0 px-4 py-3 border-0">
-          <div className="flex z-50 items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-            <h3 className="text-3xl font-semibold px-8">View & Edit Workspace</h3>
-            <button
-              className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-              onClick={() => setShowModal(false)}
-            >
-              <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                ×
-              </span>
-            </button>
+        <div className="rounded-t bg-white mb-0 border-0">
+          <div className="flex z-50 items-center justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+            <h3 className="text-3xl font-semibold">
+              View & Edit Workspace
+            </h3>
           </div>
           {/*body*/}
-          <div class="w-full px-4 max-w-xs">
-            <form class="bg-white rounded px-8 pt-6 pb-8 mb-4">
+          <div class="w-full text-center items-center max-w-sm">
+            <form class="bg-white text-center items-center rounded px-8 py-3">
               <div class="mb-4">
                 <label
                   class="block text-gray-700 text-sm font-bold mb-2"
@@ -109,45 +106,26 @@ export default function ViewEditWorkspace({ wid, workspacedata, updateWorkspace 
                   // value={workspacedesc}
                 />
               </div>
-              <div className="flex">
-                <div class="mb-6 mr-4 flex-1">
-                  <label
-                    class="block text-gray-700 text-sm font-bold mb-4"
-                    for="workspaceAssign-date"
-                  >
-                    Workspace Assign Date
-                  </label>
-                  <WorkspaceDatePicker/>
-                  {/* {workspaceAssignDate &&
-                    <WorkspaceDatePicker wvalue={workspaceAssignDate} workspaceAssigndate={handleworkspaceAssignDateChange} />
-                  } */}
-                </div>
-                <div class="mb-6 flex-1">
-                  <label
-                    class="block text-gray-700 text-sm font-bold mb-4"
-                    for="status"
-                  >
-                    Workspace Users
-                  </label>
-                  <WorkspaceUserDropdown/>
-                  {/* {workspaceuser &&
-                    <UserDropdown value={workspaceuser} workspaceuser={handleworkspaceuserChange} />
-                  } */}
-                </div>
+              <div class="mb-2">
+                <label
+                  class="block text-gray-700 text-sm font-bold mb-2"
+                >
+                  Workspace Users
+                </label>
+                <WorkspaceUserDropdown />
               </div>
             </form>
           </div>
           {/*footer*/}
-          <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-            
+          <div className="flex items-center justify-center p-4 border-t border-solid border-slate-200 rounded-b">
             <button
-              className="bg-indigo-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+              className="bg-indigo-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
               type="button"
               onClick={() => {
                 // setWorkspacedetails()
               }}
             >
-              Save Changes
+              Save Workspace
             </button>
           </div>
         </div>

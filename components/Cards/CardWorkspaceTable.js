@@ -14,6 +14,7 @@ import { app, database } from "../../components/firebase";
 
 import { onValue, ref, child, push, update, remove } from "firebase/database";
 import { useObject, useList } from "react-firebase-hooks/database";
+import AddTask from "components/Modal/AddTask.";
 
 export default function CardWorkspaceTable({ color, uid }) {
   const [ready, setReady] = useState(false);

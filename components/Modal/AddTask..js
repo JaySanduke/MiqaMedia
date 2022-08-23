@@ -68,21 +68,13 @@ export default function AddTask({ addTask }) {
                                 {/*header*/}
                                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                                     <h3 className="text-3xl font-semibold px-8">Add Task</h3>
-                                    <button
-                                        className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                                        onClick={() => setShowModal(false)}
-                                    >
-                                        <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                                            ×
-                                        </span>
-                                    </button>
                                 </div>
                                 {/*body*/}
-                                <div class="w-full px-4 max-w-xs">
+                                <div class="w-full px-4 max-w">
                                     <form onSubmit={() => {
                                             setShowModal(false),
                                                 setTaskdetails()
-                                        }} class="bg-white rounded px-8 pt-6 pb-8 mb-4">
+                                        }} class="bg-white rounded px-8 pt-4 pb-4">
                                         <div class="mb-4">
                                             <label
                                                 class="block text-gray-700 text-sm font-bold mb-2"
@@ -155,23 +147,19 @@ export default function AddTask({ addTask }) {
                                                 <CompletionDatePicker completiondate={handlecompletionDateChange}/>
                                             </div>
                                         </div>
-                                        <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                                        <div className="flex items-center justify-center pt-4 px-6 border-t border-solid border-slate-200 rounded-b">
                                     <button
                                         className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                         type="button"
                                         onClick={() => setShowModal(false)}
                                     >
-                                        Close
+                                        Cancel
                                     </button>
                                     <button
                                         className="bg-indigo-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                         type="submit"
-                                        // onClick={() => {
-                                        //     setShowModal(false),
-                                        //         setTaskdetails()
-                                        // }}
                                     >
-                                        Save Changes
+                                        Add Task
                                     </button>
                                 </div>
                                     </form>

@@ -14,14 +14,14 @@ export default function VieworEditTask({ tid, taskdata, updateTask }) {
   const [assignDate, setAssignDate] = useState([]);
   const [completionDate, setCompletionDate] = useState('');
 
-  useEffect(() => {
-    setTitle(taskdata.title);
-    setDesc(taskdata.desc);
-    setStatus(taskdata.status);
-    setAssignee(taskdata.assignees);
-    setAssignDate(taskdata.created_at);
-    setCompletionDate(taskdata.completion_date);
-  }, [taskdata]);
+  // useEffect(() => {
+  //   setTitle(taskdata.title);
+  //   setDesc(taskdata.desc);
+  //   setStatus(taskdata.status);
+  //   setAssignee(taskdata.assignees);
+  //   setAssignDate(taskdata.created_at);
+  //   setCompletionDate(taskdata.completion_date);
+  // }, [taskdata]);
 
   function setTaskdetails() {
     const taskdetails = {
@@ -67,17 +67,9 @@ export default function VieworEditTask({ tid, taskdata, updateTask }) {
         <div className="rounded-t bg-white mb-0 px-4 py-3 border-0">
           <div className="flex z-50 items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
             <h3 className="text-3xl font-semibold px-8">View & Edit Task</h3>
-            <button
-              className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-              onClick={() => setShowModal(false)}
-            >
-              <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                ×
-              </span>
-            </button>
           </div>
           {/*body*/}
-          <div class="w-full px-4 max-w-xs">
+          <div class="w-full px-4 max-w">
             <form class="bg-white rounded px-8 pt-6 pb-8 mb-4">
               <div class="mb-4">
                 <label
@@ -171,7 +163,7 @@ export default function VieworEditTask({ tid, taskdata, updateTask }) {
                 setTaskdetails()
               }}
             >
-              Save Changes
+              Edit Task
             </button>
           </div>
         </div>
