@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import router, {useRouter} from "next/router";
+import router, { useRouter } from "next/router";
 
 // components
 
@@ -57,10 +57,10 @@ export default function ViewEditTask() {
   }, [uid, tid, loading]);
 
   useEffect(() => {
-    for(let i in taskdata){
+    for (let i in taskdata) {
       taskd.push(taskdata[i]);
-    } 
-    
+    }
+
     taskd.filter((item) => item.id == tid).map((itm) => {
       console.log(itm);
       setTaskData(itm);
@@ -70,14 +70,11 @@ export default function ViewEditTask() {
   function updateTask(data, id) {
 
     let taskdetails = {
-      created_at: data.assignDate,
-      completion_date: data.completionDate,
       title: data.title,
       desc: data.desc,
+      created_at: data.assignDate,
+      completion_date: data.completionDate,
       status: data.status,
-      // priority: 0,
-      // chat: 0,
-      // attachment: 0,
       assignees: [data.assignee],
     };
 
@@ -108,7 +105,7 @@ export default function ViewEditTask() {
     <>
       <div className="flex flex-wrap mt-4">
         <div className="w-full mb-12 px-4">
-            <VieworEditTask tid={tid} taskdata={taskdata} updateTask={updateTask} />
+          <VieworEditTask tid={tid} taskdata={taskdata} updateTask={updateTask} />
         </div>
       </div>
     </>

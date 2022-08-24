@@ -31,8 +31,17 @@ const names = [
   'Kelly Snyder',
 ];
 
-export default function WorkspaceUserDropdown() {
+export default function WorkspaceUserDropdown({uvalue, userChange}) {
   const [personName, setPersonName] = React.useState([]);
+
+  React.useEffect(() => {
+    console.log(uvalue);
+    let arr = [];
+    for(let i in uvalue){
+      arr.push(uvalue[i])
+    };
+    setPersonName(arr)
+  },[uvalue]);
 
   const handleChange = (event) => {
     const {
@@ -42,6 +51,8 @@ export default function WorkspaceUserDropdown() {
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
     );
+
+    userChange(event.target.value);
   };
 
   return (

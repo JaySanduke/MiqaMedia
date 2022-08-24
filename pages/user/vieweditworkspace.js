@@ -29,19 +29,57 @@ export default function ViewWorkspace() {
   const [uid, setUid] = useState('');
   const [wid, setWid] = useState(router.query.wid);
   const [snapshot, loading, error] = useObject(ref(database, 'users/' + uid + '/workspace/' + wid));
+  const [workspacedata, setWorkspaceData] = useState([]);
 
   useEffect(() => {
     if (user && !uloading) {
       setUid(user.uid);
-      setWid(router.query.tid);
+      setWid(router.query.wid);
     }
   }, [user]);
+
+  useEffect(() => {
+    if (!loading && snapshot) {
+      console.log(wid);
+      console.log(snapshot.val());
+
+      setWorkspaceData(snapshot.val());
+
+    }
+    else if (loading) {
+      console.log('data loading ...');
+    }
+    else if (error) {
+      console.log('Error: ' + error);
+    }
+  }, [uid, wid, loading]);
+
+  function updateWorkspace(data, wpid) {
+
+    let Workspacedetails = {
+      workspacename: data.name,
+      desc: data.desc,
+      users: data.users
+    };
+
+    if (uid && wid && wpid) {
+      update(ref(database, 'users/' + uid + '/workspace/' + wpid), Workspacedetails)
+        .then(
+          router.push("/user/workspace").then(() => {
+            console.log('Task updated successfully')
+          })
+        )
+        .catch(error => {
+          console.log(error);
+        });
+    }
+  }
 
   return (
     <>
       <div className="flex flex-wrap mt-4">
         <div className="w-full mb-12 px-4">
-          <ViewEditWorkspace />
+          <ViewEditWorkspace wid={wid} workspacedata={workspacedata} updateWorkspace={updateWorkspace} />
         </div>
       </div>
     </>

@@ -4,59 +4,41 @@ import WorkspaceUserDropdown from "components/Dropdowns/WorkspaceUserDropdown";
 import WorkspaceDatePicker from "components/DatePicker/WorkspaceDatePicker";
 
 export default function ViewEditWorkspace({
-  wid,
   workspacedata,
   updateWorkspace,
+  wid
 }) {
-  // const [workspacetitle, setWorkspaceTitle] = useState('');
-  // const [workspacedesc, setWorkspaceDesc] = useState('');
-  // const [status, setStatus] = useState('');
-  // const [workspaceuser, setWorkspaceUser] = useState('');
-  // const [workspaceAssignDate, setWorkspaceAssignDate] = useState([]);
-  // const [completionDate, setCompletionDate] = useState('');
+  const [workspacename, setWorkspaceName] = useState('');
+  const [workspacedesc, setWorkspaceDesc] = useState('');
+  const [workspaceuser, setWorkspaceUser] = useState('');
 
-  // useEffect(() => {
-  //   setWorkspaceTitle(workspacedata.workspacetitle);
-  //   setWorkspaceDesc(workspacedata.workspacedesc);
-  //   setStatus(workspacedata.status);
-  //   setWorkspaceUser(workspacedata.workspaceusers);
-  //   setWorkspaceAssignDate(workspacedata.created_at);
-  //   setCompletionDate(workspacedata.completion_date);
-  // }, [workspacedata]);
+  useEffect(() => {
+    setWorkspaceName(workspacedata.workspacename);
+    setWorkspaceDesc(workspacedata.desc);
+    setWorkspaceUser(workspacedata.users); 
+  }, [workspacedata]);
 
-  // function setWorkspacedetails() {
-  //   const workspacedetails = {
-  //     workspacetitle: workspacetitle,
-  //     workspacedesc: workspacedesc,
-  //     status: status,
-  //     workspaceuser: workspaceuser,
-  //     workspaceAssignDate: workspaceAssignDate,
-  //     completionDate: completionDate
-  //   }
+  function setWorkspacedetails() {
+    const workspacedetails = {
+      name: workspacename,
+      desc: workspacedesc,
+      users: workspaceuser,
+    }
 
-  //   updateWorkspace(workspacedetails, wid);
+    updateWorkspace(workspacedetails, wid);
 
-  //   console.log(workspacedetails);
-  // }
+    console.log(workspacedetails);
+  }
 
-  // const handleworkspacetitleChange = (e) => {
-  //   setWorkspaceTitle(e.target.value);
-  // };
-  // const handleworkspacedescChange = (e) => {
-  //   setWorkspaceDesc(e.target.value);
-  // };
-  // function handlestatusChange(status) {
-  //   setStatus(status);
-  // };
-  // function handleworkspaceuserChange(workspaceusers) {
-  //   setWorkspaceUser(workspaceusers);
-  // };
-  // function handleworkspaceAssignDateChange(createddate) {
-  //   setWorkspaceAssignDate(createddate);
-  // };
-  // function handlecompletionDateChange(completiondate) {
-  //   setCompletionDate(completiondate);
-  // };
+  const handleworkspacenameChange = (e) => {
+    setWorkspaceName(e.target.value);
+  };
+  const handleworkspacedescChange = (e) => {
+    setWorkspaceDesc(e.target.value);
+  };
+  function handleworkspaceuserChange(workspaceusers) {
+    setWorkspaceUser(workspaceusers);
+  };
 
   return (
     <>
@@ -86,8 +68,8 @@ export default function ViewEditWorkspace({
                   id="username"
                   type="text"
                   placeholder="Workspace Title"
-                  // onChange={handleworkspacetitleChange}
-                  // value={workspacetitle}
+                  onChange={handleworkspacenameChange}
+                  value={workspacename}
                 />
               </div>
               <div class="mb-6">
@@ -102,8 +84,8 @@ export default function ViewEditWorkspace({
                   id="username"
                   type="text"
                   placeholder="Workspace Description"
-                  // onChange={handleworkspacedescChange}
-                  // value={workspacedesc}
+                  onChange={handleworkspacedescChange}
+                  value={workspacedesc}
                 />
               </div>
               <div class="mb-2">
@@ -112,7 +94,7 @@ export default function ViewEditWorkspace({
                 >
                   Workspace Users
                 </label>
-                <WorkspaceUserDropdown />
+                <WorkspaceUserDropdown uvalue={workspaceuser} userChange={handleworkspaceuserChange} />
               </div>
             </form>
           </div>
@@ -122,7 +104,7 @@ export default function ViewEditWorkspace({
               className="bg-indigo-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
               type="button"
               onClick={() => {
-                // setWorkspacedetails()
+                setWorkspacedetails()
               }}
             >
               Save Workspace
