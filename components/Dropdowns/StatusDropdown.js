@@ -24,10 +24,10 @@ export default function StatusDropdown({value, statusChange}) {
           label="Select Status"
           onChange={handleChange}
         >
-          <MenuItem value={"backlog"}>Backlog</MenuItem>
-          <MenuItem value={"inprogress"}>In Progress</MenuItem>
-          <MenuItem value={"inreview"}>In Review</MenuItem>
-          <MenuItem value={"completed"}>Completed</MenuItem>
+          <MenuItem value={"Backlog"}>Backlog</MenuItem>
+          <MenuItem value={"In Progress"}>In Progress</MenuItem>
+          <MenuItem value={"In Review"}>In Review</MenuItem>
+          <MenuItem value={"Completed"}>Completed</MenuItem>
         </Select>
       </FormControl>
     </Box>

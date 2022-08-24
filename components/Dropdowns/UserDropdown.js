@@ -25,9 +25,9 @@ export default function UserDropdown({value, assignee}) {
           onChange={handleChange}
           required
         >
-          <MenuItem value={"john"}>John</MenuItem>
-          <MenuItem value={"will"}>Will</MenuItem>
-          <MenuItem value={"mike"}>Mike</MenuItem>
+          <MenuItem value={"John"}>John</MenuItem>
+          <MenuItem value={"Will"}>Will</MenuItem>
+          <MenuItem value={"Mike"}>Mike</MenuItem>
         </Select>
       </FormControl>
     </Box>
