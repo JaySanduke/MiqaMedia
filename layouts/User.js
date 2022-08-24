@@ -2,9 +2,9 @@ import React from "react";
 
 // components
 
-import AdminNavbar from "components/Navbars/AdminNavbar.js";
-import UserSidebar from "components/Sidebar/UserSidebar.js";
-import FooterAdmin from "components/Footers/FooterAdmin.js";
+import AdminNavbar from "../components/Navbars/AdminNavbar.js";
+import UserSidebar from "../components/Sidebar/UserSidebar.js";
+import FooterAdmin from "../components/Footers/FooterAdmin.js";
 
 export default function User({ children }) {
   return (
