@@ -101,11 +101,9 @@ export default function Tables() {
             <CardTable color="light" tabledata={data.tasks} addTask={addTask} deleteTask={deleteTask} />
           }
         </div>
-        {/* <div className="w-full mb-12 px-4">
-        {data.tasks && wid &&
+        {data && 
             <CardTable color="dark" tabledata={data.tasks} addTask={addTask} deleteTask={deleteTask} />
           }
-        </div> */}
       </div>
     </>
   );
