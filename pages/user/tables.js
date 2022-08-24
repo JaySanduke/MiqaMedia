@@ -81,12 +81,11 @@ export default function Tables() {
 
       update(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/' + postk), taskdetails);
     }
-
   }
 
   function deleteTask(taskid) {
     if (taskid && taskid != "") {
-      remove(ref(database, 'users/' + uid + '/tasks/' + taskid))
+      remove(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/' + taskid))
         .then(console.log('task with id ' + taskid + ' deleted successfully'))
         .catch((error) => {
           console.log('error deleting task with error:' + error)
