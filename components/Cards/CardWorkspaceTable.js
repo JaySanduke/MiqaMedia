@@ -217,7 +217,7 @@ export default function CardWorkspaceTable({ color, uid }) {
                           : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
                       }
                     >
-                      Workspace Title
+                      Workspace Name
                     </th>
                     <th
                       className={

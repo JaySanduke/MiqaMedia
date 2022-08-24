@@ -85,7 +85,7 @@ const WorkspaceDropdown = ({ wid, deleteWorkspace, wsubdomain }) => {
                     : "text-blueGray-300")
                 }
               ></i>{" "}
-              View & Edit Workspace
+              View & Edit
             </a>
           </Link>
         </a>
@@ -102,7 +102,7 @@ const WorkspaceDropdown = ({ wid, deleteWorkspace, wsubdomain }) => {
           }
         >
           {/* <Link href={ url[0] + wid + "." + url[1] } > */}
-          {/* <Link href={{pathname: '/user/demotable'}} > */}
+          <Link href={{pathname: '/user/tables', query: { wid: wid } }} >
           <a
             href="#pablo"
             className={
@@ -120,9 +120,9 @@ const WorkspaceDropdown = ({ wid, deleteWorkspace, wsubdomain }) => {
                   : "text-blueGray-300")
               }
             ></i>{" "}
-            View Tasks
+            View
           </a>
-          {/* </Link> */}
+          </Link>
         </a>
         <a
           href="#pablo"
@@ -152,7 +152,7 @@ const WorkspaceDropdown = ({ wid, deleteWorkspace, wsubdomain }) => {
                   : "text-blueGray-300")
               }
             ></i>{" "}
-            Delete Workspace
+            Delete
           </a>
         </a>
       </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import Router from "next/router";
 
 import { useEffect, useState } from "react";
 
@@ -24,9 +25,12 @@ const auth = getAuth(app);
 
 export default function Tables() {
 
+  const router = Router.useRouter(); 
+
   const [user, uloading] = useAuthState(auth);
   const [uid, setUid] = useState('');
-  const [snapshot, loading, error] = useObject(ref(database, 'users'));
+  const [wpid, setWid] = useState(router.query.wid);
+  const [snapshot, loading, error] = useObject(ref(database, 'users/' + uid + '/workspace/' + wpid));
   const [data, setDate] = useState([]);
 
   useEffect(() => {
@@ -39,13 +43,15 @@ export default function Tables() {
   useEffect(() => {
     if (user && !uloading) {
       setUid(user.uid);
+      console.log(router.query.wid)
+      setWid(router.query.wid);
     }
-  }, [user]);
+  }, [user, router]);
 
   useEffect(() => {
     if (!loading && snapshot) {
-      console.log(snapshot.val()[uid]);
-      setDate(snapshot.val()[uid]);
+      console.log(snapshot.val());
+      setDate(snapshot.val());
     }
     else if (loading) {
       console.log('data loading ...');
@@ -56,8 +62,9 @@ export default function Tables() {
   }, [uid, snapshot, loading]);
 
   function addTask(data) {
-
-    const postk = push(ref(database, 'users/' + uid + '/tasks')).key
+    
+    if (uid) {
+    const postk = push(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/')).key
 
     const taskdetails = {
       "created_at": data.assignDate,
@@ -72,8 +79,7 @@ export default function Tables() {
       "assignees": [data.assignee],
     };
 
-    if (uid) {
-      push(ref(database, 'users/' + uid + '/tasks/'), taskdetails);
+      update(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/' + postk), taskdetails);
     }
 
   }
@@ -92,15 +98,15 @@ export default function Tables() {
     <>
       <div className="flex flex-wrap mt-4">
         <div className="w-full mb-12 px-4">
-          {data.tasks &&
+          {data && 
             <CardTable color="light" tabledata={data.tasks} addTask={addTask} deleteTask={deleteTask} />
           }
         </div>
-        <div className="w-full mb-12 px-4">
-        {data.tasks &&
+        {/* <div className="w-full mb-12 px-4">
+        {data.tasks && wid &&
             <CardTable color="dark" tabledata={data.tasks} addTask={addTask} deleteTask={deleteTask} />
           }
-        </div>
+        </div> */}
       </div>
     </>
   );
