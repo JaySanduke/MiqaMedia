@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createPopper } from "@popperjs/core";
 import Link from "next/dist/client/link";
 import router from "next/router";
 
-const WorkspaceDropdown = ({wid, deleteWorkspace}) => {
+const WorkspaceDropdown = ({ wid, deleteWorkspace, wsubdomain }) => {
+
+  const [url, setUrl] = React.useState([]);
+
   // dropdown props
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
@@ -17,6 +20,25 @@ const WorkspaceDropdown = ({wid, deleteWorkspace}) => {
   const closeDropdownPopover = () => {
     setDropdownPopoverShow(false);
   };
+
+  // useEffect(() => {
+
+  //   var hostname = window.location.hostname;
+  //   var protocol = window.location.protocol;
+  //   var port = window.location.port;
+  //   var hsplit = hostname.split('.');
+  //   console.log(hsplit);
+  //   if (hsplit[0] == "localhost") {
+  //     // var workspace = protocol + "//xyz." + hsplit.join('.') + ":" + port + "/user/demotable/";
+  //     var wprot = protocol + "//";
+  //     var wdomai = hsplit.join('.') + ":" + port + "/user/demotable/";
+  //     let vurl = [wprot,wdomai]
+  //     setUrl(vurl);
+  //     console.log(url);
+  //     // console.log(wprot+ wid + "." + wdomai)
+  //   }
+  // }, [wid]);
+
   return (
     <>
       <a
@@ -44,8 +66,8 @@ const WorkspaceDropdown = ({wid, deleteWorkspace}) => {
           }
           onClick={(e) => closeDropdownPopover()}
         >
-          <Link href={{ pathname: '/user/vieweditworkspace/'}} >
-          {/* <Link href='/user/viewedittask/' > */}
+          <Link href={{ pathname: '/user/vieweditworkspace/', query: { wid: wid } }} >
+            {/* <Link href='/user/viewedittask/' > */}
             <a
               href="#pablo"
               className={
@@ -72,30 +94,35 @@ const WorkspaceDropdown = ({wid, deleteWorkspace}) => {
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
-          onClick={(e) => closeDropdownPopover()}
+          onClick={(e) => {
+            closeDropdownPopover();
+            wsubdomain(wid);
+          }
+            // console.log(url[0] + wid + "." + url[1])
+          }
         >
-          <Link href={{ pathname: '/user/demotable/'}} >
-          {/* <Link href='/user/viewedittask/' > */}
-            <a
-              href="#pablo"
+          {/* <Link href={ url[0] + wid + "." + url[1] } > */}
+          {/* <Link href={{pathname: '/user/demotable'}} > */}
+          <a
+            href="#pablo"
+            className={
+              "text-xs uppercase py-3 font-bold block " +
+              (router.pathname.indexOf("/user/demotable/") !== -1
+                ? "text-lightBlue-500 hover:text-lightBlue-600"
+                : "text-blueGray-700 hover:text-blueGray-500")
+            }
+          >
+            <i
               className={
-                "text-xs uppercase py-3 font-bold block " +
+                "fas fa-stream mr-2 text-sm " +
                 (router.pathname.indexOf("/user/demotable/") !== -1
-                  ? "text-lightBlue-500 hover:text-lightBlue-600"
-                  : "text-blueGray-700 hover:text-blueGray-500")
+                  ? "opacity-75"
+                  : "text-blueGray-300")
               }
-            >
-              <i
-                className={
-                  "fas fa-stream mr-2 text-sm " +
-                  (router.pathname.indexOf("/user/demotable/") !== -1
-                    ? "opacity-75"
-                    : "text-blueGray-300")
-                }
-              ></i>{" "}
-              View Tasks
-            </a>
-          </Link>
+            ></i>{" "}
+            View Tasks
+          </a>
+          {/* </Link> */}
         </a>
         <a
           href="#pablo"
@@ -104,8 +131,8 @@ const WorkspaceDropdown = ({wid, deleteWorkspace}) => {
           }
           onClick={(e) => {
             closeDropdownPopover();
-              const wp = String(wid);
-              deleteWorkspace(wp);
+            const wp = String(wid);
+            deleteWorkspace(wp);
           }}
         >
           <a

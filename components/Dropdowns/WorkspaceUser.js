@@ -31,7 +31,7 @@ const names = [
   'Kelly Snyder',
 ];
 
-export default function WorkspaceUser() {
+export default function WorkspaceUser({ workspaceuser }) {
   const [personName, setPersonName] = React.useState([]);
 
   const handleChange = (event) => {
@@ -42,6 +42,9 @@ export default function WorkspaceUser() {
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
     );
+
+    // console.log(event.target.value)
+    workspaceuser(event.target.value);
   };
 
   return (

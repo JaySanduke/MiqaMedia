@@ -31,25 +31,45 @@ export default function CardWorkspaceTable({ color, uid }) {
     }
   }, []);
 
-  
+
   const router = useRouter();
+
+  var wprot
+  var wdomai
 
   useEffect(() => {
     if (process.browser) {
       setReady(true);
 
-    var hostname = window.location.hostname;
-    var protocol = window.location.protocol;
-    var hsplit = hostname.split('.');
-    // if(hsplit.length >= 2){
-      hsplit.splice(0,1);
-      var workspace = protocol + "//xyz." + hsplit.join('.');
-      console.log(workspace);
-    // }
-    console.log(window.location);
-    // var workspace = hsplit[0];
+      // var hostname = window.location.hostname;
+      // var protocol = window.location.protocol;
+      // var port = window.location.port;
+      // var hsplit = hostname.split('.');
+      // console.log(hsplit);
+      // if (hsplit[0] == "localhost") {
+      //   // var workspace = protocol + "//xyz." + hsplit.join('.') + ":" + port + "/user/demotable/";
+      //   wprot = protocol + "//";
+      //   wdomai = hsplit.join('.') + ":" + port + "/user/demotable/"
+      //   // console.log(workspace);
+      // }
     }
   }, []);
+
+  function wsubdomain(wid) {
+    var hostname = window.location.hostname;
+    var protocol = window.location.protocol;
+    var port = window.location.port;
+    var hsplit = hostname.split('.');
+    console.log(hsplit);
+    if (hsplit[0] == "localhost") {
+      // var workspace = protocol + "//xyz." + hsplit.join('.') + ":" + port + "/user/demotable/";
+      wprot = protocol + "//";
+      wdomai = hsplit.join('.') + ":" + port + "/user/demotable"
+      // console.log(workspace);
+      console.log(wprot + wid + "." + wdomai);
+      // window.location.href = wprot + wid + "." + wdomai;
+    }
+  }
 
   useEffect(() => {
     if (!loading && snapshot) {
@@ -74,28 +94,49 @@ export default function CardWorkspaceTable({ color, uid }) {
     setBoardData(obj);
     console.log(obj);
 
+    var hostname = window.location.hostname;
+    var protocol = window.location.protocol;
+    var port = window.location.port;
+    var hsplit = hostname.split('.');
+    console.log(hsplit);
+    if (hsplit[0] == "localhost") {
+      // var workspace = protocol + "//xyz." + hsplit.join('.') + ":" + port + "/user/demotable/";
+      wprot = protocol + "//";
+      wdomai = hsplit.join('.') + ":" + port + "/user/demotable/"
+    }
+
   }, [data]);
 
   function addWorkspace(data) {
-    const postk = push(ref(database, 'users/' + uid + '/workspace')).key
-
-    const workspacedetails = {
-      "createddate": data.assignDate,
-      "wid": postk,
-      "workspacename": data.title,
-      "desc": data.desc,
-      "users": [data.users],
-    };
-
     if (uid) {
-      push(ref(database, 'users/' + uid + '/workspace/'), workspacedetails);
+      const postk = push(ref(database, 'users/' + uid + '/workspace')).key
+
+      const workspacedetails = {
+        "createddate": data.assignDate,
+        "wid": postk,
+        "workspacename": data.title,
+        "desc": data.desc,
+        "users": data.users,
+      };
+
+      update(ref(database, 'users/' + uid + '/workspace/' + postk), workspacedetails).then(
+        reload()
+      );
     }
+
+  }
+
+  function reload() {
+    // setTimeout(function refreshPage() {
+      window.location.reload(false);
+    // }, 2000)
   }
 
   function deleteWorkspace(wid) {
     if (wid && wid != "") {
       remove(ref(database, 'users/' + uid + '/workspace/' + wid))
         .then(console.log('Workspace with id ' + wid + ' deleted successfully'))
+        .then(reload())
         .catch((error) => {
           console.log('error deleting task with error:' + error)
         });
@@ -236,6 +277,7 @@ export default function CardWorkspaceTable({ color, uid }) {
                                   data={item}
                                   index={iIndex}
                                   deleteWorkspace={deleteWorkspace}
+                                  wsubdomain={wsubdomain}
                                 />
                               );
                             })}

@@ -30,8 +30,9 @@ const UserNavDropdown = () => {
   useEffect(() => {
     const auth = getAuth();
     auth.onAuthStateChanged((user) => {
+      console.log(user);
       if(user==null) {
-        window.location.href= "/auth/login"
+        // window.location.href= "/auth/login"
       }
     })
   },[])
