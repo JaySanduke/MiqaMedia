@@ -14,14 +14,14 @@ export default function VieworEditTask({ tid, taskdata, updateTask }) {
   const [assignDate, setAssignDate] = useState([]);
   const [completionDate, setCompletionDate] = useState('');
 
-  // useEffect(() => {
-  //   setTitle(taskdata.title);
-  //   setDesc(taskdata.desc);
-  //   setStatus(taskdata.status);
-  //   setAssignee(taskdata.assignees);
-  //   setAssignDate(taskdata.created_at);
-  //   setCompletionDate(taskdata.completion_date);
-  // }, [taskdata]);
+  useEffect(() => {
+    setTitle(taskdata.title);
+    setDesc(taskdata.desc);
+    setStatus(taskdata.status);
+    setAssignee(taskdata.assignees);
+    setAssignDate(taskdata.created_at);
+    setCompletionDate(taskdata.completion_date);
+  }, [taskdata]);
 
   function setTaskdetails() {
     const taskdetails = {

@@ -9,7 +9,7 @@ import TableItem from "components/Items/TableItem";
 import AddTask from "components/Modal/AddTask.";
 import { computeStyles } from "@popperjs/core";
 
-export default function CardTable({ color, addTask, deleteTask, tabledata }) {
+export default function CardTable({ color, addTask, deleteTask, tabledata, wpid }) {
   const [ready, setReady] = useState(false);
   const [boardData, setBoardData] = useState([]);
 
@@ -187,6 +187,7 @@ export default function CardTable({ color, addTask, deleteTask, tabledata }) {
                               return (
                                 <TableItem
                                   key={item.id}
+                                  wpid={wpid}
                                   data={item}
                                   index={iIndex}
                                   deleteTask={deleteTask}

@@ -3,7 +3,7 @@ import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
 
-function TableItem({ data, index, deleteTask }) {
+function TableItem({ wpid, data, index, deleteTask }) {
   console.log(data.id);
   return (
     <Draggable index={index} draggableId={data.id.toString()}>
@@ -41,7 +41,7 @@ function TableItem({ data, index, deleteTask }) {
             {data.completion_date}
           </td>
           <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-            <TableDropdown data={data} id={data.id} deleteTask={deleteTask} />
+            <TableDropdown data={data} wpid={wpid} id={data.id} deleteTask={deleteTask} />
           </td>
         </tr>
       )}

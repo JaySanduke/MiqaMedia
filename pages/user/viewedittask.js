@@ -28,7 +28,8 @@ export default function ViewEditTask() {
   const [user, uloading] = useAuthState(auth);
   const [uid, setUid] = useState('');
   const [tid, setTid] = useState(router.query.tid);
-  const [snapshot, loading, error] = useObject(ref(database, 'users/' + uid + '/tasks/'));
+  const [wpid, setWpid] = useState(router.query.wid);
+  const [snapshot, loading, error] = useObject(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks'));
   const [taskdata, setTaskData] = useState([]);
 
   const taskd = [];
@@ -37,6 +38,7 @@ export default function ViewEditTask() {
     if (user && !uloading) {
       setUid(user.uid);
       setTid(router.query.tid);
+      setWpid(router.query.wid);
     }
   }, [user]);
 
@@ -79,7 +81,7 @@ export default function ViewEditTask() {
     };
 
     if (uid && tid && id) {
-      update(ref(database, 'users/' + uid + '/tasks/' + id), {
+      update(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks' + id), {
         title: data.title,
         desc: data.desc,
         created_at: data.assignDate,
@@ -88,7 +90,7 @@ export default function ViewEditTask() {
         assignees: [data.assignee],
       })
         .then(
-          router.push("/user/tables").then(() => {
+          router.push("/user/tables?wid="+wpid).then(() => {
             console.log('Task updated successfully')
           })
         )

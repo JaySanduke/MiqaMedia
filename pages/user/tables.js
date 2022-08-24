@@ -98,7 +98,7 @@ export default function Tables() {
       <div className="flex flex-wrap mt-4">
         <div className="w-full mb-12">
           {data && 
-            <CardTable color="light" tabledata={data.tasks} addTask={addTask} deleteTask={deleteTask} />
+            <CardTable color="light" wpid={wpid} tabledata={data.tasks} addTask={addTask} deleteTask={deleteTask} />
           }
         </div>
         {data && 
