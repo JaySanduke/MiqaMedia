@@ -45,6 +45,7 @@
     "start": "next start",
     "build": "next build",
     "dev": "next dev",
+    "lint": "next lint",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm run build:tailwind && npm run dev",
     "build:tailwind": "tailwind build styles/index.css -o styles/tailwind.css"
   },

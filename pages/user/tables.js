@@ -18,8 +18,8 @@ import { getAuth } from "firebase/auth";
 import { app, database } from "../../components/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-import { onValue, ref, child, push, update, remove } from "firebase/database";
-import { useObject, useList } from "react-firebase-hooks/database";
+import { ref, push, update, remove } from "firebase/database";
+import { useObject } from "react-firebase-hooks/database";
 
 const auth = getAuth(app);
 
@@ -46,7 +46,7 @@ export default function Tables() {
       console.log(router.query.wid)
       setWid(router.query.wid);
     }
-  }, [user, router]);
+  }, [user, router, uloading]);
 
   useEffect(() => {
     if (!loading && snapshot) {
@@ -59,7 +59,7 @@ export default function Tables() {
     else if (error) {
       console.log('Error: ' + error);
     }
-  }, [uid, snapshot, loading]);
+  }, [uid, snapshot, loading, error]);
 
   function addTask(data) {
     
@@ -84,6 +84,7 @@ export default function Tables() {
   }
 
   function deleteTask(taskid) {
+    // eslint-disable-next-line eqeqeq
     if (taskid && taskid != "") {
       remove(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/' + taskid))
         .then(console.log('task with id ' + taskid + ' deleted successfully'))

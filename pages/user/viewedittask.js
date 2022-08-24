@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 // components
 
@@ -16,8 +16,8 @@ import { getAuth } from "firebase/auth";
 import { app, database } from "../../components/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-import { ref, push, update, remove } from "firebase/database";
-import { useObject, useList } from "react-firebase-hooks/database";
+import { ref, update } from "firebase/database";
+import { useObject } from "react-firebase-hooks/database";
 
 const auth = getAuth(app);
 
@@ -40,7 +40,7 @@ export default function ViewEditTask() {
       setTid(router.query.tid);
       setWpid(router.query.wid);
     }
-  }, [user]);
+  }, [router.query.tid, router.query.wid, uloading, user]);
 
   useEffect(() => {
     if (!loading && snapshot) {
@@ -56,29 +56,31 @@ export default function ViewEditTask() {
     else if (error) {
       console.log('Error: ' + error);
     }
-  }, [uid, tid, loading]);
+  }, [uid, tid, loading, snapshot, error]);
 
   useEffect(() => {
     for (let i in taskdata) {
       taskd.push(taskdata[i]);
     }
 
+    // eslint-disable-next-line eqeqeq, array-callback-return
     taskd.filter((item) => item.id == tid).map((itm) => {
       console.log(itm);
       setTaskData(itm);
     })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [taskdata]);
 
   function updateTask(data, id) {
 
-    let taskdetails = {
-      title: data.title,
-      desc: data.desc,
-      created_at: data.assignDate,
-      completion_date: data.completionDate,
-      status: data.status,
-      assignees: [data.assignee],
-    };
+    // let taskdetails = {
+    //   title: data.title,
+    //   desc: data.desc,
+    //   created_at: data.assignDate,
+    //   completion_date: data.completionDate,
+    //   status: data.status,
+    //   assignees: [data.assignee],
+    // };
 
     if (uid && tid && id) {
       update(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks' + id), {

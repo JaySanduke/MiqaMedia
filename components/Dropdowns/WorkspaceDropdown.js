@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { createPopper } from "@popperjs/core";
 import Link from "next/dist/client/link";
 import router from "next/router";
 
 const WorkspaceDropdown = ({ wid, deleteWorkspace, wsubdomain }) => {
 
-  const [url, setUrl] = React.useState([]);
+  // const [url, setUrl] = React.useState([]);
 
   // dropdown props
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);

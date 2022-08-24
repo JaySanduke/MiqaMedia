@@ -7,7 +7,7 @@ import CardWorkspaceTable from "components/Cards/CardWorkspaceTable";
 
 import { getAuth } from "firebase/auth";
 
-import { app, database } from "../../components/firebase";
+import { app } from "../../components/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 const auth = getAuth(app);

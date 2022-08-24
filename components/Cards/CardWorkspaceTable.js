@@ -1,20 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { useRouter } from "next/router";
-
 // components
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { useEffect, useState } from "react";
 import WorkspaceItem from "components/Items/WorkspaceItem";
 import AddWorkspace from "components/Modal/AddWorkspace";
 
 
-import { app, database } from "../../components/firebase";
+import { database } from "../../components/firebase";
 
-import { onValue, ref, child, push, update, remove } from "firebase/database";
-import { useObject, useList } from "react-firebase-hooks/database";
-import AddTask from "components/Modal/AddTask.";
+import { ref, push, update, remove } from "firebase/database";
+import { useObject } from "react-firebase-hooks/database";
 
 export default function CardWorkspaceTable({ color, uid }) {
   const [ready, setReady] = useState(false);
@@ -30,9 +27,6 @@ export default function CardWorkspaceTable({ color, uid }) {
       setReady(true);
     }
   }, []);
-
-
-  const router = useRouter();
 
   var wprot
   var wdomai
@@ -61,6 +55,7 @@ export default function CardWorkspaceTable({ color, uid }) {
     var port = window.location.port;
     var hsplit = hostname.split('.');
     console.log(hsplit);
+    // eslint-disable-next-line eqeqeq
     if (hsplit[0] == "localhost") {
       // var workspace = protocol + "//xyz." + hsplit.join('.') + ":" + port + "/user/demotable/";
       wprot = protocol + "//";
@@ -82,7 +77,7 @@ export default function CardWorkspaceTable({ color, uid }) {
     else if (error) {
       console.log('Error: ' + error);
     }
-  }, [uid, loading]);
+  }, [uid, loading, snapshot, error]);
 
   useEffect(() => {
 
@@ -94,17 +89,18 @@ export default function CardWorkspaceTable({ color, uid }) {
     setBoardData(obj);
     console.log(obj);
 
-    var hostname = window.location.hostname;
-    var protocol = window.location.protocol;
-    var port = window.location.port;
-    var hsplit = hostname.split('.');
-    console.log(hsplit);
-    if (hsplit[0] == "localhost") {
-      // var workspace = protocol + "//xyz." + hsplit.join('.') + ":" + port + "/user/demotable/";
-      wprot = protocol + "//";
-      wdomai = hsplit.join('.') + ":" + port + "/user/demotable/"
-    }
+    // var hostname = window.location.hostname;
+    // var protocol = window.location.protocol;
+    // var port = window.location.port;
+    // var hsplit = hostname.split('.');
+    // console.log(hsplit);
+    // if (hsplit[0] == "localhost") {
+    //   // var workspace = protocol + "//xyz." + hsplit.join('.') + ":" + port + "/user/demotable/";
+    //   wprot = protocol + "//";
+    //   wdomai = hsplit.join('.') + ":" + port + "/user/demotable/"
+    // }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   function addWorkspace(data) {
@@ -133,6 +129,7 @@ export default function CardWorkspaceTable({ color, uid }) {
   }
 
   function deleteWorkspace(wid) {
+    // eslint-disable-next-line eqeqeq
     if (wid && wid != "") {
       remove(ref(database, 'users/' + uid + '/workspace/' + wid))
         .then(console.log('Workspace with id ' + wid + ' deleted successfully'))
