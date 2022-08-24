@@ -4,7 +4,6 @@ import React from "react";
 
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import UserSidebar from "components/Sidebar/UserSidebar.js";
-import HeaderStats from "components/Headers/HeaderStats.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 export default function User({ children }) {

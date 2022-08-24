@@ -66,6 +66,7 @@ export default function AddWorkspace({ addWorkspace }) {
                         Workspace Title
                       </label>
                       <input
+                        // maxLength={15}
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="username"
                         type="text"
@@ -82,6 +83,7 @@ export default function AddWorkspace({ addWorkspace }) {
                         Workspace Description
                       </label>
                       <input
+                        // maxLength={50}
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="username"
                         type="text"

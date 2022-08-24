@@ -1,154 +1,28 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { useRouter } from "next/router";
-
 // components
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useEffect, useState } from "react";
-import WorkspaceItem from "components/Items/WorkspaceItem";
-import AddWorkspace from "components/Modal/AddWorkspace";
+import BoardData from "data/workspace-data.json";
+import ArchiveItem from "components/Items/ArchiveItem";
 
-
-import { app, database } from "../../components/firebase";
-
-import { onValue, ref, child, push, update, remove } from "firebase/database";
-import { useObject, useList } from "react-firebase-hooks/database";
-import AddTask from "components/Modal/AddTask.";
-
-export default function CardWorkspaceTable({ color, uid }) {
+export default function CardArchiveTable({ color }) {
   const [ready, setReady] = useState(false);
-  const [boardData, setBoardData] = useState([]);
-
-  const [snapshot, loading, error] = useObject(ref(database, 'users/' + uid + '/workspace'));
-  const [data, setData] = useState([]);
-
-  const workspacedata = [];
+  const [boardData, setBoardData] = useState(BoardData);
 
   useEffect(() => {
     if (process.browser) {
       setReady(true);
     }
   }, []);
-
-
-  const router = useRouter();
-
-  var wprot
-  var wdomai
-
-  useEffect(() => {
-    if (process.browser) {
-      setReady(true);
-
-      // var hostname = window.location.hostname;
-      // var protocol = window.location.protocol;
-      // var port = window.location.port;
-      // var hsplit = hostname.split('.');
-      // console.log(hsplit);
-      // if (hsplit[0] == "localhost") {
-      //   // var workspace = protocol + "//xyz." + hsplit.join('.') + ":" + port + "/user/demotable/";
-      //   wprot = protocol + "//";
-      //   wdomai = hsplit.join('.') + ":" + port + "/user/demotable/"
-      //   // console.log(workspace);
-      // }
-    }
-  }, []);
-
-  function wsubdomain(wid) {
-    var hostname = window.location.hostname;
-    var protocol = window.location.protocol;
-    var port = window.location.port;
-    var hsplit = hostname.split('.');
-    console.log(hsplit);
-    if (hsplit[0] == "localhost") {
-      // var workspace = protocol + "//xyz." + hsplit.join('.') + ":" + port + "/user/demotable/";
-      wprot = protocol + "//";
-      wdomai = hsplit.join('.') + ":" + port + "/user/demotable"
-      // console.log(workspace);
-      console.log(wprot + wid + "." + wdomai);
-      // window.location.href = wprot + wid + "." + wdomai;
-    }
-  }
-
-  useEffect(() => {
-    if (!loading && snapshot) {
-      console.log(snapshot.val());
-      setData(snapshot.val());
-    }
-    else if (loading) {
-      console.log('data loading ...');
-    }
-    else if (error) {
-      console.log('Error: ' + error);
-    }
-  }, [uid, loading]);
-
-  useEffect(() => {
-
-    for (let i in data) {
-      workspacedata.push(data[i]);
-    }
-
-    const obj = [{ workspaces: workspacedata }];
-    setBoardData(obj);
-    console.log(obj);
-
-    var hostname = window.location.hostname;
-    var protocol = window.location.protocol;
-    var port = window.location.port;
-    var hsplit = hostname.split('.');
-    console.log(hsplit);
-    if (hsplit[0] == "localhost") {
-      // var workspace = protocol + "//xyz." + hsplit.join('.') + ":" + port + "/user/demotable/";
-      wprot = protocol + "//";
-      wdomai = hsplit.join('.') + ":" + port + "/user/demotable/"
-    }
-
-  }, [data]);
-
-  function addWorkspace(data) {
-    if (uid) {
-      const postk = push(ref(database, 'users/' + uid + '/workspace')).key
-
-      const workspacedetails = {
-        "createddate": data.assignDate,
-        "wid": postk,
-        "workspacename": data.title,
-        "desc": data.desc,
-        "users": data.users,
-      };
-
-      update(ref(database, 'users/' + uid + '/workspace/' + postk), workspacedetails).then(
-        reload()
-      );
-    }
-
-  }
-
-  function reload() {
-    // setTimeout(function refreshPage() {
-      window.location.reload(false);
-    // }, 2000)
-  }
-
-  function deleteWorkspace(wid) {
-    if (wid && wid != "") {
-      remove(ref(database, 'users/' + uid + '/workspace/' + wid))
-        .then(console.log('Workspace with id ' + wid + ' deleted successfully'))
-        .then(reload())
-        .catch((error) => {
-          console.log('error deleting task with error:' + error)
-        });
-    }
-  }
 
   const onDragEnd = (result) => {
     if (!result.destination) return;
     let newBoardData = boardData;
     var dragItem =
       newBoardData[parseInt(result.source.droppableId)].workspaces[
-      result.source.index
+        result.source.index
       ];
     newBoardData[parseInt(result.source.droppableId)].workspaces.splice(
       result.source.index,
@@ -179,17 +53,17 @@ export default function CardWorkspaceTable({ color, uid }) {
                   (color === "light" ? "text-blueGray-700" : "text-white")
                 }
               >
-                Total Workspaces
+                Total Archive Workspaces
               </h3>
             </div>
             <h3
-              className={
-                "font-semibold text-lg " +
-                (color === "light" ? "text-blueGray-700" : "text-white")
-              }
-            >
-              <AddWorkspace addWorkspace={addWorkspace} />
-            </h3>
+                className={
+                  "font-semibold text-lg " +
+                  (color === "light" ? "text-blueGray-700" : "text-white")
+                }
+              >
+                {/* <AddWorkspace/> */}
+              </h3>
           </div>
         </div>
         <div className="block w-full overflow-x-auto">
@@ -217,7 +91,7 @@ export default function CardWorkspaceTable({ color, uid }) {
                           : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
                       }
                     >
-                      Workspace Name
+                      Workspace Title
                     </th>
                     <th
                       className={
@@ -229,7 +103,7 @@ export default function CardWorkspaceTable({ color, uid }) {
                     >
                       Workspace Description
                     </th>
-
+                    
                     <th
                       className={
                         "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
@@ -238,7 +112,7 @@ export default function CardWorkspaceTable({ color, uid }) {
                           : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
                       }
                     >
-                      Users
+                      Workspace Users
                     </th>
                     <th
                       className={
@@ -250,7 +124,7 @@ export default function CardWorkspaceTable({ color, uid }) {
                     >
                       Date
                     </th>
-
+                    
                     <th
                       className={
                         "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
@@ -258,7 +132,9 @@ export default function CardWorkspaceTable({ color, uid }) {
                           ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
                           : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
                       }
-                    ></th>
+                    >
+                      Action
+                    </th>
                   </tr>
                 </thead>
                 {boardData.map((board, bIndex) => {
@@ -272,12 +148,10 @@ export default function CardWorkspaceTable({ color, uid }) {
                           {board.workspaces.length > 0 &&
                             board.workspaces.map((item, iIndex) => {
                               return (
-                                <WorkspaceItem
-                                  key={item.wid}
+                                <ArchiveItem
+                                  key={item.workspace_id}
                                   data={item}
                                   index={iIndex}
-                                  deleteWorkspace={deleteWorkspace}
-                                  wsubdomain={wsubdomain}
                                 />
                               );
                             })}
@@ -296,10 +170,10 @@ export default function CardWorkspaceTable({ color, uid }) {
   );
 }
 
-CardWorkspaceTable.defaultProps = {
+CardArchiveTable.defaultProps = {
   color: "light",
 };
 
-CardWorkspaceTable.propTypes = {
+CardArchiveTable.propTypes = {
   color: PropTypes.oneOf(["light", "dark"]),
 };

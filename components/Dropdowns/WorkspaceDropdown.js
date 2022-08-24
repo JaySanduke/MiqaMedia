@@ -146,13 +146,13 @@ const WorkspaceDropdown = ({ wid, deleteWorkspace, wsubdomain }) => {
           >
             <i
               className={
-                "fas fa-trash mr-2 text-sm " +
+                "fas  fa-download mr-2 text-sm " +
                 (router.pathname.indexOf("#") !== -1
                   ? "opacity-75"
                   : "text-blueGray-300")
               }
             ></i>{" "}
-            Delete
+            Delete Workspace
           </a>
         </a>
       </div>

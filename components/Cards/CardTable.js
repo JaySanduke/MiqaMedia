@@ -169,7 +169,9 @@ export default function CardTable({ color, addTask, deleteTask, tabledata }) {
                           ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
                           : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
                       }
-                    ></th>
+                    >
+                      Action
+                    </th>
                   </tr>
                 </thead>
                 {boardData.map((board, bIndex) => {

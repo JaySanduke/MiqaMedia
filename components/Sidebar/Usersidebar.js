@@ -154,6 +154,31 @@ export default function UserSidebar() {
                   </a>
                 </Link>
               </li>
+
+              <li className="items-center">
+                <Link href="/user/archive">
+                  <a
+                    href="#pablo"
+                    className={
+                      "text-xs uppercase py-3 font-bold block " +
+                      (router.pathname.indexOf("/user/archive") !== -1
+                        ? "text-lightBlue-500 hover:text-lightBlue-600"
+                        : "text-blueGray-700 hover:text-blueGray-500")
+                    }
+                  >
+                    <i
+                      className={
+                        "fas fa-table mr-2 text-sm " +
+                        (router.pathname.indexOf("/user/archive") !== -1
+                          ? "opacity-75"
+                          : "text-blueGray-300")
+                      }
+                    ></i>{" "}
+                    Archive
+                  </a>
+                </Link>
+              </li>
+
               <li className="items-center">
                 <Link href="/user/categories">
                   <a
