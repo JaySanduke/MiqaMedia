@@ -1,19 +1,16 @@
 import { React, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import Image from "next/dist/client/image";
 import AddTask from "components/Modal/AddTask.";
 import {
-  ChevronDownIcon,
-  PlusIcon,
   DotsVerticalIcon,
-  PlusCircleIcon,
 } from "@heroicons/react/outline";
 import CardItem from "./CardItem";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 function createGuidId() {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
     var r = (Math.random() * 16) | 0,
+      // eslint-disable-next-line eqeqeq
       v = c == "x" ? r : (r & 0x3) | 0x8;
     return v.toString(16);
   });
@@ -22,8 +19,9 @@ function createGuidId() {
 export default function CardBoard({ color, bdata }) {
   const [ready, setReady] = useState(false);
   const [boardData, setBoardData] = useState();
+  // eslint-disable-next-line no-unused-vars
   const [showForm, setShowForm] = useState(false);
-  const [selectedBoard, setSelectedBoard] = useState(0);
+  // const [selectedBoard, setSelectedBoard] = useState(0);
 
   const tdata = [];
 
@@ -43,6 +41,7 @@ export default function CardBoard({ color, bdata }) {
     setBoardData(obj);
     console.log(obj);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bdata]);
 
   const onDragEnd = (re) => {
@@ -65,6 +64,7 @@ export default function CardBoard({ color, bdata }) {
     console.log(re);
   };
 
+  // eslint-disable-next-line no-unused-vars
   const onTextAreaKeyPress = (e) => {
     if (e.keyCode === 13) {
       //Enter

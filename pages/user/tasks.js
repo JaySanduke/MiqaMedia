@@ -2,10 +2,10 @@ import { React, useState, useEffect } from "react";
 
 // components
 
-import CardLineChart from "components/Cards/CardLineChart.js";
-import CardBarChart from "components/Cards/CardBarChart.js";
-import CardPageVisits from "components/Cards/CardPageVisits.js";
-import CardSocialTraffic from "components/Cards/CardSocialTraffic.js";
+// import CardLineChart from "components/Cards/CardLineChart.js";
+// import CardBarChart from "components/Cards/CardBarChart.js";
+// import CardPageVisits from "components/Cards/CardPageVisits.js";
+// import CardSocialTraffic from "components/Cards/CardSocialTraffic.js";
 import CardBoard from "components/Cards/CardBoard";
 
 // layout for page
@@ -19,8 +19,8 @@ import { getAuth } from "firebase/auth";
 import { app, database } from "../../components/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-import { onValue, ref, child, push, update, remove } from "firebase/database";
-import { useObject, useList } from "react-firebase-hooks/database";
+import { ref } from "firebase/database";
+import { useObject } from "react-firebase-hooks/database";
 
 const auth = getAuth(app);
 
@@ -36,7 +36,7 @@ export default function Dashboard() {
     if (user && !uloading) {
       setUid(user.uid);
     }
-  }, [user]);
+  }, [uloading, user]);
 
   useEffect(() => {
     if (!loading && snapshot) {
@@ -50,7 +50,7 @@ export default function Dashboard() {
     else if (error) {
       console.log('Error: ' + error);
     }
-  }, [uid, snapshot, loading]);
+  }, [uid, snapshot, loading, error]);
 
   return (
     <>

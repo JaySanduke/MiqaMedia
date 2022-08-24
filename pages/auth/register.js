@@ -12,6 +12,7 @@ export default function Register() {
 
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  // eslint-disable-next-line no-unused-vars
   const [passwordConfirm, setPasswordConfirm] = React.useState("");
   const [name, setName] = React.useState("");
 
@@ -32,7 +33,9 @@ export default function Register() {
         });
       })
       .catch((error) => {
+        // eslint-disable-next-line no-unused-vars
         const errorCode = error.code;
+        // eslint-disable-next-line no-unused-vars
         const errorMessage = error.message;
       });
   }
@@ -51,7 +54,7 @@ export default function Register() {
                 </div>
                 <div className="btn-wrapper text-center">
                   <button
-                    className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
+                    className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center text-xs ease-linear transition-all duration-150"
                     type="button"
                   >
                     <img alt="..." className="w-5 mr-1" src="/img/google.svg" />

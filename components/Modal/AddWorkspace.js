@@ -1,14 +1,12 @@
 import React from "react";
-import WorkspaceUserDropdown from "components/Dropdowns/WorkspaceUserDropdown";
 import WorkspaceUser from "components/Dropdowns/WorkspaceUser";
-import WorkspaceDatePicker from "components/DatePicker/WorkspaceDatePicker";
 
 export default function AddWorkspace({ addWorkspace }) {
   const [showModal, setShowModal] = React.useState(false);
 
   const [title, setTitle] = React.useState("");
   const [desc, setDesc] = React.useState("");
-  const [assignDate, setAssignDate] = React.useState("");
+  // const [assignDate, setAssignDate] = React.useState("");
   const [users, setUsers] = React.useState([]);
 
   function setWorkspacedetails() {
@@ -124,7 +122,8 @@ export default function AddWorkspace({ addWorkspace }) {
                         className="bg-indigo-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="submit"
                         onClick={() => {
-                          setShowModal(false), setWorkspacedetails();
+                          setShowModal(false);
+                          setWorkspacedetails();
                         }}
                       >
                         {" "}

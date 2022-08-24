@@ -2,11 +2,11 @@ import React from "react";
 
 // components
 
-import CardLineChart from "components/Cards/CardLineChart.js";
-import CardBarChart from "components/Cards/CardBarChart.js";
-import CardPageVisits from "components/Cards/CardPageVisits.js";
-import CardSocialTraffic from "components/Cards/CardSocialTraffic.js";
-import { getDatabase, ref, set } from "firebase/database";
+// import CardLineChart from "components/Cards/CardLineChart.js";
+// import CardBarChart from "components/Cards/CardBarChart.js";
+// import CardPageVisits from "components/Cards/CardPageVisits.js";
+// import CardSocialTraffic from "components/Cards/CardSocialTraffic.js";
+// import { getDatabase, ref, set } from "firebase/database";
 
 // layout for page
 
@@ -14,6 +14,7 @@ import User from "layouts/User";
 
 export default function Dashboard() {
 
+  // eslint-disable-next-line no-unused-vars
   const [tasks, setTasks] = React.useState([0,0,0]);
   const [showModal, setShowModal] = React.useState(false);
 

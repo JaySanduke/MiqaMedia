@@ -72,8 +72,8 @@ export default function AddTask({ addTask }) {
                                 {/*body*/}
                                 <div class="w-full px-4 max-w">
                                     <form onSubmit={() => {
-                                            setShowModal(false),
-                                                setTaskdetails()
+                                            setShowModal(false);
+                                                setTaskdetails();
                                         }} class="bg-white rounded px-8 pt-4 pb-4">
                                         <div class="mb-4">
                                             <label

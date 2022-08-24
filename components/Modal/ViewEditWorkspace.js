@@ -1,7 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import WorkspaceUserDropdown from "components/Dropdowns/WorkspaceUserDropdown";
-import WorkspaceDatePicker from "components/DatePicker/WorkspaceDatePicker";
 
 export default function ViewEditWorkspace({
   workspacedata,

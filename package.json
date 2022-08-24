@@ -24,6 +24,8 @@
     "ajv-keywords": "^5.1.0",
     "chart.js": "2.9.4",
     "date-fns": "^2.29.1",
+    "eslint": "^8.22.0",
+    "eslint-config-next": "^12.2.5",
     "firebase": "^9.8.2",
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.8",

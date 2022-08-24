@@ -6,6 +6,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
 export default function AssignDatePicker({avalue, assigndate}) {
+  // eslint-disable-next-line eqeqeq
   const [value, setValue] = React.useState(avalue == ''? new Date(): avalue);
 
   const handleChange = (newValue) => {

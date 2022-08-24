@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 // components
 
@@ -16,8 +16,8 @@ import { getAuth } from "firebase/auth";
 import { app, database } from "../../components/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-import { ref, push, update, remove } from "firebase/database";
-import { useObject, useList } from "react-firebase-hooks/database";
+import { ref, update } from "firebase/database";
+import { useObject } from "react-firebase-hooks/database";
 
 const auth = getAuth(app);
 
@@ -36,6 +36,7 @@ export default function ViewWorkspace() {
       setUid(user.uid);
       setWid(router.query.wid);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   useEffect(() => {
@@ -52,7 +53,7 @@ export default function ViewWorkspace() {
     else if (error) {
       console.log('Error: ' + error);
     }
-  }, [uid, wid, loading]);
+  }, [uid, wid, loading, snapshot, error]);
 
   function updateWorkspace(data, wpid) {
 

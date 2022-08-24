@@ -6,6 +6,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
 export default function WorkspaceDatePicker({wvalue}) {
+  // eslint-disable-next-line no-unused-vars, eqeqeq
   const [value, setValue] = React.useState(wvalue == ''? new Date(): wvalue);
 
   const handleChange = (newValue) => {

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 // components
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { useEffect, useState } from "react";
 import BoardData from "data/workspace-data.json";
 import ArchiveItem from "components/Items/ArchiveItem";

@@ -1,13 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 // components
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { useEffect, useState } from "react";
-import BoardData from "data/table-data.json";
 import TableItem from "components/Items/TableItem";
 import AddTask from "components/Modal/AddTask.";
-import { computeStyles } from "@popperjs/core";
 
 export default function CardTable({ color, addTask, deleteTask, tabledata, wpid }) {
   const [ready, setReady] = useState(false);
@@ -32,6 +30,7 @@ export default function CardTable({ color, addTask, deleteTask, tabledata, wpid 
     setBoardData(obj);
     console.log(obj);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tabledata]);
 
 
