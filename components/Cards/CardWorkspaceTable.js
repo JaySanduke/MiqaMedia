@@ -11,14 +11,10 @@ import AddWorkspace from "components/Modal/AddWorkspace";
 import { database } from "../../components/firebase";
 
 import { ref, push, update, remove } from "firebase/database";
-import { useObject } from "react-firebase-hooks/database";
 
-export default function CardWorkspaceTable({ color, uid }) {
+export default function CardWorkspaceTable({ color, uid, wdata }) {
   const [ready, setReady] = useState(false);
   const [boardData, setBoardData] = useState([]);
-
-  const [snapshot, loading, error] = useObject(ref(database, 'users/' + uid + '/workspace'));
-  const [data, setData] = useState([]);
 
   const workspacedata = [];
 
@@ -67,22 +63,9 @@ export default function CardWorkspaceTable({ color, uid }) {
   }
 
   useEffect(() => {
-    if (!loading && snapshot) {
-      console.log(snapshot.val());
-      setData(snapshot.val());
-    }
-    else if (loading) {
-      console.log('data loading ...');
-    }
-    else if (error) {
-      console.log('Error: ' + error);
-    }
-  }, [uid, loading, snapshot, error]);
 
-  useEffect(() => {
-
-    for (let i in data) {
-      workspacedata.push(data[i]);
+    for (let i in wdata) {
+      workspacedata.push(wdata[i]);
     }
 
     const obj = [{ workspaces: workspacedata }];
@@ -101,7 +84,7 @@ export default function CardWorkspaceTable({ color, uid }) {
     // }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, [wdata]);
 
   function addWorkspace(data) {
     if (uid) {
@@ -115,17 +98,9 @@ export default function CardWorkspaceTable({ color, uid }) {
         "users": data.users,
       };
 
-      update(ref(database, 'users/' + uid + '/workspace/' + postk), workspacedetails).then(
-        reload()
-      );
+      update(ref(database, 'users/' + uid + '/workspace/' + postk), workspacedetails);
     }
 
-  }
-
-  function reload() {
-    // setTimeout(function refreshPage() {
-      window.location.reload(false);
-    // }, 2000)
   }
 
   function deleteWorkspace(wid) {
@@ -133,7 +108,6 @@ export default function CardWorkspaceTable({ color, uid }) {
     if (wid && wid != "") {
       remove(ref(database, 'users/' + uid + '/workspace/' + wid))
         .then(console.log('Workspace with id ' + wid + ' deleted successfully'))
-        .then(reload())
         .catch((error) => {
           console.log('error deleting task with error:' + error)
         });
