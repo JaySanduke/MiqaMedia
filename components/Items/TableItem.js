@@ -4,7 +4,7 @@ import { Draggable } from "react-beautiful-dnd";
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
 
 function TableItem({ wpid, data, index, deleteTask }) {
-  console.log(data.id);
+  // console.log(data.id);
   return (
     <Draggable index={index} draggableId={data.id.toString()}>
       {(provided) => (

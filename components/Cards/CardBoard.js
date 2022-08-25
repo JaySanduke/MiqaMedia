@@ -1,29 +1,30 @@
 import { React, useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import Image from "next/dist/client/image";
 import AddTask from "components/Modal/AddTask.";
 import {
+  ChevronDownIcon,
+  PlusIcon,
   DotsVerticalIcon,
+  PlusCircleIcon,
 } from "@heroicons/react/outline";
 import CardItem from "./CardItem";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import BoardData from "../../data/board-data.json";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 function createGuidId() {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
     var r = (Math.random() * 16) | 0,
-      // eslint-disable-next-line eqeqeq
       v = c == "x" ? r : (r & 0x3) | 0x8;
     return v.toString(16);
   });
 }
 
-export default function CardBoard({ color, bdata }) {
+export default function CardBoard({ color }) {
   const [ready, setReady] = useState(false);
-  const [boardData, setBoardData] = useState();
-  // eslint-disable-next-line no-unused-vars
+  const [boardData, setBoardData] = useState(BoardData);
   const [showForm, setShowForm] = useState(false);
-  // const [selectedBoard, setSelectedBoard] = useState(0);
-
-  const tdata = [];
+  const [selectedBoard, setSelectedBoard] = useState(0);
 
   useEffect(() => {
     if (process.browser) {
@@ -31,40 +32,23 @@ export default function CardBoard({ color, bdata }) {
     }
   }, []);
 
-  useEffect(() => {
-
-    for (let i in bdata) {
-      tdata.push(bdata[i]);
-    }
-
-    const obj = [{ tasks: tdata }];
-    setBoardData(obj);
-    console.log(obj);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bdata]);
-
   const onDragEnd = (re) => {
     if (!re.destination) return;
     let newBoardData = boardData;
     var dragItem =
-      newBoardData[parseInt(re.source.droppableId)].tasks[re.source.index];
-    newBoardData[parseInt(re.source.droppableId)].tasks.splice(
+      newBoardData[parseInt(re.source.droppableId)].items[re.source.index];
+    newBoardData[parseInt(re.source.droppableId)].items.splice(
       re.source.index,
       1
     );
-    newBoardData[parseInt(re.destination.droppableId)].tasks.splice(
+    newBoardData[parseInt(re.destination.droppableId)].items.splice(
       re.destination.index,
       0,
       dragItem
     );
     setBoardData(newBoardData);
-
-    console.log(boardData);
-    console.log(re);
   };
 
-  // eslint-disable-next-line no-unused-vars
   const onTextAreaKeyPress = (e) => {
     if (e.keyCode === 13) {
       //Enter
@@ -87,7 +71,7 @@ export default function CardBoard({ color, bdata }) {
           ],
         };
         let newBoardData = boardData;
-        newBoardData[boardId].tasks.push(item);
+        newBoardData[boardId].items.push(item);
         setBoardData(newBoardData);
         setShowForm(false);
         e.target.value = "";
@@ -141,7 +125,7 @@ export default function CardBoard({ color, bdata }) {
                               ref={provided.innerRef}
                             >
                               <div
-                                className={`bg-custom text-white rounded-md shadow-md
+                                className={`bg-custom text-white bg-blueGray-800 rounded-md shadow-md
                             flex flex-col relative overflow-hidden
                             ${snapshot.isDraggingOver && "bg-green-100"}`}
                               >
@@ -156,8 +140,8 @@ export default function CardBoard({ color, bdata }) {
                                   className="overflow-y-auto overflow-x-hidden h-auto my-3 text-black"
                                   style={{ maxHeight: "calc(100vh - 290px)" }}
                                 >
-                                  {board.tasks.length > 0 &&
-                                    board.tasks.map((item, iIndex) => {
+                                  {board.items.length > 0 &&
+                                    board.items.map((item, iIndex) => {
                                       return (
                                         <CardItem
                                           key={item.id}
@@ -170,7 +154,7 @@ export default function CardBoard({ color, bdata }) {
                                   {provided.placeholder}
                                 </div>
 
-                                {/* <div>
+                                  {/* <div>
                                   {showForm && selectedBoard === bIndex ? (
                                   <div className="p-3 text-black">
                                     <textarea

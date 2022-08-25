@@ -12,6 +12,11 @@ export default function CardTable({ color, addTask, deleteTask, tabledata, wpid 
   const [boardData, setBoardData] = useState([]);
 
   const tdata = [];
+  const inreview = [];
+  const inprogress = [];
+  const completed = [];
+  const backlog = []; 
+  const board = [];
 
   useEffect(() => {
     if (process.browser) {
@@ -19,21 +24,43 @@ export default function CardTable({ color, addTask, deleteTask, tabledata, wpid 
     }
   }, []);
   
-
   useEffect(() => {
 
     for (let i in tabledata) {
       tdata.push(tabledata[i]);
     }
+    // console.log(tdata);
+
+    for (let i in tdata) {
+      if (tdata[i]['status'] == "In Progress") {
+        inprogress.push(tdata[i]);
+      } else if (tdata[i]['status'] == "Backlog") {
+        backlog.push(tdata[i]);
+      } else if (tdata[i]['status'] == "In Review") {
+        inreview.push(tdata[i]);
+      } else if (tdata[i]['status'] == "Completed") {
+        completed.push(tdata[i]);
+      }
+    }
+  
+    // console.log(inprogress);
+    // console.log(inreview);
+    // console.log(completed);
+    // console.log(backlog);
+
+    board.push(inprogress);
+    board.push(inreview);
+    board.push(completed);
+    board.push(backlog);
+
+    console.log(board);
 
     const obj = [{ tasks: tdata }];
     setBoardData(obj);
-    console.log(obj);
+    // console.log(obj);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tabledata]);
-
-
 
   const onDragEnd = (result) => {
     if (!result.destination) return;
@@ -212,6 +239,6 @@ CardTable.defaultProps = {
   color: "light",
 };
 
-CardTable.propTypes = {
-  color: PropTypes.oneOf(["light", "dark"]),
-};
+// CardTable.propTypes = {
+//   color: PropTypes.oneOf(["light", "dark"]),
+// };
