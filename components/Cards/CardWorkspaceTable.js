@@ -10,7 +10,7 @@ import AddWorkspace from "components/Modal/AddWorkspace";
 
 import { database } from "../../components/firebase";
 
-import { ref, push, update, remove } from "firebase/database";
+import { ref, push, update, remove, onValue } from "firebase/database";
 
 export default function CardWorkspaceTable({ color, uid, wdata }) {
   const [ready, setReady] = useState(false);
@@ -83,7 +83,7 @@ export default function CardWorkspaceTable({ color, uid, wdata }) {
     //   wdomai = hsplit.join('.') + ":" + port + "/user/demotable/"
     // }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wdata]);
 
   function addWorkspace(data) {
@@ -106,11 +106,25 @@ export default function CardWorkspaceTable({ color, uid, wdata }) {
   function deleteWorkspace(wid) {
     // eslint-disable-next-line eqeqeq
     if (wid && wid != "") {
-      remove(ref(database, 'users/' + uid + '/workspace/' + wid))
-        .then(console.log('Workspace with id ' + wid + ' deleted successfully'))
-        .catch((error) => {
-          console.log('error deleting task with error:' + error)
-        });
+
+      console.log(wid);
+
+      const wpref = ref(database, 'users/' + uid + '/workspace/' + wid);
+
+      onValue(wpref, (snapshot) => {
+        console.log(snapshot.val());
+        let val = snapshot.val();
+        update(ref(database, 'users/' + uid + '/archieveworkspace/' + wid), val)
+          .then(
+            remove(ref(database, 'users/' + uid + '/workspace/' + wid))
+              .then(
+                console.log('Workspace with id ' + wid + ' deleted successfully and added to archieve')
+              )
+              .catch((error) => {
+                console.log('error deleting task with error:' + error)
+              })
+          )
+      }, { onlyOnce: true });
     }
   }
 

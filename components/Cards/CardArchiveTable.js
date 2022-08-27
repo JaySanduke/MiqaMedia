@@ -7,15 +7,30 @@ import { useEffect, useState } from "react";
 import BoardData from "data/workspace-data.json";
 import ArchiveItem from "components/Items/ArchiveItem";
 
-export default function CardArchiveTable({ color }) {
+export default function CardArchiveTable({ color, tableData }) {
   const [ready, setReady] = useState(false);
   const [boardData, setBoardData] = useState(BoardData);
+
+  const archievewp = [];
 
   useEffect(() => {
     if (process.browser) {
       setReady(true);
     }
   }, []);
+
+  useEffect(() => {
+
+    for (let i in tableData) {
+      archievewp.push(tableData[i]);
+    }
+
+    const obj = [{ workspaces: archievewp }];
+    setBoardData(obj);
+    console.log(obj);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tableData]);
 
   const onDragEnd = (result) => {
     if (!result.destination) return;
@@ -149,7 +164,7 @@ export default function CardArchiveTable({ color }) {
                             board.workspaces.map((item, iIndex) => {
                               return (
                                 <ArchiveItem
-                                  key={item.workspace_id}
+                                  key={item.wid}
                                   data={item}
                                   index={iIndex}
                                 />

@@ -5,7 +5,7 @@ import router from "next/router";
 
 function ArchiveItem({ data, index }) {
   return (
-    <Draggable index={index} draggableId={data.workspace_id.toString()}>
+    <Draggable index={index} draggableId={data.wid.toString()}>
       {(provided) => (
         <tr
           ref={provided.innerRef}
@@ -16,22 +16,22 @@ function ArchiveItem({ data, index }) {
             className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ml-3 font-bold
                     "
           >
-            {data.workspace_id}
+            {index + 1}
           </td>
           <td
             className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ml-3 font-bold
                     "
           >
-            {data.workspace_title}
+            {data.workspacename}
           </td>
           <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-            {data.workspace_description}
+            {data.desc}
           </td>
           <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-            {data.workspace_users}
+            {data.users.length}
           </td>
           <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-            {data.workspace_date}
+            {data.createddate}
           </td>
           <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
             <a
@@ -59,7 +59,7 @@ function ArchiveItem({ data, index }) {
                     className={
                       "fas fa-tools mr-2 text-sm " +
                       (router.pathname.indexOf("/user/workspace/") !==
-                      -1
+                        -1
                         ? "opacity-75"
                         : "text-blueGray-300")
                     }
