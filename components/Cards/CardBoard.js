@@ -1,7 +1,6 @@
 import { React, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import Image from "next/dist/client/image";
-import AddTask from "components/Modal/AddTask.";
+import AddTask from "../Modal/AddTask.";
 import {
   ChevronDownIcon,
   PlusIcon,
@@ -20,7 +19,7 @@ function createGuidId() {
   });
 }
 
-export default function CardBoard({ color }) {
+export default function CardBoard({ color, wpid, boarddata }) {
   const [ready, setReady] = useState(false);
   const [boardData, setBoardData] = useState(BoardData);
   const [showForm, setShowForm] = useState(false);
@@ -31,6 +30,69 @@ export default function CardBoard({ color }) {
       setReady(true);
     }
   }, []);
+
+  const tdata = [];
+  const inreview = [];
+  const inprogress = [];
+  const completed = [];
+  const backlog = [];
+  const board = [];
+
+  useEffect(() => {
+    if (process.browser) {
+      setReady(true);
+    }
+  }, []);
+
+  useEffect(() => {
+
+    for (let i in boarddata) {
+      tdata.push(boarddata[i]);
+    }
+    // console.log(tdata);
+
+    for (let i in tdata) {
+      if (tdata[i]['status'] == "In Progress") {
+        inprogress.push(tdata[i]);
+      } else if (tdata[i]['status'] == "Backlog") {
+        backlog.push(tdata[i]);
+      } else if (tdata[i]['status'] == "In Review") {
+        inreview.push(tdata[i]);
+      } else if (tdata[i]['status'] == "Completed") {
+        completed.push(tdata[i]);
+      }
+    }
+
+    // console.log(inprogress);
+    // console.log(inreview);
+    // console.log(completed);
+    // console.log(backlog);
+
+    board.push({
+      name: "In Progress",
+      items: inprogress
+    });
+    board.push({
+      name: "Interview",
+      items: inreview
+    });
+    board.push({
+      name: "Completed",
+      items: completed
+    });
+    board.push({
+      name: "Backlog",
+      items: backlog
+    });
+
+    console.log(board);
+
+    const obj = [{ tasks: tdata }];
+    setBoardData(board);
+    // console.log(obj);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [boarddata]);
 
   const onDragEnd = (re) => {
     if (!re.destination) return;
@@ -154,7 +216,7 @@ export default function CardBoard({ color }) {
                                   {provided.placeholder}
                                 </div>
 
-                                  {/* <div>
+                                {/* <div>
                                   {showForm && selectedBoard === bIndex ? (
                                   <div className="p-3 text-black">
                                     <textarea

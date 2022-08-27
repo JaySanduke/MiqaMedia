@@ -1,7 +1,8 @@
 import React, {useEffect} from "react";
 import Link from "next/link";
+import setCookie from "hooks/setCookie";
 
-import "../../components/firebase";
+import { app } from "../../components/firebase";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 import Auth from "layouts/Auth.js";
@@ -17,6 +18,9 @@ export default function Login() {
       .then((userCredential) => {
         // Signed in 
         // const user = userCredential.user;
+        console.log(app)
+        setCookie("fapp", "get");
+        
         window.location.href= "/user/dashboard";
         // ...
       })

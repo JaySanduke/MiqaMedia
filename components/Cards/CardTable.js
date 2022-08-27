@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 // components
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
@@ -12,11 +11,6 @@ export default function CardTable({ color, addTask, deleteTask, tabledata, wpid 
   const [boardData, setBoardData] = useState([]);
 
   const tdata = [];
-  const inreview = [];
-  const inprogress = [];
-  const completed = [];
-  const backlog = []; 
-  const board = [];
 
   useEffect(() => {
     if (process.browser) {
@@ -30,30 +24,6 @@ export default function CardTable({ color, addTask, deleteTask, tabledata, wpid 
       tdata.push(tabledata[i]);
     }
     // console.log(tdata);
-
-    for (let i in tdata) {
-      if (tdata[i]['status'] == "In Progress") {
-        inprogress.push(tdata[i]);
-      } else if (tdata[i]['status'] == "Backlog") {
-        backlog.push(tdata[i]);
-      } else if (tdata[i]['status'] == "In Review") {
-        inreview.push(tdata[i]);
-      } else if (tdata[i]['status'] == "Completed") {
-        completed.push(tdata[i]);
-      }
-    }
-  
-    // console.log(inprogress);
-    // console.log(inreview);
-    // console.log(completed);
-    // console.log(backlog);
-
-    board.push(inprogress);
-    board.push(inreview);
-    board.push(completed);
-    board.push(backlog);
-
-    console.log(board);
 
     const obj = [{ tasks: tdata }];
     setBoardData(obj);

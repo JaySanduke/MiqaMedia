@@ -4,6 +4,8 @@ import { createPopper } from "@popperjs/core";
 import "../../components/firebase";
 import { getAuth, signOut } from "firebase/auth";
 
+import getCookie from "hooks/getCookie";
+
 const UserNavDropdown = () => {
   // dropdown props
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
@@ -32,7 +34,9 @@ const UserNavDropdown = () => {
     auth.onAuthStateChanged((user) => {
       // console.log(user);
       if(user==null) {
-        // window.location.href= "/auth/login"
+        let fapp =  getCookie("fapp");
+        console.log(fapp);
+        window.location.href= "/auth/login"
       }
     })
   },[])

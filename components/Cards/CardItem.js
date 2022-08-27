@@ -8,7 +8,7 @@ import { Draggable } from "react-beautiful-dnd";
 
 function CardItem({ data, index }) {
   return (
-    <Draggable index={index} draggableId={data.task_id.toString()}>
+    <Draggable index={index} draggableId={data.id.toString()}>
       {(provided) => (
         <div
           ref={provided.innerRef}
@@ -16,18 +16,18 @@ function CardItem({ data, index }) {
           {...provided.dragHandleProps}
           className="bg-white rounded-md p-3 m-3 mt-0 last:mb-0"
         >
-          <h5 className="text-md my-3 text-lg leading-6">{data.task_title}</h5>
+          <h5 className="text-md my-3 text-lg leading-6">{data.title}</h5>
           
-          <h5 className="text-md flex-1 my-3 text-lg leading-6">{data.task_description}</h5>
+          <h5 className="text-md flex-1 my-3 text-lg leading-6">{data.desc}</h5>
           <div className="flex justify-between">
             <div className="flex space-x-2 items-center">
               <span className="flex space-x-1 items-center">
                 <ChatAlt2Icon className="w-4 h-4 text-black" />
-                <span>{data.task_users}</span>
+                <span>{data.assignees}</span>
               </span>
               <span className="flex space-x-1 items-center">
                 <PaperClipIcon className="w-4 h-4 text-black" />
-                <span>{data.task_date}</span>
+                <span>{data.assignees.length}</span>
               </span>
             </div>
 
