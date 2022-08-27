@@ -46,7 +46,7 @@ export default function Archive() {
   return (
     <>
     <div className="flex flex-wrap">
-        <CardArchiveTable tableData={data}/>
+        <CardArchiveTable uid={uid} tableData={data}/>
       </div>
     </>
   );

@@ -7,7 +7,11 @@ import { useEffect, useState } from "react";
 import BoardData from "data/workspace-data.json";
 import ArchiveItem from "components/Items/ArchiveItem";
 
-export default function CardArchiveTable({ color, tableData }) {
+import { database } from "../firebase";
+
+import { ref, update, remove, onValue } from "firebase/database";
+
+export default function CardArchiveTable({ color, tableData, uid }) {
   const [ready, setReady] = useState(false);
   const [boardData, setBoardData] = useState(BoardData);
 
@@ -32,12 +36,41 @@ export default function CardArchiveTable({ color, tableData }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tableData]);
 
+
+  function unarchieve(wid) {
+    console.log(wid);
+
+    // eslint-disable-next-line eqeqeq
+    if (wid && wid != "") {
+
+      console.log(wid);
+
+      const wpref = ref(database, 'users/' + uid + '/archieveworkspace/' + wid);
+
+      onValue(wpref, (snapshot) => {
+        console.log(snapshot.val());
+        let val = snapshot.val();
+        update(ref(database, 'users/' + uid + '/workspace/' + wid), val)
+          .then(
+            remove(ref(database, 'users/' + uid + '/archieveworkspace/' + wid))
+              .then(
+                console.log('Workspace with id ' + wid + ' unarchieved')
+              )
+              .catch((error) => {
+                console.log('error in unarchieved:' + error)
+              })
+          )
+      }, { onlyOnce: true });
+    }
+
+  }
+
   const onDragEnd = (result) => {
     if (!result.destination) return;
     let newBoardData = boardData;
     var dragItem =
       newBoardData[parseInt(result.source.droppableId)].workspaces[
-        result.source.index
+      result.source.index
       ];
     newBoardData[parseInt(result.source.droppableId)].workspaces.splice(
       result.source.index,
@@ -72,13 +105,13 @@ export default function CardArchiveTable({ color, tableData }) {
               </h3>
             </div>
             <h3
-                className={
-                  "font-semibold text-lg " +
-                  (color === "light" ? "text-blueGray-700" : "text-white")
-                }
-              >
-                {/* <AddWorkspace/> */}
-              </h3>
+              className={
+                "font-semibold text-lg " +
+                (color === "light" ? "text-blueGray-700" : "text-white")
+              }
+            >
+              {/* <AddWorkspace/> */}
+            </h3>
           </div>
         </div>
         <div className="block w-full overflow-x-auto">
@@ -118,7 +151,7 @@ export default function CardArchiveTable({ color, tableData }) {
                     >
                       Workspace Description
                     </th>
-                    
+
                     <th
                       className={
                         "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
@@ -139,7 +172,7 @@ export default function CardArchiveTable({ color, tableData }) {
                     >
                       Date
                     </th>
-                    
+
                     <th
                       className={
                         "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
@@ -167,6 +200,7 @@ export default function CardArchiveTable({ color, tableData }) {
                                   key={item.wid}
                                   data={item}
                                   index={iIndex}
+                                  unarchieve={unarchieve}
                                 />
                               );
                             })}

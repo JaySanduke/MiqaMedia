@@ -3,7 +3,7 @@ import { Draggable } from "react-beautiful-dnd";
 import Link from "next/link";
 import router from "next/router";
 
-function ArchiveItem({ data, index }) {
+function ArchiveItem({ data, index, unarchieve }) {
   return (
     <Draggable index={index} draggableId={data.wid.toString()}>
       {(provided) => (
@@ -40,11 +40,11 @@ function ArchiveItem({ data, index }) {
                 "text-sm font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
               }
             >
-              <Link
+              {/* <Link
                 href={{
                   pathname: "/user/workspace/"
-                }}
-              >
+                }} */}
+              {/* > */}
                 {/* <Link href='/user/viewedittask/' > */}
                 <a
                   href="#pablo"
@@ -53,6 +53,12 @@ function ArchiveItem({ data, index }) {
                     (router.pathname.indexOf("/user/workspace/") !== -1
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
+                  }
+                  onClick={
+                    (e) => {
+                      e.preventDefault();
+                      unarchieve(data.wid);
+                    }
                   }
                 >
                   <i
@@ -66,7 +72,7 @@ function ArchiveItem({ data, index }) {
                   ></i>{" "}
                   Unarchive Workspace
                 </a>
-              </Link>
+              {/* </Link> */}
             </a>
           </td>
         </tr>
