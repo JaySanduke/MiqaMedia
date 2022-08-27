@@ -19,7 +19,7 @@ function createGuidId() {
   });
 }
 
-export default function CardBoard({ color, wpid, boarddata }) {
+export default function CardBoard({ color, wpid, boarddata, addTask, deleteTask }) {
   const [ready, setReady] = useState(false);
   const [boardData, setBoardData] = useState(BoardData);
   const [showForm, setShowForm] = useState(false);
@@ -87,7 +87,7 @@ export default function CardBoard({ color, wpid, boarddata }) {
 
     console.log(board);
 
-    const obj = [{ tasks: tdata }];
+    // const obj = [{ tasks: tdata }];
     setBoardData(board);
     // console.log(obj);
 
@@ -167,7 +167,7 @@ export default function CardBoard({ color, wpid, boarddata }) {
                 (color === "light" ? "text-blueGray-700" : "text-white")
               }
             >
-              <AddTask />
+              <AddTask addTask={addTask}/>
               {/* <DatePicker/> */}
             </h3>
           </div>
