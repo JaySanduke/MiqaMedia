@@ -1,0 +1,99 @@
+[
+    {
+        "name":"To Do",
+        "subtasks": [
+            {
+                "subtask_id":1,
+                "subtask_title": "Web Development",
+                "subtask_description": "Build a web application.",
+                "subtask_state": "Pending",
+                "subtask_users":5,
+                "subtask_assigndate": "1/1/2001",
+                "subtask_completedate": "1/1/2001"
+
+            },
+            {
+                "subtask_id":2,
+                "subtask_title": "Android Development",
+                "subtask_description": "Build a android application.",
+                "subtask_state": "Completed",
+                "subtask_users":15,
+                "subtask_assigndate": "5/1/2001",
+                "subtask_completedate": "1/1/2001"
+            },
+            {
+                "subtask_id":3,
+                "subtask_title": "Game Development",
+                "subtask_description": "Build a game application.",
+                "subtask_state": "Ongoing",
+                "subtask_users":10,
+                "subtask_assigndate": "10/1/2001",
+                "subtask_completedate": "1/1/2001"
+            }
+        ]
+    },
+    {
+        "name":"In Progress",
+        "subtasks": [
+            {
+                "subtask_id":4,
+                "subtask_title": "Web Development",
+                "subtask_description": "Build a web application.",
+                "subtask_state": "Pending",
+                "subtask_users":5,
+                "subtask_assigndate": "1/1/2001",
+                "subtask_completedate": "1/1/2001"
+            },
+            {
+                "subtask_id":5,
+                "subtask_title": "Android Development",
+                "subtask_description": "Build a android application.",
+                "subtask_state": "Completed",
+                "subtask_users":15,
+                "subtask_assigndate": "5/1/2001",
+                "subtask_completedate": "1/1/2001"
+            },
+            {
+                "subtask_id":6,
+                "subtask_title": "Game Development",
+                "subtask_description": "Build a game application.",
+                "subtask_state": "Ongoing",
+                "subtask_users":10,
+                "subtask_assigndate": "10/1/2001",
+                "subtask_completedate": "1/1/2001"
+            }
+        ]
+    },
+    {
+        "name":"Completed",
+        "subtasks": [
+            {
+                "subtask_id":7,
+                "subtask_title": "Web Development",
+                "subtask_description": "Build a web application.",
+                "subtask_state": "Pending",
+                "subtask_users":5,
+                "subtask_assigndate": "1/1/2001",
+                "subtask_completedate": "1/1/2001"
+            },
+            {
+                "subtask_id":8,
+                "subtask_title": "Android Development",
+                "subtask_description": "Build a android application.",
+                "subtask_state": "Completed",
+                "subtask_users":15,
+                "subtask_assigndate": "5/1/2001",
+                "subtask_completedate": "1/1/2001"
+            },
+            {
+                "subtask_id":9,
+                "subtask_title": "Game Development",
+                "subtask_description": "Build a game application.",
+                "subtask_state": "Ongoing",
+                "subtask_users":10,
+                "subtask_assigndate": "10/1/2001",
+                "subtask_completedate": "1/1/2001"
+            }
+        ]
+    }
+]

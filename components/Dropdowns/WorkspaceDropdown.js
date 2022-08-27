@@ -120,7 +120,7 @@ const WorkspaceDropdown = ({ wid, deleteWorkspace, wsubdomain }) => {
                   : "text-blueGray-300")
               }
             ></i>{" "}
-            View
+            View Tasks
           </a>
           </Link>
         </a>
@@ -152,7 +152,7 @@ const WorkspaceDropdown = ({ wid, deleteWorkspace, wsubdomain }) => {
                   : "text-blueGray-300")
               }
             ></i>{" "}
-            Delete Workspace
+            Archive Workspace
           </a>
         </a>
       </div>

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { createPopper } from "@popperjs/core";
 
-const NotificationDropdown = ({ wpid, id, deleteTask }) => {
+const SubTaskDropdown = ({ id, deleteSubTask }) => {
   // dropdown props
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
@@ -45,13 +45,13 @@ const NotificationDropdown = ({ wpid, id, deleteTask }) => {
           }
           onClick={(e) => closeDropdownPopover()}
         >
-          <Link href={{ pathname: '/user/viewedittask/', query: { tid: id, wid: wpid } }} >
+          <Link href={{ pathname: '/user/editsubtask/' }} >
           {/* <Link href='/user/viewedittask/' > */}
             <a
               href="#pablo"
               className={
                 "text-xs uppercase py-3 font-bold block " +
-                (router.pathname.indexOf("/user/viewedittask") !== -1
+                (router.pathname.indexOf("/user/editsubtask") !== -1
                   ? "text-lightBlue-500 hover:text-lightBlue-600"
                   : "text-blueGray-700 hover:text-blueGray-500")
               }
@@ -59,42 +59,12 @@ const NotificationDropdown = ({ wpid, id, deleteTask }) => {
               <i
                 className={
                   "fas fa-tools mr-2 text-sm " +
-                  (router.pathname.indexOf("/user/viewedittask") !== -1
+                  (router.pathname.indexOf("/user/editsubtask") !== -1
                     ? "opacity-75"
                     : "text-blueGray-300")
                 }
               ></i>{" "}
-              View & Edit Task
-            </a>
-          </Link>
-        </a>
-        <a
-          href="#pablo"
-          className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-          }
-          onClick={(e) => closeDropdownPopover()}
-        >
-          <Link href={{ pathname: '/user/subtask' }} >
-          {/* <Link href='/user/viewedittask/' > */}
-            <a
-              href="#pablo"
-              className={
-                "text-xs uppercase py-3 font-bold block " +
-                (router.pathname.indexOf("/user/subtask") !== -1
-                  ? "text-lightBlue-500 hover:text-lightBlue-600"
-                  : "text-blueGray-700 hover:text-blueGray-500")
-              }
-            >
-              <i
-                className={
-                  "fas fa-sitemap mr-2 text-sm " +
-                  (router.pathname.indexOf("/user/subtask") !== -1
-                    ? "opacity-75"
-                    : "text-blueGray-300")
-                }
-              ></i>{" "}
-              Add Sub Task
+              View & Edit Sub Task
             </a>
           </Link>
         </a>
@@ -105,8 +75,8 @@ const NotificationDropdown = ({ wpid, id, deleteTask }) => {
           }
           onClick={(e) => {
             closeDropdownPopover();
-            const task = String(id);
-            deleteTask(task);
+            const subtask = String(id);
+            deleteSubTask(subtask);
           }}
         >
           <a
@@ -126,7 +96,7 @@ const NotificationDropdown = ({ wpid, id, deleteTask }) => {
                   : "text-blueGray-300")
               }
             ></i>{" "}
-            Delete Task
+            Delete Sub Task
           </a>
         </a>
       </div>
@@ -134,4 +104,4 @@ const NotificationDropdown = ({ wpid, id, deleteTask }) => {
   );
 };
 
-export default NotificationDropdown;
+export default SubTaskDropdown;
