@@ -76,7 +76,7 @@ export default function Tables() {
       "priority": 0,
       "chat": 0,
       "attachment": 0,
-      "assignees": [data.assignee],
+      "assignees": data.assignee,
     };
 
       update(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/' + postk), taskdetails);

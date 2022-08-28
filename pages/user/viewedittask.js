@@ -89,7 +89,7 @@ export default function ViewEditTask() {
         created_at: data.assignDate,
         completion_date: data.completionDate,
         status: data.status,
-        assignees: [data.assignee],
+        assignees: data.assignee,
       })
         .then(
           router.push("/user/tables?wid="+wpid).then(() => {
