@@ -1,5 +1,5 @@
 import React from "react";
-import WorkspaceUser from "components/Dropdowns/WorkspaceUser";
+import WorkspaceUser from "components/Dropdowns/UserDropdown/WorkspaceUser";
 
 export default function AddWorkspace({ addWorkspace }) {
   const [showModal, setShowModal] = React.useState(false);
@@ -126,7 +126,6 @@ export default function AddWorkspace({ addWorkspace }) {
                           setWorkspacedetails();
                         }}
                       >
-                        {" "}
                         Save Workspace
                       </button>
                     </div>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import StatusDropdown from "components/Dropdowns/StatusDropdown";
 import AssignDatePicker from "components/DatePicker/AssignDatePicker";
 import CompletionDatePicker from "components/DatePicker/CompletionDatePicker";
-import WorkspaceUser from "components/Dropdowns/WorkspaceUser";
+import TaskUser from "components/Dropdowns/UserDropdown/TaskUser";
 
 export default function AddTask({ addTask }) {
     const [showModal, setShowModal] = React.useState(false);
@@ -124,7 +124,7 @@ export default function AddTask({ addTask }) {
                                                 >
                                                     Task Users
                                                 </label>
-                                                <WorkspaceUser assignee={handleassigneeChange} />
+                                                <TaskUser taskuser={handleassigneeChange} />
                                             </div>
                                         </div>
                                         <div className="flex">

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import StatusDropdown from "components/Dropdowns/StatusDropdown";
 import AssignDatePicker from "components/DatePicker/AssignDatePicker";
 import CompletionDatePicker from "components/DatePicker/CompletionDatePicker";
-import SubTaskUser from "components/Dropdowns/SubTaskUser";
+import SubTaskUser from "components/Dropdowns/UserDropdown/SubTaskUser";
 
 export default function AddSubTask({ addSubtask }) {
     const [showModal, setShowModal] = React.useState(false);

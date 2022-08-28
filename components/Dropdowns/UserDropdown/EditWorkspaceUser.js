@@ -31,7 +31,7 @@ const names = [
   'Kelly Snyder',
 ];
 
-export default function WorkspaceUserDropdown({uvalue, userChange}) {
+export default function EditorkspaceUser({uvalue, userChange}) {
   const [personName, setPersonName] = React.useState([]);
 
   React.useEffect(() => {

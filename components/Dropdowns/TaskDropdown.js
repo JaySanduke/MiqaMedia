@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { createPopper } from "@popperjs/core";
 
-const NotificationDropdown = ({ wpid, tid, deleteTask }) => {
+const TaskDropdown = ({ wpid, tid, deleteTask }) => {
   // dropdown props
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
@@ -63,7 +63,7 @@ const NotificationDropdown = ({ wpid, tid, deleteTask }) => {
                     ? "opacity-75"
                     : "text-blueGray-300")
                 }
-              ></i>{" "}
+              ></i>
               View & Edit Task
             </a>
           </Link>
@@ -93,7 +93,7 @@ const NotificationDropdown = ({ wpid, tid, deleteTask }) => {
                     : "text-blueGray-300")
                 }
               ></i>{" "}
-              Add Sub Task
+              View Sub Tasks
             </a>
           </Link>
         </a>
@@ -124,7 +124,7 @@ const NotificationDropdown = ({ wpid, tid, deleteTask }) => {
                   ? "opacity-75"
                   : "text-blueGray-300")
               }
-            ></i>{" "}
+            ></i>
             Delete Task
           </a>
         </a>
@@ -133,4 +133,4 @@ const NotificationDropdown = ({ wpid, tid, deleteTask }) => {
   );
 };
 
-export default NotificationDropdown;
+export default TaskDropdown;

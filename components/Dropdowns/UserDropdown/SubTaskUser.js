@@ -31,8 +31,17 @@ const names = [
   'Kelly Snyder',
 ];
 
-export default function SubTaskUser({ subtaskuser }) {
+export default function SubTaskUser({ svalue, subtaskuser }) {
   const [personName, setPersonName] = React.useState([]);
+
+  React.useEffect(() => {
+    console.log(svalue);
+    let arr = [];
+    for(let i in svalue){
+      arr.push(svalue[i])
+    };
+    setPersonName(arr)
+  },[svalue]);
 
   const handleChange = (event) => {
     const {

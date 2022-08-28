@@ -85,7 +85,7 @@ const WorkspaceDropdown = ({ wid, deleteWorkspace, wsubdomain }) => {
                     : "text-blueGray-300")
                 }
               ></i>{" "}
-              View & Edit
+              View & Edit Workspace
             </a>
           </Link>
         </a>

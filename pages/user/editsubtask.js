@@ -30,7 +30,7 @@ export default function EditSubTask() {
   const [tid, setTid] = useState(router.query.tid);
   const [wpid, setWpid] = useState(router.query.wid);
   const [sid, setSid] = useState(router.query.sid);
-  const [snapshot, loading, error] = useObject(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/' + tid + '/subtasks/' + sid));
+  const [snapshot, loading, error] = useObject(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/' + tid + '/subtasks' ));
   const [subtaskdata, setSubTaskData] = useState([]);
 
   const subtaskd = [];
@@ -41,12 +41,13 @@ export default function EditSubTask() {
       setTid(router.query.tid);
       setWpid(router.query.wid);
       setSid(router.query.sid);
+      console.log(sid);
     }
   }, [router.query.sid, router.query.tid, router.query.wid, uloading, user]);
 
   useEffect(() => {
     if (!loading && snapshot) {
-      console.log(tid);
+      console.log(sid);
       console.log(snapshot.val());
 
       setSubTaskData(snapshot.val());
@@ -85,13 +86,13 @@ export default function EditSubTask() {
     // };
 
     if (uid && tid && sid && id) {
-      update(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/' + sid + '/subtasks' + id), {
+      update(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/' + sid + '/subtasks/' + id), {
         title: data.title,
         desc: data.desc,
         created_at: data.assignDate,
         completion_date: data.completionDate,
         status: data.status,
-        assignees: [data.assignee],
+        assignees: data.assignee,
       })
         .then(
           router.push("/user/subtask?tid="+tid).then(() => {
@@ -101,17 +102,14 @@ export default function EditSubTask() {
         .catch(error => {
           console.log(error);
         });
-    }
-
-
-
+      }
   }
 
   return (
     <>
       <div className="flex flex-wrap mt-4">
         <div className="w-full mb-12 px-4">
-          <ViewEditSubTask tid={tid} sid={sid} taskdata={subtaskdata} updateSubTask={updateSubTask} />
+          <ViewEditSubTask sid={sid} subtaskdata={subtaskdata} updateSubTask={updateSubTask} />
         </div>
       </div>
     </>

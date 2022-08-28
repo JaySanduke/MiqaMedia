@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import StatusDropdown from "components/Dropdowns/StatusDropdown";
 import AssignDatePicker from "components/DatePicker/AssignDatePicker";
 import CompletionDatePicker from "components/DatePicker/CompletionDatePicker";
-import WorkspaceUser from "components/Dropdowns/WorkspaceUser";
+import EditTaskUser from "components/Dropdowns/UserDropdown/EditTaskUser";
 
 export default function VieworEditTask({ tid, taskdata, updateTask }) {
 
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
   const [status, setStatus] = useState('');
-  const [assignee, setAssignee] = useState('');
+  const [assignee, setAssignee] = useState([]);
   const [assignDate, setAssignDate] = useState([]);
   const [completionDate, setCompletionDate] = useState('');
 
@@ -123,7 +123,7 @@ export default function VieworEditTask({ tid, taskdata, updateTask }) {
                     Task Users
                   </label>
                   {assignee &&
-                    <WorkspaceUser value={assignee} assignee={handleassigneeChange} />
+                    <EditTaskUser value={assignee} edittaskuser={handleassigneeChange} />
                   }
                 </div>
               </div>

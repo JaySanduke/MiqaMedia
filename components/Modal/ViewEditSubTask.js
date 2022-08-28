@@ -1,14 +1,13 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import StatusDropdown from "components/Dropdowns/StatusDropdown";
-import SubTaskUser from "components/Dropdowns/SubTaskUser";
+import EditSubTaskUser from "components/Dropdowns/UserDropdown/EditSubTaskUser";
 import AssignDatePicker from "components/DatePicker/AssignDatePicker";
 import CompletionDatePicker from "components/DatePicker/CompletionDatePicker";
 
 export default function ViewEditSubTask({ sid, subtaskdata, updateSubTask }) {
-
-  const [title, setTitle] = useState('');
-  const [desc, setDesc] = useState('');
+  const [title, setTitle] = useState("");
+  const [desc, setDesc] = useState("");
   const [status, setStatus] = useState([]);
   const [assignee, setAssignee] = useState([]);
   const [assignDate, setAssignDate] = useState([]);
@@ -30,8 +29,8 @@ export default function ViewEditSubTask({ sid, subtaskdata, updateSubTask }) {
       status: status,
       assignee: assignee,
       assignDate: assignDate,
-      completionDate: completionDate
-    }
+      completionDate: completionDate,
+    };
 
     updateSubTask(subtaskdetails, sid);
 
@@ -46,16 +45,16 @@ export default function ViewEditSubTask({ sid, subtaskdata, updateSubTask }) {
   };
   function handlestatusChange(status) {
     setStatus(status);
-  };
+  }
   function handleassigneeChange(assignees) {
     setAssignee(assignees);
-  };
+  }
   function handleassignDateChange(createddate) {
     setAssignDate(createddate);
-  };
+  }
   function handlecompletionDateChange(completiondate) {
     setCompletionDate(completiondate);
-  };
+  }
 
   return (
     <>
@@ -66,7 +65,9 @@ export default function ViewEditSubTask({ sid, subtaskdata, updateSubTask }) {
       >
         <div className="rounded-t bg-white mb-0 px-4 py-3 border-0">
           <div className="flex z-50 items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-            <h3 className="text-3xl font-semibold px-8">View & Edit Sub Task</h3>
+            <h3 className="text-3xl font-semibold px-8">
+              View & Edit Sub Task
+            </h3>
           </div>
           {/*body*/}
           <div class="w-full px-4 max-w">
@@ -111,9 +112,12 @@ export default function ViewEditSubTask({ sid, subtaskdata, updateSubTask }) {
                   >
                     Sub Task Assign Date
                   </label>
-                  {assignDate &&
-                    <AssignDatePicker avalue={assignDate} assigndate={handleassignDateChange} />
-                  }
+                  {assignDate && (
+                    <AssignDatePicker
+                      avalue={assignDate}
+                      assigndate={handleassignDateChange}
+                    />
+                  )}
                 </div>
                 <div class="mb-6 flex-1">
                   <label
@@ -122,9 +126,7 @@ export default function ViewEditSubTask({ sid, subtaskdata, updateSubTask }) {
                   >
                     Sub Task Completion Date
                   </label>
-                  {completionDate &&
-                    <CompletionDatePicker />
-                  }
+                  {completionDate && <CompletionDatePicker />}
                 </div>
               </div>
               <div className="flex">
@@ -135,9 +137,12 @@ export default function ViewEditSubTask({ sid, subtaskdata, updateSubTask }) {
                   >
                     Sub Task Status
                   </label>
-                  {status &&
-                    <StatusDropdown value={status} statusChange={handlestatusChange} />
-                  }
+                  {status && (
+                    <StatusDropdown
+                      value={status}
+                      statusChange={handlestatusChange}
+                    />
+                  )}
                 </div>
                 <div class="mb-6 flex-1">
                   <label
@@ -146,21 +151,23 @@ export default function ViewEditSubTask({ sid, subtaskdata, updateSubTask }) {
                   >
                     Sub Task Users
                   </label>
-                  {assignee &&
-                    <SubTaskUser value={assignee} assignee={handleassigneeChange} />
-                  }
+                  {assignee && (
+                    <EditSubTaskUser
+                      value={assignee}
+                      assignee={handleassigneeChange}
+                    />
+                  )}
                 </div>
               </div>
             </form>
           </div>
           {/*footer*/}
           <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-            
             <button
               className="bg-indigo-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
               type="button"
               onClick={() => {
-                setSubTaskdetails()
+                setSubTaskdetails();
               }}
             >
               Edit Sub Task

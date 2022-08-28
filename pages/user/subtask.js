@@ -1,4 +1,5 @@
 import React from "react";
+import Router from "next/router";
 
 import { useEffect, useState } from "react";
 
@@ -13,14 +14,12 @@ import User from "layouts/User";
 // firebase
 
 import { getAuth } from "firebase/auth";
-import Router from "next/router";
 
 import { app, database } from "../../components/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 import { ref, push, update, remove } from "firebase/database";
 import { useObject } from "react-firebase-hooks/database";
-import { getTabId } from "@mui/base";
 
 const auth = getAuth(app);
 
@@ -82,25 +81,25 @@ export default function SubTask() {
     }
   }
 
-  // function deleteSubtask(taskid) {
-  //   // eslint-disable-next-line eqeqeq
-  //   if (taskid && taskid != "") {
-  //     remove(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/' + taskid))
-  //       .then(console.log('task with id ' + taskid + ' deleted successfully'))
-  //       .catch((error) => {
-  //         console.log('error deleting task with error:' + error)
-  //       });
-  //   }
-  // }
+  function deleteSubtask(subtaskid) {
+    // eslint-disable-next-line eqeqeq
+    if (subtaskid && subtaskid != "") {
+      remove(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/' + tid + '/subtasks/' + subtaskid))
+        .then(console.log('subtask with id ' + subtaskid + ' deleted successfully'))
+        .catch((error) => {
+          console.log('error deleting subtask with error:' + error)
+        });
+    }
+  }
 
   return (
     <>
       <div className="flex flex-wrap mt-4">
         <div className="w-full mb-12 px-4">
-          <CardSubTask tabledata={tabledata} addSubtask={addSubtask}/>
+          <CardSubTask tabledata={tabledata} addSubtask={addSubtask} deleteSubtask={deleteSubtask}/>
         </div>
         <div className="w-full mb-12 px-4">
-          <CardSubTask tabledata={tabledata} color="dark" />
+          <CardSubTask tabledata={tabledata} color="dark" deleteSubtask={deleteSubtask} />
         </div>
       </div>
     </>

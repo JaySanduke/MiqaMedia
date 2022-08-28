@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import WorkspaceUserDropdown from "components/Dropdowns/WorkspaceUserDropdown";
+import EditWorkspaceUser from "components/Dropdowns/UserDropdown/EditWorkspaceUser";
 
 export default function ViewEditWorkspace({
   workspacedata,
@@ -93,7 +93,7 @@ export default function ViewEditWorkspace({
                 >
                   Workspace Users
                 </label>
-                <WorkspaceUserDropdown uvalue={workspaceuser} userChange={handleworkspaceuserChange} />
+                <EditWorkspaceUser uvalue={workspaceuser} userChange={handleworkspaceuserChange} />
               </div>
             </form>
           </div>

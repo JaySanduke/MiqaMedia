@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { createPopper } from "@popperjs/core";
 
-const SubTaskDropdown = ({ id, deleteSubTask }) => {
+const SubTaskDropdown = ({ sid, deleteSubtask }) => {
   // dropdown props
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
@@ -45,7 +45,7 @@ const SubTaskDropdown = ({ id, deleteSubTask }) => {
           }
           onClick={(e) => closeDropdownPopover()}
         >
-          <Link href={{ pathname: '/user/editsubtask/' }} >
+          <Link href={{ pathname: '/user/editsubtask/', query: { sid: sid } }} >
           {/* <Link href='/user/viewedittask/' > */}
             <a
               href="#pablo"
@@ -63,7 +63,7 @@ const SubTaskDropdown = ({ id, deleteSubTask }) => {
                     ? "opacity-75"
                     : "text-blueGray-300")
                 }
-              ></i>{" "}
+              ></i>
               View & Edit Sub Task
             </a>
           </Link>
@@ -75,8 +75,8 @@ const SubTaskDropdown = ({ id, deleteSubTask }) => {
           }
           onClick={(e) => {
             closeDropdownPopover();
-            const subtask = String(id);
-            deleteSubTask(subtask);
+            const subtask = String(sid);
+            deleteSubtask(subtask);
           }}
         >
           <a
@@ -95,7 +95,7 @@ const SubTaskDropdown = ({ id, deleteSubTask }) => {
                   ? "opacity-75"
                   : "text-blueGray-300")
               }
-            ></i>{" "}
+            ></i>
             Delete Sub Task
           </a>
         </a>

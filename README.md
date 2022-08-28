@@ -141,7 +141,7 @@ notus-nextjs
 │   │   ├── IndexDropdown.js
 │   │   ├── NotificationDropdown.js
 │   │   ├── PagesDropdown.js
-│   │   ├── TableDropdown.js
+│   │   ├── TaskDropdown.js
 │   │   └── UserDropdown.js
 │   ├── Footers
 │   │   ├── Footer.js
