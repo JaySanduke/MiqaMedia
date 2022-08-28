@@ -83,7 +83,7 @@ export default function ViewEditTask() {
     // };
 
     if (uid && tid && id) {
-      update(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks' + id), {
+      update(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/' + id), {
         title: data.title,
         desc: data.desc,
         created_at: data.assignDate,
