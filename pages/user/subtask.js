@@ -75,7 +75,7 @@ export default function SubTask() {
       "priority": 0,
       "chat": 0,
       "attachment": 0,
-      "assignees": [data.assignee],
+      "assignees": data.assignee,
     };
 
       update(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/' + tid + '/subtasks/' + postk), taskdetails);

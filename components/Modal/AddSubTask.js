@@ -124,7 +124,7 @@ export default function AddSubTask({ addSubtask }) {
                                                 >
                                                     Sub Task Users
                                                 </label>
-                                                <SubTaskUser assignee={handleassigneeChange} />
+                                                <SubTaskUser subtaskuser={handleassigneeChange} />
                                             </div>
                                         </div>
                                         <div className="flex">
