@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { createPopper } from "@popperjs/core";
 
-const NotificationDropdown = ({ wpid, id, deleteTask }) => {
+const NotificationDropdown = ({ wpid, tid, deleteTask }) => {
   // dropdown props
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
@@ -45,8 +45,8 @@ const NotificationDropdown = ({ wpid, id, deleteTask }) => {
           }
           onClick={(e) => closeDropdownPopover()}
         >
-          <Link href={{ pathname: '/user/viewedittask/', query: { tid: id, wid: wpid } }} >
-          {/* <Link href='/user/viewedittask/' > */}
+          <Link href={{ pathname: '/user/viewedittask/', query: { wid: wpid, tid: tid } }} >
+            {/* <Link href='/user/viewedittask/' > */}
             <a
               href="#pablo"
               className={
@@ -75,8 +75,7 @@ const NotificationDropdown = ({ wpid, id, deleteTask }) => {
           }
           onClick={(e) => closeDropdownPopover()}
         >
-          <Link href={{ pathname: '/user/subtask' }} >
-          {/* <Link href='/user/viewedittask/' > */}
+          <Link href={{ pathname: '/user/subtask', query: { wid: wpid, tid: tid } }} >
             <a
               href="#pablo"
               className={
@@ -105,7 +104,7 @@ const NotificationDropdown = ({ wpid, id, deleteTask }) => {
           }
           onClick={(e) => {
             closeDropdownPopover();
-            const task = String(id);
+            const task = String(tid);
             deleteTask(task);
           }}
         >

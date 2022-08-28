@@ -4,7 +4,7 @@ import AssignDatePicker from "components/DatePicker/AssignDatePicker";
 import CompletionDatePicker from "components/DatePicker/CompletionDatePicker";
 import SubTaskUser from "components/Dropdowns/SubTaskUser";
 
-export default function AddSubTask({ addSubTask }) {
+export default function AddSubTask({ addSubtask }) {
     const [showModal, setShowModal] = React.useState(false);
 
     const [title, setTitle] = useState('');
@@ -25,7 +25,7 @@ export default function AddSubTask({ addSubTask }) {
             "completionDate": completionDate
         }
 
-        addSubTask(subtaskdetails);
+        addSubtask(subtaskdetails);
 
         console.log(subtaskdetails);
     }

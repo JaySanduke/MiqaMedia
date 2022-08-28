@@ -9,15 +9,31 @@ import BoardData from "data/subtask-data.json";
 import SubTaskItem from "components/Items/SubTaskItem";
 import AddSubTask from "components/Modal/AddSubTask";
 
-export default function CardSubTask({ color }) {
+export default function CardSubTask({ color, tabledata, addSubtask }) {
   const [ready, setReady] = useState(false);
-  const [boardData, setBoardData] = useState(BoardData);
+  const [boardData, setBoardData] = useState([]);
+
+  const tdata = [];
 
   useEffect(() => {
     if (process.browser) {
       setReady(true);
     }
   }, []);
+
+  useEffect(() => {
+
+    for (let i in tabledata) {
+      tdata.push(tabledata[i]);
+    }
+    // console.log(tdata);
+
+    const obj = [{ subtasks: tdata }];
+    setBoardData(obj);
+    // console.log(obj);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tabledata]);
 
   const onDragEnd = (result) => {
     if (!result.destination) return;
@@ -37,6 +53,8 @@ export default function CardSubTask({ color }) {
     );
     setBoardData(newBoardData);
   };
+
+
 
   return (
     <>
@@ -64,7 +82,7 @@ export default function CardSubTask({ color }) {
                 (color === "light" ? "text-blueGray-700" : "text-white")
               }
             >
-              <AddSubTask/>
+              <AddSubTask addSubtask={addSubtask}/>
               {/* <DatePicker/> */}
             </h3>
           </div>
@@ -170,7 +188,7 @@ export default function CardSubTask({ color }) {
                             board.subtasks.map((item, iIndex) => {
                               return (
                                 <SubTaskItem
-                                  key={item.subtask_id}
+                                  key={item.id}
                                   data={item}
                                   index={iIndex}
                                 />
