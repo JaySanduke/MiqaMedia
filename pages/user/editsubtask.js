@@ -85,8 +85,8 @@ export default function EditSubTask() {
     //   assignees: [data.assignee],
     // };
 
-    if (uid && tid && sid && id) {
-      update(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/' + sid + '/subtasks/' + id), {
+    if (uid && tid && id) {
+      update(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/' + tid + '/subtasks/' + id), {
         title: data.title,
         desc: data.desc,
         created_at: data.assignDate,
@@ -95,7 +95,7 @@ export default function EditSubTask() {
         assignees: data.assignee,
       })
         .then(
-          router.push("/user/subtask?tid="+tid).then(() => {
+          router.push("/user/subtask?wid="+wpid+"&tid="+tid).then(() => {
             console.log('Sub Task updated successfully!')
           })
         )

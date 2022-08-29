@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { createPopper } from "@popperjs/core";
 
-const SubTaskDropdown = ({ sid, deleteSubtask }) => {
+const SubTaskDropdown = ({ wid, tid, sid, deleteSubtask }) => {
   // dropdown props
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
@@ -45,7 +45,7 @@ const SubTaskDropdown = ({ sid, deleteSubtask }) => {
           }
           onClick={(e) => closeDropdownPopover()}
         >
-          <Link href={{ pathname: '/user/editsubtask/', query: { sid: sid } }} >
+          <Link href={{ pathname: '/user/editsubtask/', query: { wid:wid, tid:tid, sid: sid } }} >
           {/* <Link href='/user/viewedittask/' > */}
             <a
               href="#pablo"

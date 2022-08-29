@@ -9,7 +9,7 @@ import BoardData from "data/subtask-data.json";
 import SubTaskItem from "components/Items/SubTaskItem";
 import AddSubTask from "components/Modal/AddSubTask";
 
-export default function CardSubTask({ color, tabledata, addSubtask, deleteSubtask }) {
+export default function CardSubTask({ wid, tid, color, tabledata, addSubtask, deleteSubtask }) {
   const [ready, setReady] = useState(false);
   const [boardData, setBoardData] = useState([]);
 
@@ -192,6 +192,8 @@ export default function CardSubTask({ color, tabledata, addSubtask, deleteSubtas
                                   data={item}
                                   index={iIndex}
                                   deleteSubtask={deleteSubtask}
+                                  wid={wid}
+                                  tid={tid}
                                 />
                               );
                             })}

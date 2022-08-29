@@ -13,14 +13,14 @@ export default function ViewEditSubTask({ sid, subtaskdata, updateSubTask }) {
   const [assignDate, setAssignDate] = useState([]);
   const [completionDate, setCompletionDate] = useState([]);
 
-  // useEffect(() => {
-  //   setTitle(subtaskdata.title);
-  //   setDesc(subtaskdata.desc);
-  //   setStatus(subtaskdata.status);
-  //   setAssignee(subtaskdata.assignees);
-  //   setAssignDate(subtaskdata.created_at);
-  //   setCompletionDate(subtaskdata.completion_date);
-  // }, [subtaskdata]);
+  useEffect(() => {
+    setTitle(subtaskdata.title);
+    setDesc(subtaskdata.desc);
+    setStatus(subtaskdata.status);
+    setAssignee(subtaskdata.assignees);
+    setAssignDate(subtaskdata.created_at);
+    setCompletionDate(subtaskdata.completion_date);
+  }, [subtaskdata]);
 
   function setSubTaskdetails() {
     const subtaskdetails = {
@@ -126,7 +126,12 @@ export default function ViewEditSubTask({ sid, subtaskdata, updateSubTask }) {
                   >
                     Sub Task Completion Date
                   </label>
-                  {completionDate && <CompletionDatePicker />}
+                  {completionDate && (
+                    <CompletionDatePicker
+                    cvalue={completionDate}
+                    completiondate={handlecompletionDateChange}
+                    />
+                  )}
                 </div>
               </div>
               <div className="flex">
@@ -153,8 +158,8 @@ export default function ViewEditSubTask({ sid, subtaskdata, updateSubTask }) {
                   </label>
                   {assignee && (
                     <EditSubTaskUser
-                      value={assignee}
-                      assignee={handleassigneeChange}
+                      svalue={assignee}
+                      editsubtaskuser={handleassigneeChange}
                     />
                   )}
                 </div>

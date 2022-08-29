@@ -68,7 +68,7 @@ export default function ViewEditTask() {
       console.log(itm);
       setTaskData(itm);
     })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [taskdata]);
 
   function updateTask(data, id) {
@@ -92,7 +92,7 @@ export default function ViewEditTask() {
         assignees: data.assignee,
       })
         .then(
-          router.push("/user/tables?wid="+wpid).then(() => {
+          router.push("/user/tables?wid=" + wpid).then(() => {
             console.log('Task updated successfully')
           })
         )
@@ -100,9 +100,6 @@ export default function ViewEditTask() {
           console.log(error);
         });
     }
-
-
-
   }
 
   return (

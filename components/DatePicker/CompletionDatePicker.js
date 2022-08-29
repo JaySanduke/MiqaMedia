@@ -21,7 +21,7 @@ export default function CompletionDatePicker({cvalue, completiondate}) {
           label="Date&Time picker"
           value={value}
           onChange={handleChange}
-          minDateTime={new Date()}
+          // minDateTime={new Date()}
           renderInput={(params) => <TextField {...params} />}
         />
       </Stack>

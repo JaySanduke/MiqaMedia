@@ -2,7 +2,7 @@ import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import SubTaskDropdown from "components/Dropdowns/SubTaskDropdown.js";
 
-function SubTaskItem({ tid, data, index, deleteSubtask }) {
+function SubTaskItem({ wid, tid, data, index, deleteSubtask }) {
   return (
     <Draggable index={index} draggableId={data.id.toString()}>
       {(provided) => (
@@ -39,7 +39,7 @@ function SubTaskItem({ tid, data, index, deleteSubtask }) {
             {data.completion_date}
           </td>
           <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-            <SubTaskDropdown data={data} tid={tid} sid={data.id} deleteSubtask={deleteSubtask}/>
+            <SubTaskDropdown data={data} wid={wid} tid={tid} sid={data.id} deleteSubtask={deleteSubtask}/>
           </td>
         </tr>
       )}

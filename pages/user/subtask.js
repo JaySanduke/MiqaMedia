@@ -96,10 +96,10 @@ export default function SubTask() {
     <>
       <div className="flex flex-wrap mt-4">
         <div className="w-full mb-12 px-4">
-          <CardSubTask tabledata={tabledata} addSubtask={addSubtask} deleteSubtask={deleteSubtask}/>
+          <CardSubTask wid={wpid} tid={tid} tabledata={tabledata} addSubtask={addSubtask} deleteSubtask={deleteSubtask}/>
         </div>
         <div className="w-full mb-12 px-4">
-          <CardSubTask tabledata={tabledata} color="dark" deleteSubtask={deleteSubtask} />
+          <CardSubTask wid={wpid} tid={tid} tabledata={tabledata} color="dark" deleteSubtask={deleteSubtask} />
         </div>
       </div>
     </>

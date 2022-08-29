@@ -20,7 +20,7 @@ export default function AssignDatePicker({avalue, assigndate}) {
         <DateTimePicker
           label="Date&Time picker"
           value={value}
-          minDateTime={new Date()}
+          // minDateTime={new Date()}
           onChange={handleChange}
           renderInput={(params) => <TextField {...params} />}
         />
