@@ -3,39 +3,40 @@ import { Draggable } from "react-beautiful-dnd";
 import WorkspaceDropdown from "components/Dropdowns/WorkspaceDropdown";
 
 function WorkspaceItem({ data, index, deleteWorkspace, wsubdomain }) {
+
   return (
     <Draggable index={index} draggableId={data.wid.toString()}>
       {(provided) => (
-        
-          <tr 
+
+        <tr
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}>
-            <td
-              className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ml-3 font-bold
+          <td
+            className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ml-3 font-bold
                     "
-            >
-              {index+1}
-            </td>
-            <td
-              className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ml-3 font-bold
+          >
+            {index + 1}
+          </td>
+          <td
+            className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ml-3 font-bold
                     "
-            >
-              {data.workspacename}
-            </td>
-            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              {data.desc}
-            </td>
-            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              {data.users.length}
-            </td>
-            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              {data.createddate}
-            </td>
-            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-              <WorkspaceDropdown wid={data.wid} deleteWorkspace={deleteWorkspace} wsubdomain={wsubdomain}/>
-            </td>
-          </tr>
+          >
+            {data.workspacename}
+          </td>
+          <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+            {data.desc}
+          </td>
+          <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+            {data.users.length}
+          </td>
+          <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+            {data.createddate}
+          </td>
+          <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+            <WorkspaceDropdown wid={data.wid} deleteWorkspace={deleteWorkspace} wsubdomain={wsubdomain} />
+          </td>
+        </tr>
       )}
     </Draggable>
   );

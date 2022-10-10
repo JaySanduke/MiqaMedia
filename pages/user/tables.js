@@ -3,6 +3,8 @@ import Router from "next/router";
 
 import { useEffect, useState } from "react";
 
+// import { LocalStorage } from "node-localstorage";
+
 // components
 
 import CardTable from "components/Cards/CardTable.js";
@@ -23,6 +25,7 @@ import { useObject } from "react-firebase-hooks/database";
 
 const auth = getAuth(app);
 
+// var localStorage = new LocalStorage('./scratch');
 export default function Tables() {
 
   const router = Router.useRouter(); 
@@ -33,11 +36,14 @@ export default function Tables() {
   const [snapshot, loading, error] = useObject(ref(database, 'users/' + uid + '/workspace/' + wpid));
   const [data, setData] = useState([]);
 
+  
   useEffect(() => {
+    var auth = localStorage.getItem('auth');
     var hostname = window.location.hostname;
     var hsplit = hostname.split('.');
     var workspace = hsplit[0];
-    // console.log(workspace);
+    console.log(workspace);
+    console.log(localStorage.getItem('auth'),auth);
   },[])
 
   useEffect(() => {

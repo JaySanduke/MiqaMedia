@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createPopper } from "@popperjs/core";
 import Link from "next/dist/client/link";
 import router from "next/router";
+import { getAuth } from "firebase/auth";
 
 const WorkspaceDropdown = ({ wid, deleteWorkspace, wsubdomain }) => {
 
-  // const [url, setUrl] = React.useState([]);
+  const auth = getAuth();
+
+  const [url, setUrl] = React.useState("");
 
   // dropdown props
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
@@ -21,23 +24,68 @@ const WorkspaceDropdown = ({ wid, deleteWorkspace, wsubdomain }) => {
     setDropdownPopoverShow(false);
   };
 
-  // useEffect(() => {
+  // async function post() {
 
   //   var hostname = window.location.hostname;
   //   var protocol = window.location.protocol;
   //   var port = window.location.port;
   //   var hsplit = hostname.split('.');
-  //   console.log(hsplit);
+  //   var url = '';
+  //   const wID = wid.slice(1).toLowerCase();
+  //   // console.log(hsplit);
+  //   // eslint-disable-next-line eqeqeq
   //   if (hsplit[0] == "localhost") {
   //     // var workspace = protocol + "//xyz." + hsplit.join('.') + ":" + port + "/user/demotable/";
-  //     var wprot = protocol + "//";
-  //     var wdomai = hsplit.join('.') + ":" + port + "/user/demotable/";
-  //     let vurl = [wprot,wdomai]
-  //     setUrl(vurl);
+  //     const wprot = protocol + "//";
+  //     const wdomai = hsplit.join('.') + ":" + port + "/user/demotable"
+  //     // console.log(workspace);
+  //     url = wprot + wID + "." + wdomai;
   //     console.log(url);
-  //     // console.log(wprot+ wid + "." + wdomai)
+  //     // window.location.href = wprot + wid + "." + wdomai;
   //   }
-  // }, [wid]);
+
+  //   const response = await fetch(
+  //     '/api/workspace/' + wid, {
+  //     method: 'POST',
+  //     body: JSON.stringify({ wdata }),
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //   }
+  //   );
+
+  //   await response.json().then((r) => {
+  //     console.log(r);
+
+  //     // window.location.assign(url);
+  //     localStorage.setItem("wdata", JSON.stringify(r));
+  //     // const ld = localStorage.getItem("wdata");
+  //     // console.log(ld);
+
+  //   });
+
+  // }
+
+  useEffect(() => {
+    var hostname = window.location.hostname;
+    var protocol = window.location.protocol;
+    var port = window.location.port;
+    var hsplit = hostname.split('.');
+    var url = '';
+    const wID = wid.slice(1).toLowerCase();
+    // console.log(hsplit);
+    // eslint-disable-next-line eqeqeq
+    if (hsplit[0] == "localhost") {
+      // var workspace = protocol + "//xyz." + hsplit.join('.') + ":" + port + "/user/demotable/";
+      const wprot = protocol + "//";
+      const wdomai = hsplit.join('.') + ":" + port + "/api/workspace/" + wid;
+      // console.log(workspace);
+      url = wprot + wID + "." + wdomai;
+      console.log(url);
+      setUrl(url);
+      // window.location.href = wprot + wid + "." + wdomai;
+    }
+  }, [wid]);
 
   return (
     <>
@@ -89,41 +137,46 @@ const WorkspaceDropdown = ({ wid, deleteWorkspace, wsubdomain }) => {
             </a>
           </Link>
         </a>
-        <a
-          href="#pablo"
-          className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-          }
-          onClick={(e) => {
-            closeDropdownPopover();
-            wsubdomain(wid);
-          }
-            // console.log(url[0] + wid + "." + url[1])
-          }
-        >
-          {/* <Link href={ url[0] + wid + "." + url[1] } > */}
-          <Link href={{pathname: '/user/tables', query: { wid: wid } }} >
+        <form id="postform" method="POST" action={url}>
+          <input name="auth" type="hidden" value={JSON.stringify(auth)} />
           <a
             href="#pablo"
             className={
-              "text-xs uppercase py-3 font-bold block " +
-              (router.pathname.indexOf("/user/demotable/") !== -1
-                ? "text-lightBlue-500 hover:text-lightBlue-600"
-                : "text-blueGray-700 hover:text-blueGray-500")
+              "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
             }
+          // onClick={(e) => {
+          // closeDropdownPopover();
+          // wsubdomain(wid);
+          // post();
+          // }
+          // console.log(url[0] + wid + "." + url[1])
+          // }
           >
-            <i
+            {/* <Link href={ url[0] + wid + "." + url[1] } > */}
+            {/* <Link href={{pathname: '/user/tables', query: { wid: wid } }} > */}
+            <button
+              type="submit"
+              href="#pablo"
               className={
-                "fas fa-stream mr-2 text-sm " +
+                "text-xs uppercase py-3 font-bold block " +
                 (router.pathname.indexOf("/user/demotable/") !== -1
-                  ? "opacity-75"
-                  : "text-blueGray-300")
+                  ? "text-lightBlue-500 hover:text-lightBlue-600"
+                  : "text-blueGray-700 hover:text-blueGray-500")
               }
-            ></i>{" "}
-            View Tasks
+            >
+              <i
+                className={
+                  "fas fa-stream mr-2 text-sm " +
+                  (router.pathname.indexOf("/user/demotable/") !== -1
+                    ? "opacity-75"
+                    : "text-blueGray-300")
+                }
+              ></i>{" "}
+              View Tasks
+            </button>
+            {/* </Link> */}
           </a>
-          </Link>
-        </a>
+        </form>
         <a
           href="#pablo"
           className={

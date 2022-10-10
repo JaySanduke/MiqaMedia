@@ -10,7 +10,7 @@ import AddWorkspace from "components/Modal/AddWorkspace";
 
 import { database } from "../../components/firebase";
 
-import { ref, push, update, remove, onValue } from "firebase/database";
+import { ref, push, update, remove, onValue, get } from "firebase/database";
 
 export default function CardWorkspaceTable({ color, uid, wdata }) {
   const [ready, setReady] = useState(false);
@@ -45,7 +45,7 @@ export default function CardWorkspaceTable({ color, uid, wdata }) {
     }
   }, []);
 
-  function wsubdomain(wid) {
+  async function wsubdomain(wid) {
     var hostname = window.location.hostname;
     var protocol = window.location.protocol;
     var port = window.location.port;
@@ -72,18 +72,6 @@ export default function CardWorkspaceTable({ color, uid, wdata }) {
     setBoardData(obj);
     console.log(obj);
 
-    // var hostname = window.location.hostname;
-    // var protocol = window.location.protocol;
-    // var port = window.location.port;
-    // var hsplit = hostname.split('.');
-    // console.log(hsplit);
-    // if (hsplit[0] == "localhost") {
-    //   // var workspace = protocol + "//xyz." + hsplit.join('.') + ":" + port + "/user/demotable/";
-    //   wprot = protocol + "//";
-    //   wdomai = hsplit.join('.') + ":" + port + "/user/demotable/"
-    // }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wdata]);
 
   function addWorkspace(data) {

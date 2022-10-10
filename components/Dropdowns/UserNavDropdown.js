@@ -4,9 +4,8 @@ import { createPopper } from "@popperjs/core";
 import "../../components/firebase";
 import { getAuth, signOut } from "firebase/auth";
 
-import getCookie from "hooks/getCookie";
-
 const UserNavDropdown = () => {
+  const [wauth, setWauth] = React.useState();
   // dropdown props
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
@@ -21,25 +20,48 @@ const UserNavDropdown = () => {
   const closeDropdownPopover = () => {
     setDropdownPopoverShow(false);
   };
-  
-  const logout = ()=>{
+
+  const logout = () => {
     const auth = getAuth();
-    signOut(auth).then(()=>{
+    signOut(auth).then(() => {
       window.location.href = "/auth/login";
     });
   }
 
   useEffect(() => {
-    const auth = getAuth();
-    auth.onAuthStateChanged((user) => {
-      // console.log(user);
-      if(user==null) {
-        let fapp =  getCookie("fapp");
-        console.log(fapp);
+    var auth;
+
+    const hostname = window.location.hostname;
+    var hsplit = hostname.split('.');
+    console.log(hsplit[0]);
+    console.log(hsplit[1]);
+
+    if (hsplit[0] === ("localhost" || "tdpvista")) {
+      auth = getAuth();
+      auth.onAuthStateChanged((user) => {
+        if (user == null) {
         window.location.href= "/auth/login"
-      }
-    })
-  },[])
+        }
+      })
+      
+    }
+    else if (hsplit[1] === "localhost" ) {
+      let lauth =  localStorage.getItem("auth");
+      console.log(lauth);
+
+      // if(lauth){
+      //   auth =  lauth;
+      //   auth.onAuthStateChanged((user) => {
+      //     if (user == null) {
+      //     window.location.href= "/auth/login"
+      //     }
+      //   })
+      // }
+    }
+
+
+    
+  }, [])
 
   return (
     <>
@@ -84,7 +106,7 @@ const UserNavDropdown = () => {
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
-          onClick={()=>{logout()}}
+          onClick={() => { logout() }}
         >
           <i
             className={
