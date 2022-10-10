@@ -32,7 +32,7 @@ function TableItem({ wpid, data, index, deleteTask }) {
             {data.status}
           </td>
           <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-            {data.assignees.length}
+            {/* {data.assignees.length} */}
           </td>
           <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
             {data.created_at}
