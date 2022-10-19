@@ -3,9 +3,11 @@ import { createPopper } from "@popperjs/core";
 
 import "../../components/firebase";
 import { getAuth, signOut } from "firebase/auth";
+import Router from "next/router";
 
 const UserNavDropdown = () => {
   const [wauth, setWauth] = React.useState();
+
   // dropdown props
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
@@ -21,46 +23,52 @@ const UserNavDropdown = () => {
     setDropdownPopoverShow(false);
   };
 
-  const logout = () => {
-    const auth = getAuth();
-    signOut(auth).then(() => {
-      window.location.href = "/auth/login";
-    });
+  const logout = async () => {
+    const hostname = window.location.hostname;
+    var hsplit = hostname.split('.');
+
+    if (hsplit[0] === ("localhost" || "tdpvista")) {
+      const auth = getAuth();
+      signOut(auth).then(() => {
+        window.location.href = "/auth/login";
+      });
+    }
+    else if (hsplit[1] === "localhost") {
+      await localStorage.removeItem('auth');
+      await Router.replace('/auth/login');
+    }
   }
 
   useEffect(() => {
-    var auth;
+    var auth = {}
 
     const hostname = window.location.hostname;
     var hsplit = hostname.split('.');
-    console.log(hsplit[0]);
-    console.log(hsplit[1]);
+    console.log('Domain: ' + hsplit[0]);
+    console.log('SubDomain: ' + hsplit[1]);
 
     if (hsplit[0] === ("localhost" || "tdpvista")) {
       auth = getAuth();
+      console.log(auth);
       auth.onAuthStateChanged((user) => {
         if (user == null) {
-        window.location.href= "/auth/login"
+          window.location.href = "/auth/login";
         }
       })
-      
     }
-    else if (hsplit[1] === "localhost" ) {
-      let lauth =  localStorage.getItem("auth");
-      console.log(lauth);
+    else if (hsplit[1] === "localhost") {
+      let oauth = localStorage.getItem("auth");
+      oauth = JSON.parse(JSON.parse(oauth));
+      console.log(oauth);
 
-      // if(lauth){
-      //   auth =  lauth;
-      //   auth.onAuthStateChanged((user) => {
-      //     if (user == null) {
-      //     window.location.href= "/auth/login"
-      //     }
-      //   })
-      // }
+      if (oauth == null) {
+        alert("Send to parent login page");
+
+      }
+      else {
+        auth = oauth;
+      }
     }
-
-
-    
   }, [])
 
   return (

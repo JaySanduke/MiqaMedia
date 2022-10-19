@@ -1,9 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Router from "next/router";
-
-import { useEffect, useState } from "react";
-
-// import { LocalStorage } from "node-localstorage";
 
 // components
 
@@ -25,10 +21,9 @@ import { useObject } from "react-firebase-hooks/database";
 
 const auth = getAuth(app);
 
-// var localStorage = new LocalStorage('./scratch');
 export default function Tables() {
 
-  const router = Router.useRouter(); 
+  const router = Router.useRouter();
 
   const [user, uloading] = useAuthState(auth);
   const [uid, setUid] = useState('');
@@ -36,23 +31,35 @@ export default function Tables() {
   const [snapshot, loading, error] = useObject(ref(database, 'users/' + uid + '/workspace/' + wpid));
   const [data, setData] = useState([]);
 
-  
+  const [subdomain, setSubDomain] = useState(false);
+
   useEffect(() => {
-    var auth = localStorage.getItem('auth');
     var hostname = window.location.hostname;
     var hsplit = hostname.split('.');
     var workspace = hsplit[0];
     console.log(workspace);
-    console.log(localStorage.getItem('auth'),auth);
-  },[])
+
+    if (workspace !== 'localhost') {
+      setSubDomain(true);
+      setWid(workspace);
+    }
+  }, []);
 
   useEffect(() => {
-    if (user && !uloading) {
-      setUid(user.uid);
-      // console.log(router.query.wid)
-      setWid(router.query.wid);
+    if (subdomain) {
+      const cauth = JSON.parse(JSON.parse(localStorage.getItem('auth')));
+      setUid(cauth.currentUser.uid);
+      console.log(cauth);
     }
-  }, [user, router, uloading]);
+    else {
+      if (user && !uloading) {
+        setUid(user.uid);
+        console.log(router.query.wid)
+        setWid(router.query.wid);
+      }
+    }
+
+  }, [subdomain, user, uloading, router]);
 
   useEffect(() => {
     if (!loading && snapshot) {
@@ -68,22 +75,22 @@ export default function Tables() {
   }, [uid, snapshot, loading, error]);
 
   function addTask(data) {
-    
-    if (uid) {
-    const postk = push(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/')).key
 
-    const taskdetails = {
-      "created_at": data.assignDate,
-      "completion_date": data.completionDate,
-      "id": postk,
-      "title": data.title,
-      "desc": data.desc,
-      "status": data.status,
-      "priority": 0,
-      "chat": 0,
-      "attachment": 0,
-      "assignees": data.assignee,
-    };
+    if (uid) {
+      const postk = push(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/')).key
+
+      const taskdetails = {
+        "created_at": data.assignDate,
+        "completion_date": data.completionDate,
+        "id": postk,
+        "title": data.title,
+        "desc": data.desc,
+        "status": data.status,
+        "priority": 0,
+        "chat": 0,
+        "attachment": 0,
+        "assignees": data.assignee,
+      };
 
       update(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/' + postk), taskdetails);
     }
@@ -104,13 +111,13 @@ export default function Tables() {
     <>
       <div className="flex flex-wrap mt-4">
         <div className="w-full mb-12">
-          {data && 
+          {data &&
             <CardTable color="light" wpid={wpid} tabledata={data.tasks} addTask={addTask} deleteTask={deleteTask} />
           }
         </div>
-        {data && 
-            <CardTable color="dark" tabledata={data.tasks} addTask={addTask} deleteTask={deleteTask} />
-          }
+        {data &&
+          <CardTable color="dark" tabledata={data.tasks} addTask={addTask} deleteTask={deleteTask} />
+        }
       </div>
     </>
   );

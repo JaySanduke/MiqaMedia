@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import WorkspaceItem from "components/Items/WorkspaceItem";
 import AddWorkspace from "components/Modal/AddWorkspace";
 
-
 import { database } from "../../components/firebase";
 
 import { ref, push, update, remove, onValue, get } from "firebase/database";
@@ -63,7 +62,6 @@ export default function CardWorkspaceTable({ color, uid, wdata }) {
   }
 
   useEffect(() => {
-
     for (let i in wdata) {
       workspacedata.push(wdata[i]);
     }
@@ -76,7 +74,12 @@ export default function CardWorkspaceTable({ color, uid, wdata }) {
 
   function addWorkspace(data) {
     if (uid) {
-      const postk = push(ref(database, 'users/' + uid + '/workspace')).key
+      // const postk = push(ref(database, 'users/' + uid + '/workspace')).key
+
+      let a = data.title;
+      a = a.trim().split(' ').join('').toLowerCase();
+
+      const postk = a;
 
       const workspacedetails = {
         "createddate": data.assignDate,
@@ -88,7 +91,6 @@ export default function CardWorkspaceTable({ color, uid, wdata }) {
 
       update(ref(database, 'users/' + uid + '/workspace/' + postk), workspacedetails);
     }
-
   }
 
   function deleteWorkspace(wid) {
@@ -223,7 +225,7 @@ export default function CardWorkspaceTable({ color, uid, wdata }) {
                     >
                       Date
                     </th>
-                    
+
                     <th
                       className={
                         "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +

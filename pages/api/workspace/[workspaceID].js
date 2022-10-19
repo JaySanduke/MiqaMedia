@@ -1,20 +1,27 @@
-import { LocalStorage } from 'node-localstorage';
+import { LocalStorage } from "node-localstorage";
 
 export default async function handler(req, res) {
-    if (req.method === 'GET') {
-        res.status(200).json({ 'Data': "get request" });
 
+    global.localStorage = new LocalStorage('./authstorage');
+
+    if (req.method === 'GET') {
+        const auth = localStorage.getItem('naegschebkzubrgvipeTRJ2Pe5pNGdG5F57iZkxp0okIVC3');
+        res.status(200).json(auth);
     } else if (req.method === 'POST') {
         try {
             const wid = await req.query.workspaceID;
             const body = await req.body;
-            res.status(200).send(body);
+            const uid = await JSON.parse(body.auth).currentUser.uid;
+            const host = await req.headers.host;
+            const wsubdomain = await host.split('.')[0];
+            // res.status(200).send(body);
+            // res.sendFile('components/auth/auth.html', {auth: body});
             //create local storage
-            // global.localStorage = new LocalStorage('../../Sscratch');
             //set data
-            // localStorage.setItem('auth', 'hi');
-            res.redirect(307,'/user/tables');
-
+            localStorage.setItem(wsubdomain + uid, JSON.stringify(body.auth));
+            res.redirect(307, '/user/config/' + uid);
+            // res.redirect(307, '/user/tables?wid=' + wid);
+            // res.status(200).json(wsubdomain);
         }
         catch (err) {
             console.log(err);

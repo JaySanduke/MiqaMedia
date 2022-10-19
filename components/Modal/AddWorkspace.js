@@ -70,6 +70,7 @@ export default function AddWorkspace({ addWorkspace }) {
                         type="text"
                         placeholder="Workspace Title"
                         onChange={handleWorkspacetitleChange}
+                        pattern="[A-Za-z]{1,15}"
                         required
                       />
                     </div>

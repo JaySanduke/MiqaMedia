@@ -6,8 +6,11 @@ import { app } from "../../components/firebase";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 import Auth from "layouts/Auth.js";
+import { useRouter } from "next/router";
 
 export default function Login() {
+
+  const router = useRouter();
 
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -25,8 +28,13 @@ export default function Login() {
         // ...
       })
       .catch((error) => {
-        // const errorCode = error.code;
-        // const errorMessage = error.message;
+        console.log(error.code)
+        if(error.code == "auth/user-not-found"){
+          alert("User not found Please register")
+        }
+        else if(error.code == "auth/wrong-password"){
+          alert("Wrong password please try again with correct credentials")
+        }
       });
   }
 
@@ -96,6 +104,7 @@ export default function Login() {
                       onChange={(e) => setPassword(e.target.value)}
                     />
                   </div>
+                  <div></div>
                   <div>
                     <label className="inline-flex items-center cursor-pointer">
                       <input

@@ -72,7 +72,7 @@ const WorkspaceDropdown = ({ wid, deleteWorkspace, wsubdomain }) => {
     var port = window.location.port;
     var hsplit = hostname.split('.');
     var url = '';
-    const wID = wid.slice(1).toLowerCase();
+    const wID = wid.toLowerCase();
     // console.log(hsplit);
     // eslint-disable-next-line eqeqeq
     if (hsplit[0] == "localhost") {
@@ -81,7 +81,7 @@ const WorkspaceDropdown = ({ wid, deleteWorkspace, wsubdomain }) => {
       const wdomai = hsplit.join('.') + ":" + port + "/api/workspace/" + wid;
       // console.log(workspace);
       url = wprot + wID + "." + wdomai;
-      console.log(url);
+      // console.log(url);
       setUrl(url);
       // window.location.href = wprot + wid + "." + wdomai;
     }

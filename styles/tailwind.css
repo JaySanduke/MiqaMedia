@@ -1951,10 +1951,6 @@ select {
   min-width: 140px;
 }
 
-.max-w-xs {
-  max-width: 20rem;
-}
-
 .max-w-sm {
   max-width: 24rem;
 }
