@@ -58,7 +58,6 @@ export default function Tables() {
         setWid(router.query.wid);
       }
     }
-
   }, [subdomain, user, uloading, router]);
 
   useEffect(() => {
@@ -111,11 +110,11 @@ export default function Tables() {
     <>
       <div className="flex flex-wrap mt-4">
         <div className="w-full mb-12">
-          {data &&
+          {data.tasks &&
             <CardTable color="light" wpid={wpid} tabledata={data.tasks} addTask={addTask} deleteTask={deleteTask} />
           }
         </div>
-        {data &&
+        {data.tasks &&
           <CardTable color="dark" tabledata={data.tasks} addTask={addTask} deleteTask={deleteTask} />
         }
       </div>

@@ -30,20 +30,43 @@ export default function EditSubTask() {
   const [tid, setTid] = useState(router.query.tid);
   const [wpid, setWpid] = useState(router.query.wid);
   const [sid, setSid] = useState(router.query.sid);
-  const [snapshot, loading, error] = useObject(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/' + tid + '/subtasks' ));
+  const [snapshot, loading, error] = useObject(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/' + tid + '/subtasks'));
   const [subtaskdata, setSubTaskData] = useState([]);
+
+  const [subdomain, setSubDomain] = useState(false);
 
   const subtaskd = [];
 
   useEffect(() => {
-    if (user && !uloading) {
-      setUid(user.uid);
-      setTid(router.query.tid);
-      setWpid(router.query.wid);
-      setSid(router.query.sid);
-      console.log(sid);
+    var hostname = window.location.hostname;
+    var hsplit = hostname.split('.');
+    var workspace = hsplit[0];
+    console.log(workspace);
+
+    if (workspace !== 'localhost') {
+      setSubDomain(true);
+      setWpid(workspace);
     }
-  }, [router.query.sid, router.query.tid, router.query.wid, uloading, user]);
+  }, []);
+
+  useEffect(() => {
+    if (subdomain) {
+      const cauth = JSON.parse(JSON.parse(localStorage.getItem('auth')));
+      setUid(cauth.currentUser.uid);
+      console.log(cauth);
+      setTid(router.query.tid);
+      setSid(router.query.sid);
+    }
+    else {
+      if (user && !uloading) {
+        setUid(user.uid);
+        setTid(router.query.tid);
+        setWpid(router.query.wid);
+        setSid(router.query.sid);
+        console.log(sid);
+      }
+    }
+  }, [subdomain, router.query.sid, router.query.tid, router.query.wid, uloading, user]);
 
   useEffect(() => {
     if (!loading && snapshot) {
@@ -71,7 +94,7 @@ export default function EditSubTask() {
       console.log(stm);
       setSubTaskData(stm);
     })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subtaskdata]);
 
   function updateSubTask(data, id) {
@@ -95,14 +118,14 @@ export default function EditSubTask() {
         assignees: data.assignee,
       })
         .then(
-          router.push("/user/subtask?wid="+wpid+"&tid="+tid).then(() => {
+          router.push("/user/subtask?tid=" + tid).then(() => {
             console.log('Sub Task updated successfully!')
           })
         )
         .catch(error => {
           console.log(error);
         });
-      }
+    }
   }
 
   return (

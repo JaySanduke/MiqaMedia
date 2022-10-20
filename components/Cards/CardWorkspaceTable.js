@@ -26,24 +26,6 @@ export default function CardWorkspaceTable({ color, uid, wdata }) {
   var wprot
   var wdomai
 
-  useEffect(() => {
-    if (process.browser) {
-      setReady(true);
-
-      // var hostname = window.location.hostname;
-      // var protocol = window.location.protocol;
-      // var port = window.location.port;
-      // var hsplit = hostname.split('.');
-      // console.log(hsplit);
-      // if (hsplit[0] == "localhost") {
-      //   // var workspace = protocol + "//xyz." + hsplit.join('.') + ":" + port + "/user/demotable/";
-      //   wprot = protocol + "//";
-      //   wdomai = hsplit.join('.') + ":" + port + "/user/demotable/"
-      //   // console.log(workspace);
-      // }
-    }
-  }, []);
-
   async function wsubdomain(wid) {
     var hostname = window.location.hostname;
     var protocol = window.location.protocol;

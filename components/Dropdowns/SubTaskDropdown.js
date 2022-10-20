@@ -45,7 +45,7 @@ const SubTaskDropdown = ({ wid, tid, sid, deleteSubtask }) => {
           }
           onClick={(e) => closeDropdownPopover()}
         >
-          <Link href={{ pathname: '/user/editsubtask/', query: { wid:wid, tid:tid, sid: sid } }} >
+          <Link href={{ pathname: '/user/editsubtask/', query: { tid:tid, sid: sid } }} >
           {/* <Link href='/user/viewedittask/' > */}
             <a
               href="#pablo"

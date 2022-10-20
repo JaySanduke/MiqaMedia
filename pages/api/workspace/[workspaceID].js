@@ -5,8 +5,8 @@ export default async function handler(req, res) {
     global.localStorage = new LocalStorage('./authstorage');
 
     if (req.method === 'GET') {
-        const auth = localStorage.getItem('naegschebkzubrgvipeTRJ2Pe5pNGdG5F57iZkxp0okIVC3');
-        res.status(200).json(auth);
+        // const auth = localStorage.getItem('naegschebkzubrgvipeTRJ2Pe5pNGdG5F57iZkxp0okIVC3');
+        // res.status(200).json(auth);
     } else if (req.method === 'POST') {
         try {
             const wid = await req.query.workspaceID;

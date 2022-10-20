@@ -32,23 +32,42 @@ export default function ViewEditTask() {
   const [snapshot, loading, error] = useObject(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks'));
   const [taskdata, setTaskData] = useState([]);
 
+  const [subdomain, setSubDomain] = useState(false);
+
   const taskd = [];
 
   useEffect(() => {
-    if (user && !uloading) {
-      setUid(user.uid);
-      setTid(router.query.tid);
-      setWpid(router.query.wid);
+    var hostname = window.location.hostname;
+    var hsplit = hostname.split('.');
+    var workspace = hsplit[0];
+    console.log(workspace);
+
+    if (workspace !== 'localhost') {
+      setSubDomain(true);
+      setWpid(workspace);
     }
-  }, [router.query.tid, router.query.wid, uloading, user]);
+  }, []);
+
+  useEffect(() => {
+    if (subdomain) {
+      const cauth = JSON.parse(JSON.parse(localStorage.getItem('auth')));
+      setUid(cauth.currentUser.uid);
+      console.log(cauth);
+      setTid(router.query.tid);
+    }
+    else {
+      if (user && !uloading) {
+        setUid(user.uid);
+        setTid(router.query.tid);
+      }
+    }
+  }, [subdomain, router.query.tid, router.query.wid, uloading, user]);
 
   useEffect(() => {
     if (!loading && snapshot) {
       console.log(tid);
       console.log(snapshot.val());
-
       setTaskData(snapshot.val());
-
     }
     else if (loading) {
       console.log('data loading ...');
@@ -92,7 +111,7 @@ export default function ViewEditTask() {
         assignees: data.assignee,
       })
         .then(
-          router.push("/user/tables?wid=" + wpid).then(() => {
+          router.push("/user/tables").then(() => {
             console.log('Task updated successfully')
           })
         )

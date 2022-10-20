@@ -25,8 +25,8 @@ const auth = getAuth(app);
 
 export default function SubTask() {
 
-  const router = Router.useRouter(); 
-  
+  const router = Router.useRouter();
+
   const [user, uloading] = useAuthState(auth);
   const [uid, setUid] = useState('');
   const [wpid, setWid] = useState(router.query.wid);
@@ -34,16 +34,38 @@ export default function SubTask() {
   const [snapshot, loading, error] = useObject(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/' + tid + '/subtasks/'));
   const [tabledata, setTabledata] = useState([]);
 
+  const [subdomain, setSubDomain] = useState(false);
+
   useEffect(() => {
-    if (user && !uloading) {
-      setUid(user.uid);
-      setWid(router.query.wid);
-      setTid(router.query.tid);
-      // console.log(user.uid);
-      // console.log(wpid)
-      // console.log(tid)
+    var hostname = window.location.hostname;
+    var hsplit = hostname.split('.');
+    var workspace = hsplit[0];
+    console.log(workspace);
+
+    if (workspace !== 'localhost') {
+      setSubDomain(true);
+      setWid(workspace);
     }
-  } , [router.query.tid, router.query.wid, uloading, user]);
+  }, []);
+
+  useEffect(() => {
+    if (subdomain) {
+      const cauth = JSON.parse(JSON.parse(localStorage.getItem('auth')));
+      setUid(cauth.currentUser.uid);
+      console.log(cauth);
+      setTid(router.query.tid);
+    }
+    else {
+      if (user && !uloading) {
+        setUid(user.uid);
+        setWid(router.query.wid);
+        setTid(router.query.tid);
+        // console.log(user.uid);
+        // console.log(wpid)
+        // console.log(tid)
+      }
+    }
+  }, [subdomain, router.query.tid, router.query.wid, uloading, user]);
 
 
   useEffect(() => {
@@ -54,28 +76,28 @@ export default function SubTask() {
     else if (loading) {
       console.log('data loading ...');
     }
-    else if(error) {
-      console.log('Error: ' + error );
+    else if (error) {
+      console.log('Error: ' + error);
     }
   }, [uid, snapshot, loading, error]);
 
   function addSubtask(data) {
-    
-    if (uid) {
-    const postk = push(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/' + tid + '/subtasks/')).key
 
-    const taskdetails = {
-      "created_at": data.assignDate,
-      "completion_date": data.completionDate,
-      "id": postk,
-      "title": data.title,
-      "desc": data.desc,
-      "status": data.status,
-      "priority": 0,
-      "chat": 0,
-      "attachment": 0,
-      "assignees": data.assignee,
-    };
+    if (uid) {
+      const postk = push(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/' + tid + '/subtasks/')).key
+
+      const taskdetails = {
+        "created_at": data.assignDate,
+        "completion_date": data.completionDate,
+        "id": postk,
+        "title": data.title,
+        "desc": data.desc,
+        "status": data.status,
+        "priority": 0,
+        "chat": 0,
+        "attachment": 0,
+        "assignees": data.assignee,
+      };
 
       update(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/' + tid + '/subtasks/' + postk), taskdetails);
     }
@@ -96,7 +118,7 @@ export default function SubTask() {
     <>
       <div className="flex flex-wrap mt-4">
         <div className="w-full mb-12 px-4">
-          <CardSubTask wid={wpid} tid={tid} tabledata={tabledata} addSubtask={addSubtask} deleteSubtask={deleteSubtask}/>
+          <CardSubTask wid={wpid} tid={tid} tabledata={tabledata} addSubtask={addSubtask} deleteSubtask={deleteSubtask} />
         </div>
         <div className="w-full mb-12 px-4">
           <CardSubTask color="dark" wid={wpid} tid={tid} tabledata={tabledata} addSubtask={addSubtask} deleteSubtask={deleteSubtask} />

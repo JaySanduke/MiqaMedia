@@ -45,7 +45,7 @@ const TaskDropdown = ({ wpid, tid, deleteTask }) => {
           }
           onClick={(e) => closeDropdownPopover()}
         >
-          <Link href={{ pathname: '/user/viewedittask/', query: { wid: wpid, tid: tid } }} >
+          <Link href={{ pathname: '/user/viewedittask/', query: { tid: tid } }} >
             {/* <Link href='/user/viewedittask/' > */}
             <a
               href="#pablo"
@@ -75,7 +75,7 @@ const TaskDropdown = ({ wpid, tid, deleteTask }) => {
           }
           onClick={(e) => closeDropdownPopover()}
         >
-          <Link href={{ pathname: '/user/subtask', query: { wid: wpid, tid: tid } }} >
+          <Link href={{ pathname: '/user/subtask', query: { tid: tid } }} >
             <a
               href="#pablo"
               className={
