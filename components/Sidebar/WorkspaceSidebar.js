@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 
 import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
 import UserNavDropdown from "components/Dropdowns/UserNavDropdown.js";
+import SideWorkDropdown from "components/Dropdowns/SideWorkDropdown";
+import SideTaskDropdown from "components/Dropdowns/SideTaskDropdown";
 
 export default function WorkspaceSidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
@@ -142,15 +144,15 @@ export default function WorkspaceSidebar() {
                         : "text-blueGray-700 hover:text-blueGray-500")
                     }
                   >
-                    <i
+                    {/* <i
                       className={
                         "fas fa-table mr-2 text-sm " +
                         (router.pathname.indexOf("/user/workspace") !== -1
                           ? "opacity-75"
                           : "text-blueGray-300")
                       }
-                    ></i>{" "}
-                    Workspace
+                    ></i> */}
+                    <SideWorkDropdown/>
                   </a>
                 </Link>
               </li>
@@ -166,20 +168,20 @@ export default function WorkspaceSidebar() {
                         : "text-blueGray-700 hover:text-blueGray-500")
                     }
                   >
-                    <i
+                    {/* <i
                       className={
                         "fas fa-table mr-2 text-sm " +
                         (router.pathname.indexOf("/user/tables") !== -1
                           ? "opacity-75"
                           : "text-blueGray-300")
                       }
-                    ></i>{" "}
-                    Tables
+                    ></i> */}
+                    <SideTaskDropdown/>
                   </a>
                 </Link>
               </li>
 
-              <li className="items-center">
+              {/* <li className="items-center">
                 <Link href="/user/tasks">
                   <a
                     href="#pablo"
@@ -201,9 +203,9 @@ export default function WorkspaceSidebar() {
                     Tasks
                   </a>
                 </Link>
-              </li>
+              </li> */}
 
-              <li className="items-center">
+              {/* <li className="items-center">
                 <Link href="/user/categories">
                   <a
                     href="#pablo"
@@ -225,7 +227,7 @@ export default function WorkspaceSidebar() {
                     Categories
                   </a>
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>
