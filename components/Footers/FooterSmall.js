@@ -15,12 +15,12 @@ export default function FooterSmall(props) {
           <div className="flex flex-wrap items-center md:justify-between justify-center">
             <div className="w-full md:w-4/12 px-4">
               <div className="text-sm text-blueGray-500 font-semibold py-1 text-center md:text-left">
-                Copyright © {new Date().getFullYear()} | {" "}
+                Copyright © {new Date().getFullYear()} |{" "}
                 <a
                   href="/"
                   className="text-white hover:text-blueGray-300 text-sm font-semibold py-1"
                 >
-                  Unnamed
+                  Miqa Media
                 </a>
               </div>
             </div>
