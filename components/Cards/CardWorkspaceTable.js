@@ -26,23 +26,6 @@ export default function CardWorkspaceTable({ color, uid, wdata }) {
   var wprot
   var wdomai
 
-  async function wsubdomain(wid) {
-    var hostname = window.location.hostname;
-    var protocol = window.location.protocol;
-    var port = window.location.port;
-    var hsplit = hostname.split('.');
-    console.log(hsplit);
-    // eslint-disable-next-line eqeqeq
-    if (hsplit[0] == "localhost") {
-      // var workspace = protocol + "//xyz." + hsplit.join('.') + ":" + port + "/user/demotable/";
-      wprot = protocol + "//";
-      wdomai = hsplit.join('.') + ":" + port + "/user/demotable"
-      // console.log(workspace);
-      console.log(wprot + wid + "." + wdomai);
-      // window.location.href = wprot + wid + "." + wdomai;
-    }
-  }
-
   useEffect(() => {
     for (let i in wdata) {
       workspacedata.push(wdata[i]);
@@ -234,7 +217,6 @@ export default function CardWorkspaceTable({ color, uid, wdata }) {
                                   data={item}
                                   index={iIndex}
                                   deleteWorkspace={deleteWorkspace}
-                                  wsubdomain={wsubdomain}
                                 />
                               );
                             })}

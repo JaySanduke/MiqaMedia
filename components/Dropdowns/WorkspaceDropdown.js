@@ -4,7 +4,7 @@ import Link from "next/dist/client/link";
 import router from "next/router";
 import { getAuth } from "firebase/auth";
 
-const WorkspaceDropdown = ({ wid, deleteWorkspace, wsubdomain }) => {
+const WorkspaceDropdown = ({ wid, deleteWorkspace }) => {
 
   const auth = getAuth();
 

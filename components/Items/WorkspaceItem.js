@@ -2,7 +2,7 @@ import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import WorkspaceDropdown from "components/Dropdowns/WorkspaceDropdown";
 
-function WorkspaceItem({ data, index, deleteWorkspace, wsubdomain }) {
+function WorkspaceItem({ data, index, deleteWorkspace }) {
 
   return (
     <Draggable index={index} draggableId={data.wid.toString()}>
@@ -34,7 +34,7 @@ function WorkspaceItem({ data, index, deleteWorkspace, wsubdomain }) {
             {data.createddate}
           </td>
           <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-            <WorkspaceDropdown wid={data.wid} deleteWorkspace={deleteWorkspace} wsubdomain={wsubdomain} />
+            <WorkspaceDropdown wid={data.wid} deleteWorkspace={deleteWorkspace} />
           </td>
         </tr>
       )}
