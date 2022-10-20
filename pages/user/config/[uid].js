@@ -24,7 +24,7 @@ function uid() {
     }, [uid]);
 
     return (
-        <div>{uid}</div>
+        <></>
     )
 }
 
