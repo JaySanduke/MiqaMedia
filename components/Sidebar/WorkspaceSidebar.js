@@ -4,8 +4,6 @@ import { useRouter } from "next/router";
 
 import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
 import UserNavDropdown from "components/Dropdowns/UserNavDropdown.js";
-import SideWorkDropdown from "components/Dropdowns/SideWorkDropdown";
-import SideTaskDropdown from "components/Dropdowns/SideTaskDropdown";
 
 export default function WorkspaceSidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
@@ -144,15 +142,15 @@ export default function WorkspaceSidebar() {
                         : "text-blueGray-700 hover:text-blueGray-500")
                     }
                   >
-                    {/* <i
+                    <i
                       className={
                         "fas fa-table mr-2 text-sm " +
                         (router.pathname.indexOf("/user/workspace") !== -1
                           ? "opacity-75"
                           : "text-blueGray-300")
                       }
-                    ></i> */}
-                    <SideWorkDropdown/>
+                    ></i>{" "}
+                    Workspace
                   </a>
                 </Link>
               </li>
@@ -168,15 +166,15 @@ export default function WorkspaceSidebar() {
                         : "text-blueGray-700 hover:text-blueGray-500")
                     }
                   >
-                    {/* <i
+                    <i
                       className={
                         "fas fa-table mr-2 text-sm " +
                         (router.pathname.indexOf("/user/tables") !== -1
                           ? "opacity-75"
                           : "text-blueGray-300")
                       }
-                    ></i> */}
-                    <SideTaskDropdown/>
+                    ></i>{" "}
+                    Tables
                   </a>
                 </Link>
               </li>

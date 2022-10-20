@@ -33,7 +33,7 @@ export default function Login() {
           alert("User not found Please register")
         }
         else if(error.code == "auth/wrong-password"){
-          alert("Wrong password please try again with correct credentials")
+          alert("Wrong password!")
         }
       });
   }

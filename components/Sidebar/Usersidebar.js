@@ -4,8 +4,6 @@ import { useRouter } from "next/router";
 
 import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
 import UserNavDropdown from "components/Dropdowns/UserNavDropdown.js";
-import SideWorkDropdown from "components/Dropdowns/SideWorkDropdown";
-import SideArchiveDropdown from "components/Dropdowns/SideArchiveDropdown";
 
 export default function UserSidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
@@ -103,7 +101,7 @@ export default function UserSidebar() {
                           ? "opacity-75"
                           : "text-blueGray-300")
                       }
-                    ></i>{" "}
+                    ></i>
                     Dashboard
                   </a>
                 </Link>
@@ -127,7 +125,7 @@ export default function UserSidebar() {
                           ? "opacity-75"
                           : "text-blueGray-300")
                       }
-                    ></i>{" "}
+                    ></i>
                     Settings
                   </a>
                 </Link>
@@ -144,15 +142,15 @@ export default function UserSidebar() {
                         : "text-blueGray-700 hover:text-blueGray-500")
                     }
                   >
-                    {/* <i
+                    <i
                       className={
                         "fas fa-table mr-2 text-sm " +
                         (router.pathname.indexOf("/user/workspace") !== -1
                           ? "opacity-75"
                           : "text-blueGray-300")
                       }
-                    ></i> */}
-                    <SideWorkDropdown/>
+                    ></i>
+                    Workspace
                   </a>
                 </Link>
               </li>
@@ -168,15 +166,15 @@ export default function UserSidebar() {
                         : "text-blueGray-700 hover:text-blueGray-500")
                     }
                   >
-                    {/* <i
+                    <i
                       className={
                         "fas fa-table mr-2 text-sm " +
                         (router.pathname.indexOf("/user/archive") !== -1
                           ? "opacity-75"
                           : "text-blueGray-300")
                       }
-                    ></i> */}
-                    <SideArchiveDropdown/>
+                    ></i>
+                    Archive Workspace
                   </a>
                 </Link>
               </li>
