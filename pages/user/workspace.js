@@ -14,7 +14,6 @@ import { ref, push, update, remove, onValue } from "firebase/database";
 import { useObject } from "react-firebase-hooks/database";
 
 import { database } from "../../components/firebase";
-import { isNonNullChain } from "typescript";
 
 const auth = getAuth(app);
 
@@ -25,28 +24,29 @@ export default function Workspace() {
   const [snapshot, loading, error] = useObject(ref(database, 'users/' + uid + '/workspace'));
   const [data, setData] = useState([]);
 
+
   useEffect(() => {
     if (user && !uloading) {
       setUid(user.uid);
     }
-  }, [user,uloading]);
+  }, [user, uloading]);
 
   async function getWorkspace() {
     if (snapshot && !loading && !error) {
 
-      console.log("function working--------");
-      let temp = [];
+    console.log("function working--------");
+    const temp = [];
 
-      for(let i of snapshot.val()){
-        console.log(i);
-        onValue(ref(database, 'workspaces/' + i), async (snapshot) => {
-          console.log(snapshot.val());
-          temp.push(snapshot.val());
-        });
-      }
-      
-      await setData(temp);
-      // await console.log(temp)
+    for (let i in snapshot.val()) {
+      console.log(i);
+      await onValue(ref(database, 'workspaces/' + i), async (snapshot) => {
+        console.log(snapshot.val());
+        temp.push(snapshot.val());
+      });
+    }
+    
+    return temp;    
+
     }
   }
 
@@ -54,7 +54,9 @@ export default function Workspace() {
     if (!loading && snapshot && !error) {
       console.log(snapshot.val());
       // setData(snapshot.val());
-      getWorkspace();
+      getWorkspace().then((res) => {
+        setData(res);
+      });
     }
     else if (loading) {
       console.log('data loading ...');
@@ -66,7 +68,7 @@ export default function Workspace() {
 
   return (
     <>
-    { user &&
+      { user &&
       <div className="flex flex-wrap">
         <CardWorkspaceTable uid={uid} wdata={data}/>
       </div>

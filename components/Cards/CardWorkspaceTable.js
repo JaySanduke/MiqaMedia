@@ -23,11 +23,8 @@ export default function CardWorkspaceTable({ color, uid, wdata }) {
     }
   }, []);
 
-  var wprot
-  var wdomai
-
   useEffect(() => {
-    // console.log(wdata);
+    console.log(wdata);
     for (let i in wdata) {
       workspacedata.push(wdata[i]);
     }
@@ -36,7 +33,7 @@ export default function CardWorkspaceTable({ color, uid, wdata }) {
     setBoardData(obj);
     // console.log(obj);
 
-  }, [wdata]);
+  }, [uid, wdata]);
 
   function addWorkspace(data) {
     if (uid) {
@@ -49,13 +46,25 @@ export default function CardWorkspaceTable({ color, uid, wdata }) {
 
       const workspacedetails = {
         "createddate": data.assignDate,
+        "desc": data.desc,
+        "owner": uid,
+        "users": data.users,
         "wid": postk,
         "workspacename": data.title,
-        "desc": data.desc,
-        "users": data.users,
       };
 
-      update(ref(database, 'users/' + uid + '/workspace/' + postk), workspacedetails);
+
+      update(ref(database, 'users/' + uid + '/workspace'), {
+        [postk]: data.title,
+      })
+        .then(() => {
+          update(ref(database, 'workspaces/' + postk), workspacedetails)
+        })
+        .then(console.log("Worksapce Added Successfully!"))
+        .catch((error) => {
+          console.log(error);
+        });
+
     }
   }
 
