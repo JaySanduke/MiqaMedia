@@ -179,7 +179,7 @@ export default function CardWorkspaceTable({ color, uid, wdata }) {
                           : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
                       }
                     >
-                      Users
+                      Owner
                     </th>
                     <th
                       className={

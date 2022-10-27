@@ -11,21 +11,26 @@ function WorkspaceItem({ data, index, deleteWorkspace }) {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <td
-            className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ml-3 font-bold"
-          >
+          <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ml-3 font-bold">
             {index + 1}
           </td>
-          <td
-            className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ml-3 font-bold"
-          >
+          <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ml-3 font-bold">
             {data.workspacename}
           </td>
           <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
             {data.desc}
           </td>
+          {/* <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+            {data.users.join(", ")}
+          </td> */}
           <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-            {/* {data.users.join(", ")} */}
+            <div className="flex">
+              <img
+                src="/img/team-1-800x800.jpg"
+                alt="..."
+                className="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow"
+              ></img>
+            </div>
           </td>
           <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
             {data.createddate}
