@@ -68,7 +68,7 @@ export default function CardWorkspaceTable({ color, uid, wdata }) {
     }
   }
 
-  function deleteWorkspace(wid) {
+  function archieveWorkspace(wid) {
     // eslint-disable-next-line eqeqeq
     if (wid && wid != "") {
 
@@ -76,17 +76,25 @@ export default function CardWorkspaceTable({ color, uid, wdata }) {
 
       const wpref = ref(database, 'users/' + uid + '/workspace/' + wid);
 
+      
       onValue(wpref, (snapshot) => {
         console.log(snapshot.val());
         let val = snapshot.val();
-        update(ref(database, 'users/' + uid + '/archieveworkspace/' + wid), val)
+        update(ref(database, 'users/' + uid + '/archieveworkspace/'), {
+          [wid]: val,
+        } )
+        .then(() => {
+          update(ref(database, 'workspaces/' + wid), {
+            "archieved": true,
+          })
+        })
           .then(
-            remove(ref(database, 'users/' + uid + '/workspace/' + wid))
+            remove(wpref)
               .then(
-                console.log('Workspace with id ' + wid + ' deleted successfully and added to archieve')
+                console.log('Workspace with id ' + wid + ' archieved successfully and added to archieve')
               )
               .catch((error) => {
-                console.log('error deleting task with error:' + error)
+                console.log('error in archieving workspace with error:' + error)
               })
           )
       }, { onlyOnce: true });
@@ -226,7 +234,7 @@ export default function CardWorkspaceTable({ color, uid, wdata }) {
                                   key={item.wid}
                                   data={item}
                                   index={iIndex}
-                                  deleteWorkspace={deleteWorkspace}
+                                  archieveWorkspace={archieveWorkspace}
                                 />
                               );
                             })}

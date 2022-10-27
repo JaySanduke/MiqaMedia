@@ -44,7 +44,6 @@ export default function Workspace() {
         temp.push(snapshot.val());
       });
     }
-    
     return temp;    
 
     }

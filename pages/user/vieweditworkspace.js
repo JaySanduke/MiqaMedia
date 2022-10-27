@@ -2,15 +2,12 @@ import { React, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 // components
-
 import ViewEditWorkspace from "components/Modal/ViewEditWorkspace";
 
 // layout for page
-
 import User from "layouts/User";
 
 // firebase
-
 import { getAuth } from "firebase/auth";
 
 import { app, database } from "../../components/firebase";
@@ -28,7 +25,7 @@ export default function ViewWorkspace() {
   const [user, uloading] = useAuthState(auth);
   const [uid, setUid] = useState('');
   const [wid, setWid] = useState(router.query.wid);
-  const [snapshot, loading, error] = useObject(ref(database, 'users/' + uid + '/workspace/' + wid));
+  const [snapshot, loading, error] = useObject(ref(database, 'workspaces/' + wid));
   const [workspacedata, setWorkspaceData] = useState([]);
 
   useEffect(() => {
@@ -43,9 +40,7 @@ export default function ViewWorkspace() {
     if (!loading && snapshot) {
       console.log(wid);
       console.log(snapshot.val());
-
       setWorkspaceData(snapshot.val());
-
     }
     else if (loading) {
       console.log('data loading ...');
@@ -64,7 +59,7 @@ export default function ViewWorkspace() {
     };
 
     if (uid && wid && wpid) {
-      update(ref(database, 'users/' + uid + '/workspace/' + wpid), Workspacedetails)
+      update(ref(database, 'workspaces/' + wpid), Workspacedetails)
         .then(
           router.push("/user/workspace").then(() => {
             console.log('Task updated successfully')

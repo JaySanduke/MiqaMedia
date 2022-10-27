@@ -4,7 +4,7 @@ import Link from "next/dist/client/link";
 import router from "next/router";
 import { getAuth } from "firebase/auth";
 
-const WorkspaceDropdown = ({ wid, deleteWorkspace }) => {
+const WorkspaceDropdown = ({ wid, archieveWorkspace }) => {
 
   const auth = getAuth();
 
@@ -185,7 +185,7 @@ const WorkspaceDropdown = ({ wid, deleteWorkspace }) => {
           onClick={(e) => {
             closeDropdownPopover();
             const wp = String(wid);
-            deleteWorkspace(wp);
+            archieveWorkspace(wp);
           }}
         >
           <a
