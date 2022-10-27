@@ -4,13 +4,12 @@ import User from "layouts/User";
 import CardWorkspaceTable from "components/Cards/CardWorkspaceTable";
 
 // firebase
-
 import { getAuth } from "firebase/auth";
 
 import { app } from "../../components/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-import { ref, push, update, remove, onValue } from "firebase/database";
+import { ref, onValue } from "firebase/database";
 import { useObject } from "react-firebase-hooks/database";
 
 import { database } from "../../components/firebase";

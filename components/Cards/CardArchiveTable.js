@@ -50,11 +50,16 @@ export default function CardArchiveTable({ color, tableData, uid }) {
       onValue(wpref, (snapshot) => {
         console.log(snapshot.val());
         let val = snapshot.val();
-        update(ref(database, 'users/' + uid + '/workspace/' + wid), val)
+        update(ref(database, 'users/' + uid + '/workspace'), {
+          [wid]: val,
+        })
+          .then(() => {
+            remove(ref(database, 'workspaces/' + wid + '/archieved'))
+          })
           .then(
-            remove(ref(database, 'users/' + uid + '/archieveworkspace/' + wid))
+            remove(wpref)
               .then(
-                console.log('Workspace with id ' + wid + ' unarchieved')
+                console.log('Workspace with id ' + wid + ' unarchieved sucessfully')
               )
               .catch((error) => {
                 console.log('error in unarchieved:' + error)
