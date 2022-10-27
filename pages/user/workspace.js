@@ -10,10 +10,11 @@ import { getAuth } from "firebase/auth";
 import { app } from "../../components/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-import { ref } from "firebase/database";
+import { ref, push, update, remove, onValue } from "firebase/database";
 import { useObject } from "react-firebase-hooks/database";
 
 import { database } from "../../components/firebase";
+import { isNonNullChain } from "typescript";
 
 const auth = getAuth(app);
 
@@ -30,10 +31,30 @@ export default function Workspace() {
     }
   }, [user,uloading]);
 
+  async function getWorkspace() {
+    if (snapshot && !loading && !error) {
+
+      console.log("function working--------");
+      let temp = [];
+
+      for(let i of snapshot.val()){
+        console.log(i);
+        onValue(ref(database, 'workspaces/' + i), async (snapshot) => {
+          console.log(snapshot.val());
+          temp.push(snapshot.val());
+        });
+      }
+      
+      await setData(temp);
+      // await console.log(temp)
+    }
+  }
+
   useEffect(() => {
-    if (!loading && snapshot) {
+    if (!loading && snapshot && !error) {
       console.log(snapshot.val());
-      setData(snapshot.val());
+      // setData(snapshot.val());
+      getWorkspace();
     }
     else if (loading) {
       console.log('data loading ...');
@@ -41,7 +62,7 @@ export default function Workspace() {
     else if (error) {
       console.log('Error: ' + error);
     }
-  }, [uid, loading, snapshot, error]);
+  }, [uid, loading, error]);
 
   return (
     <>

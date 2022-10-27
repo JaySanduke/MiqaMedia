@@ -8,6 +8,8 @@ import "../../components/firebase";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
 
+import { database } from "../../components/firebase";
+
 export default function Register() {
 
   const [email, setEmail] = React.useState("");
@@ -23,8 +25,7 @@ export default function Register() {
         const user = userCredential.user;
         const userID = user.uid;
         console.log(userID);
-        const db = getDatabase();
-        set(ref(db, 'users/' + userID), {
+        set(ref(database, 'users/' + userID), {
           name: name,
           email: email,
           uid : userID

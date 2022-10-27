@@ -25,7 +25,7 @@ function WorkspaceItem({ data, index, deleteWorkspace }) {
             {data.desc}
           </td>
           <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-            {data.users.join(", ")}
+            {/* {data.users.join(", ")} */}
           </td>
           <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
             {data.createddate}

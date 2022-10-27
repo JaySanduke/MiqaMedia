@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -8,6 +8,36 @@ import UserNavDropdown from "components/Dropdowns/UserNavDropdown.js";
 export default function UserSidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
   const router = useRouter();
+
+  // const [subdomain, setSubDomain] = useState(false);
+  // const [workspace, setWs] = useState('');
+  // const [domain, setDomain] = useState('');
+
+  // useEffect(() => {
+  //   var hostname = window.location.hostname;
+  //   var hsplit = hostname.split('.');
+  //   var workspace = hsplit[0];
+  //   console.log(workspace);
+
+  //   if (workspace !== 'localhost') {
+  //     setSubDomain(true);
+  //     setWs(workspace);
+  //     setDomain(hsplit[1]);
+  //   }
+  //   else {
+  //     setDomain(hsplit[0]);
+  //   }
+  // }, []);
+
+  // function dashboard() {
+  //   if (subdomain) {
+  //     console.log(subdomain)
+  //     console.log(workspace)
+  //     console.log(domain)
+  //     window.location.replace('https://localhost:3000/user/dashboard');
+  //   }
+  // }
+
   return (
     <>
       <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6">
@@ -151,35 +181,35 @@ export default function UserSidebar() {
                       }
                     ></i>
                     Workspace
-                  </a>
-                </Link>
-              </li>
+                </a>
+              </Link>
+            </li>
 
-              <li className="items-center">
-                <Link href="/user/archive">
-                  <a
-                    href="#pablo"
+            <li className="items-center">
+              <Link href="/user/archive">
+                <a
+                  href="#pablo"
+                  className={
+                    "text-xs uppercase py-3 font-bold block " +
+                    (router.pathname.indexOf("/user/archive") !== -1
+                      ? "text-lightBlue-500 hover:text-lightBlue-600"
+                      : "text-blueGray-700 hover:text-blueGray-500")
+                  }
+                >
+                  <i
                     className={
-                      "text-xs uppercase py-3 font-bold block " +
+                      "fas fa-table mr-2 text-sm " +
                       (router.pathname.indexOf("/user/archive") !== -1
-                        ? "text-lightBlue-500 hover:text-lightBlue-600"
-                        : "text-blueGray-700 hover:text-blueGray-500")
+                        ? "opacity-75"
+                        : "text-blueGray-300")
                     }
-                  >
-                    <i
-                      className={
-                        "fas fa-table mr-2 text-sm " +
-                        (router.pathname.indexOf("/user/archive") !== -1
-                          ? "opacity-75"
-                          : "text-blueGray-300")
-                      }
-                    ></i>
-                    Archive Workspace
-                  </a>
-                </Link>
-              </li>
+                  ></i>
+                  Archive Workspace
+              </a>
+            </Link>
+          </li>
 
-              {/* <li className="items-center">
+          {/* <li className="items-center">
                 <Link href="/user/categories">
                   <a
                     href="#pablo"
@@ -202,10 +232,10 @@ export default function UserSidebar() {
                   </a>
                 </Link>
               </li> */}
-            </ul>
-          </div>
-        </div>
-      </nav>
+        </ul>
+      </div>
+    </div>
+      </nav >
     </>
   );
 }

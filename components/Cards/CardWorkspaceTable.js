@@ -27,13 +27,14 @@ export default function CardWorkspaceTable({ color, uid, wdata }) {
   var wdomai
 
   useEffect(() => {
+    // console.log(wdata);
     for (let i in wdata) {
       workspacedata.push(wdata[i]);
     }
 
     const obj = [{ workspaces: workspacedata }];
     setBoardData(obj);
-    console.log(obj);
+    // console.log(obj);
 
   }, [wdata]);
 
