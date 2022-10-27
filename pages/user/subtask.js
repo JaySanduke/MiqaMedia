@@ -31,7 +31,7 @@ export default function SubTask() {
   const [uid, setUid] = useState('');
   const [wpid, setWid] = useState(router.query.wid);
   const [tid, setTid] = useState(router.query.tid);
-  const [snapshot, loading, error] = useObject(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/' + tid + '/subtasks/'));
+  const [snapshot, loading, error] = useObject(ref(database, 'workspaces/' + wpid + '/tasks/' + tid + '/subtasks/'));
   const [tabledata, setTabledata] = useState([]);
 
   const [subdomain, setSubDomain] = useState(false);
@@ -84,7 +84,7 @@ export default function SubTask() {
   function addSubtask(data) {
 
     if (uid) {
-      const postk = push(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/' + tid + '/subtasks/')).key
+      const postk = push(ref(database, 'workspaces/' + wpid + '/tasks/' + tid + '/subtasks/')).key
 
       const taskdetails = {
         "created_at": data.assignDate,
@@ -99,14 +99,14 @@ export default function SubTask() {
         "assignees": data.assignee,
       };
 
-      update(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/' + tid + '/subtasks/' + postk), taskdetails);
+      update(ref(database, 'workspaces/' + wpid + '/tasks/' + tid + '/subtasks/' + postk), taskdetails);
     }
   }
 
   function deleteSubtask(subtaskid) {
     // eslint-disable-next-line eqeqeq
     if (subtaskid && subtaskid != "") {
-      remove(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/' + tid + '/subtasks/' + subtaskid))
+      remove(ref(database, 'workspaces/' + wpid + '/tasks/' + tid + '/subtasks/' + subtaskid))
         .then(console.log('subtask with id ' + subtaskid + ' deleted successfully'))
         .catch((error) => {
           console.log('error deleting subtask with error:' + error)

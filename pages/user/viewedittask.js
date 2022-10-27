@@ -29,7 +29,7 @@ export default function ViewEditTask() {
   const [uid, setUid] = useState('');
   const [tid, setTid] = useState(router.query.tid);
   const [wpid, setWpid] = useState(router.query.wid);
-  const [snapshot, loading, error] = useObject(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks'));
+  const [snapshot, loading, error] = useObject(ref(database, 'workspaces/' + wpid + '/tasks'));
   const [taskdata, setTaskData] = useState([]);
 
   const [subdomain, setSubDomain] = useState(false);
@@ -102,7 +102,7 @@ export default function ViewEditTask() {
     // };
 
     if (uid && tid && id) {
-      update(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/' + id), {
+      update(ref(database, 'workspaces/' + wpid + '/tasks/' + id), {
         title: data.title,
         desc: data.desc,
         created_at: data.assignDate,

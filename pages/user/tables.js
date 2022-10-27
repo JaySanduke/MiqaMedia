@@ -28,7 +28,7 @@ export default function Tables() {
   const [user, uloading] = useAuthState(auth);
   const [uid, setUid] = useState('');
   const [wpid, setWid] = useState(router.query.wid);
-  const [snapshot, loading, error] = useObject(ref(database, 'users/' + uid + '/workspace/' + wpid));
+  const [snapshot, loading, error] = useObject(ref(database, 'workspaces/' + wpid));
   const [data, setData] = useState([]);
 
   const [subdomain, setSubDomain] = useState(false);
@@ -76,7 +76,7 @@ export default function Tables() {
   function addTask(data) {
 
     if (uid) {
-      const postk = push(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/')).key
+      const postk = push(ref(database, 'workspaces/' + wpid + '/tasks/')).key
 
       const taskdetails = {
         "created_at": data.assignDate,
@@ -91,14 +91,14 @@ export default function Tables() {
         "assignees": data.assignee,
       };
 
-      update(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/' + postk), taskdetails);
+      update(ref(database, 'workspaces/' + wpid + '/tasks/' + postk), taskdetails);
     }
   }
 
   function deleteTask(taskid) {
     // eslint-disable-next-line eqeqeq
     if (taskid && taskid != "") {
-      remove(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/' + taskid))
+      remove(ref(database, 'workspaces/' + wpid + '/tasks/' + taskid))
         .then(console.log('task with id ' + taskid + ' deleted successfully'))
         .catch((error) => {
           console.log('error deleting task with error:' + error)
