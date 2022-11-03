@@ -33,17 +33,17 @@ export default function Workspace() {
   async function getWorkspace() {
     if (snapshot && !loading && !error) {
 
-    console.log("function working--------");
-    const temp = [];
+      console.log("function working--------");
+      const temp = [];
 
-    for (let i in snapshot.val()) {
-      console.log(i);
-      await onValue(ref(database, 'workspaces/' + i), async (snapshot) => {
-        console.log(snapshot.val());
-        temp.push(snapshot.val());
-      });
-    }
-    return temp;    
+      for (let i in snapshot.val()) {
+        console.log(i);
+        await onValue(ref(database, 'workspaces/' + i), async (snapshot) => {
+          console.log(snapshot.val());
+          temp.push(snapshot.val());
+        });
+      }
+      return temp;
 
     }
   }
@@ -66,11 +66,11 @@ export default function Workspace() {
 
   return (
     <>
-      { user &&
-      <div className="flex flex-wrap">
-        <CardWorkspaceTable uid={uid} wdata={data}/>
-      </div>
-    }
+      {user &&
+        <div className="flex flex-wrap">
+          <CardWorkspaceTable uid={uid} wdata={data} />
+        </div>
+      }
     </>
   );
 }

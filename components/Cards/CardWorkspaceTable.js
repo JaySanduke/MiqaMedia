@@ -35,6 +35,32 @@ export default function CardWorkspaceTable({ color, uid, wdata }) {
 
   }, [uid, wdata]);
 
+  async function invitemail() {
+    fetch("/api/invitemail/invite", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: '',
+    })
+      .then((res) => res.json()
+        .then((data) => {
+          console.log(data);
+        }))
+  }
+
+  async function adduser(userlist) {
+    console.log(userlist);
+
+    // for (let i of userlist) {
+    //   console.log(i);
+    // }
+
+    invitemail();
+
+
+  }
+
   function addWorkspace(data) {
     if (uid) {
       // const postk = push(ref(database, 'users/' + uid + '/workspace')).key
@@ -53,17 +79,19 @@ export default function CardWorkspaceTable({ color, uid, wdata }) {
         "workspacename": data.title,
       };
 
+      adduser(data.users);
 
-      update(ref(database, 'users/' + uid + '/workspace'), {
-        [postk]: data.title,
-      })
-        .then(() => {
-          update(ref(database, 'workspaces/' + postk), workspacedetails)
-        })
-        .then(console.log("Worksapce Added Successfully!"))
-        .catch((error) => {
-          console.log(error);
-        });
+      // update(ref(database, 'users/' + uid + '/workspace'), {
+      //   [postk]: data.title,
+      // })
+      //   .then(adduser(data.users))
+      //   .then(() => {
+      //     update(ref(database, 'workspaces/' + postk), workspacedetails)
+      //   })
+      //   .then(console.log("Worksapce Added Successfully!"))
+      //   .catch((error) => {
+      //     console.log(error);
+      //   });
 
     }
   }
@@ -76,18 +104,17 @@ export default function CardWorkspaceTable({ color, uid, wdata }) {
 
       const wpref = ref(database, 'users/' + uid + '/workspace/' + wid);
 
-      
       onValue(wpref, (snapshot) => {
         console.log(snapshot.val());
         let val = snapshot.val();
         update(ref(database, 'users/' + uid + '/archieveworkspace/'), {
           [wid]: val,
-        } )
-        .then(() => {
-          update(ref(database, 'workspaces/' + wid), {
-            "archieved": true,
-          })
         })
+          .then(() => {
+            update(ref(database, 'workspaces/' + wid), {
+              "archieved": true,
+            })
+          })
           .then(
             remove(wpref)
               .then(
@@ -146,7 +173,7 @@ export default function CardWorkspaceTable({ color, uid, wdata }) {
                 (color === "light" ? "text-blueGray-700" : "text-white")
               }
             >
-              <AddWorkspace addWorkspace={addWorkspace} />
+              <AddWorkspace uid={uid} addWorkspace={addWorkspace} />
             </h3>
           </div>
         </div>

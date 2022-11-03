@@ -2,7 +2,7 @@ import React from "react";
 import Select from "react-select";
 import WorkspaceUser from "components/Dropdowns/UserDropdown/WorkspaceUser";
 
-export default function AddWorkspace({ addWorkspace }) {
+export default function AddWorkspace({ uid, addWorkspace }) {
   const [showModal, setShowModal] = React.useState(false);
 
   const [title, setTitle] = React.useState("");
@@ -35,14 +35,6 @@ export default function AddWorkspace({ addWorkspace }) {
   //   setAssignDate(createddate);
   // };
 
-  const workspaceUsers = [
-    { label: "Pulkit", value: "Pulkit, pulkit@gmail.com" },
-    { label: "Aman", value: "Aman, aman@gmail.com" },
-    { label: "Satyam", value: "Satyam, satyam@gmail.com" },
-    { label: "Jay", value: "Jay, jay@gmail.com" },
-    { label: "Manish", value: "Manish, manish@gmail.com" },
-  ];
-
   return (
     <>
       <button
@@ -64,7 +56,10 @@ export default function AddWorkspace({ addWorkspace }) {
                 </div>
                 {/*body*/}
                 <div class="w-full max-w">
-                  <form class="bg-white rounded px-6 py-6 mx-4">
+                  <form id="workspaceform" name="workspace form" onSubmit={() => {
+                    setShowModal(false);
+                    setWorkspacedetails();
+                  }} class="bg-white rounded px-6 py-6 mx-4">
                     <div class="mb-6">
                       <label
                         class="block text-gray-700 text-sm mb-2"
@@ -117,10 +112,10 @@ export default function AddWorkspace({ addWorkspace }) {
                       >
                         Workspace Users
                       </label>
-                      {/* <WorkspaceUser
+                      <WorkspaceUser
+                        uid={uid}
                         workspaceuser={handleWorkspaceusersChange}
-                      /> */}
-                      <Select options={workspaceUsers} />
+                      />
                     </div>
 
                     <div class="mb-6">
@@ -152,10 +147,8 @@ export default function AddWorkspace({ addWorkspace }) {
                       <button
                         className="bg-indigo-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="submit"
-                        onClick={() => {
-                          setShowModal(false);
-                          setWorkspacedetails();
-                        }}
+                        form="workspaceform"
+                      // onClick=
                       >
                         Save Workspace
                       </button>
