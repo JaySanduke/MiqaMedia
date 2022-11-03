@@ -18,10 +18,10 @@ export default async function handler(req, res) {
 
             const info = await transporter.sendMail({
                 from: '"Fred Foo 👻" <jaysanduke@gmail.com>', // sender address
-                to: "atharvkothari2@gmail.com", // list of receivers'
+                to: "satyamsharma1725@gmail.com", // list of receivers'
                 subject: "Hello ✔", // Subject line
                 text: "Hello world?", // plain text body
-                html: "<b>Hello world?</b>", // html body
+                html: "", // html body
             });
 
             // Preview only available when sending through an Ethereal account
