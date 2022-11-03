@@ -36,11 +36,11 @@ export default function AddWorkspace({ addWorkspace }) {
   // };
 
   const workspaceUsers = [
-    { label: "Pulkit", value: "Pulkit, " },
-    { label: "Aman", value: "Aman" },
-    { label: "Satyam", value: "Satyam" },
-    { label: "Jay", value: "Jay" },
-    { label: "Manish", value: "Manish" },
+    { label: "Pulkit", value: "Pulkit, pulkit@gmail.com" },
+    { label: "Aman", value: "Aman, aman@gmail.com" },
+    { label: "Satyam", value: "Satyam, satyam@gmail.com" },
+    { label: "Jay", value: "Jay, jay@gmail.com" },
+    { label: "Manish", value: "Manish, manish@gmail.com" },
   ];
 
   return (
