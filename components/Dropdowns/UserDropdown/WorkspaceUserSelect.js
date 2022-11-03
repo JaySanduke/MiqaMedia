@@ -9,14 +9,6 @@ import { useObject } from "react-firebase-hooks/database";
 
 import { database } from 'components/firebase';
 
-const workspaceUsers = [
-  { label: "Pulkit", value: "Pulkit, pulkit@gmail.com" },
-  { label: "Aman", value: "Aman, aman@gmail.com" },
-  { label: "Satyam", value: "Satyam, satyam@gmail.com" },
-  { label: "Jay", value: "Jay, jay@gmail.com" },
-  { label: "Manish", value: "Manish, manish@gmail.com" },
-];
-
 export default function WorkspaceUser({ uid, workspaceuser }) {
 
   const [snapshot, loading, error] = useObject(ref(database, 'users'));

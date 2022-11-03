@@ -1,6 +1,5 @@
 import React from "react";
-import Select from "react-select";
-import WorkspaceUser from "components/Dropdowns/UserDropdown/WorkspaceUser";
+import WorkspaceUser from "components/Dropdowns/UserDropdown/WorkspaceUserSelect";
 
 export default function AddWorkspace({ uid, addWorkspace }) {
   const [showModal, setShowModal] = React.useState(false);
