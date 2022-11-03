@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { useEffect, useState } from 'react';
+import * as React from "react";
+import { useEffect, useState } from "react";
 
 import Select from "react-select";
 
@@ -7,20 +7,21 @@ import Select from "react-select";
 import { ref, onValue } from "firebase/database";
 import { useObject } from "react-firebase-hooks/database";
 
-import { database } from 'components/firebase';
+import { database } from "components/firebase";
 
 export default function WorkspaceUser({ uid, workspaceuser }) {
-
-  const [snapshot, loading, error] = useObject(ref(database, 'users'));
+  const [snapshot, loading, error] = useObject(ref(database, "users"));
   const [allusers, setAllUsers] = useState([]);
-
 
   async function getAllUsers() {
     if (snapshot && !loading && !error) {
       let temp = [];
       for (let id in snapshot.val()) {
         if (id !== uid) {
-          await temp.push({ label: snapshot.val()[id].name, value: snapshot.val()[id].email });
+          await temp.push({
+            label: snapshot.val()[id].name,
+            value: snapshot.val()[id].email,
+          });
         }
       }
       return temp;
@@ -42,24 +43,22 @@ export default function WorkspaceUser({ uid, workspaceuser }) {
       console.log(allusers);
       // setAllUsers(snapshot.val());
     }
-  }, [snapshot])
+  }, [snapshot]);
 
   // const handleChange = (event) => {
   //   const {
   //     target: { value },
   //   } = event;
   //   setPersonName(
-  //     // On autofill we get a stringified value.
   //     typeof value === 'string' ? value.split(',') : value,
   //   );
 
-  //   // console.log(event.target.value)
   //   workspaceuser(event.target.value);
   // };
 
   return (
     <>
-      <Select options={allusers} />
+      <Select options={allusers} isMulti />
     </>
   );
 }

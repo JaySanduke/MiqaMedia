@@ -114,6 +114,7 @@ export default function AddWorkspace({ uid, addWorkspace }) {
                       <WorkspaceUser
                         uid={uid}
                         workspaceuser={handleWorkspaceusersChange}
+                        required
                       />
                     </div>
 
