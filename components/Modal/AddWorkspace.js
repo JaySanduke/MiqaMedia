@@ -1,4 +1,5 @@
 import React from "react";
+import Select from "react-select";
 import WorkspaceUser from "components/Dropdowns/UserDropdown/WorkspaceUser";
 
 export default function AddWorkspace({ addWorkspace }) {
@@ -34,6 +35,14 @@ export default function AddWorkspace({ addWorkspace }) {
   //   setAssignDate(createddate);
   // };
 
+  const workspaceUsers = [
+    { label: "Pulkit", value: "Pulkit, " },
+    { label: "Aman", value: "Aman" },
+    { label: "Satyam", value: "Satyam" },
+    { label: "Jay", value: "Jay" },
+    { label: "Manish", value: "Manish" },
+  ];
+
   return (
     <>
       <button
@@ -55,10 +64,10 @@ export default function AddWorkspace({ addWorkspace }) {
                 </div>
                 {/*body*/}
                 <div class="w-full max-w">
-                  <form class="bg-white rounded px-8 py-6 mx-4">
+                  <form class="bg-white rounded px-6 py-6 mx-4">
                     <div class="mb-6">
                       <label
-                        class="block text-gray-700 text-sm font-bold mb-2"
+                        class="block text-gray-700 text-sm mb-2"
                         for="workspacetitle"
                       >
                         Workspace Title
@@ -76,7 +85,7 @@ export default function AddWorkspace({ addWorkspace }) {
                     </div>
                     <div class="mb-6">
                       <label
-                        class="block text-gray-700 text-sm font-bold mb-2"
+                        class="block text-gray-700 text-sm mb-2"
                         for="workspacedescription"
                       >
                         Workspace Description
@@ -100,17 +109,38 @@ export default function AddWorkspace({ addWorkspace }) {
                       </label>
                       <WorkspaceDatePicker />
                     </div> */}
+
                     <div class="mb-6">
                       <label
-                        class="block text-gray-700 text-sm font-bold mb-4"
+                        class="block text-gray-700 text-sm mb-4"
                         for="status"
                       >
                         Workspace Users
                       </label>
-                      <WorkspaceUser
+                      {/* <WorkspaceUser
                         workspaceuser={handleWorkspaceusersChange}
+                      /> */}
+                      <Select options={workspaceUsers} />
+                    </div>
+
+                    <div class="mb-6">
+                      <label
+                        class="block text-gray-700 text-sm mb-2"
+                        for="workspacedescription"
+                      >
+                        Workspace User Email ID
+                      </label>
+                      <input
+                        // maxLength={50}
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="username"
+                        type="text"
+                        placeholder="Workspace User Email ID"
+                        onChange={handleWorkspacedescChange}
+                        required
                       />
                     </div>
+
                     <div className="flex items-center justify-between">
                       <button
                         className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"

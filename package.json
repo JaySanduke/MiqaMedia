@@ -44,6 +44,7 @@
     "react-firebase-hooks": "^5.0.3",
     "react-refresh": "^0.11.0",
     "react-scripts": "^5.0.1",
+    "react-select": "^3.1.0",
     "reactstrap": "^9.1.3",
     "reactstrap-date-picker": "^1.0.2",
     "tailwind-react-datepicker": "^1.1.8"
