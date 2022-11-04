@@ -20,7 +20,8 @@ export default function WorkspaceUser({ uid, workspaceuser }) {
         if (id !== uid) {
           await temp.push({
             label: snapshot.val()[id].name,
-            value: snapshot.val()[id].email,
+            value: snapshot.val()[id].uid,
+            email: snapshot.val()[id].email,
           });
         }
       }
@@ -45,20 +46,15 @@ export default function WorkspaceUser({ uid, workspaceuser }) {
     }
   }, [snapshot]);
 
-  // const handleChange = (event) => {
-  //   const {
-  //     target: { value },
-  //   } = event;
-  //   setPersonName(
-  //     typeof value === 'string' ? value.split(',') : value,
-  //   );
+  const handleChange = (users) => {
+    console.log(users);
 
-  //   workspaceuser(event.target.value);
-  // };
+    workspaceuser(users);
+  };
 
   return (
     <>
-      <Select options={allusers} isMulti />
+      <Select options={allusers} isMulti onChange={(user)=>handleChange(user)}/>
     </>
   );
 }

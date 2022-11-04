@@ -49,19 +49,24 @@ export default function CardWorkspaceTable({ color, uid, wdata }) {
         }))
   }
 
-  async function adduser(userlist) {
-    console.log(userlist);
+  async function adduser(userlist, wid) {
 
-    // for (let i of userlist) {
-    //   console.log(i);
-    // }
+    if (userlist != undefined) {
+      for (let i in userlist) {
+        console.log(userlist[i].value);
 
-    invitemail();
+        update(ref(database, 'users/' + userlist[i].value + '/assignedworkspace'), {
+          [wid]: wid
+        })
+          .then(() => {
+            console.log('workspace added to user');
+          })
 
-
+      }
+    }
   }
 
-  function addWorkspace(data) {
+  function addWorkspace(data, userdata) {
     if (uid) {
       // const postk = push(ref(database, 'users/' + uid + '/workspace')).key
 
@@ -79,19 +84,19 @@ export default function CardWorkspaceTable({ color, uid, wdata }) {
         "workspacename": data.title,
       };
 
-      adduser(data.users);
+      adduser(userdata, postk);
 
-      // update(ref(database, 'users/' + uid + '/workspace'), {
-      //   [postk]: data.title,
-      // })
-      //   .then(adduser(data.users))
-      //   .then(() => {
-      //     update(ref(database, 'workspaces/' + postk), workspacedetails)
-      //   })
-      //   .then(console.log("Worksapce Added Successfully!"))
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
+      update(ref(database, 'users/' + uid + '/workspace'), {
+        [postk]: data.title,
+      })
+        .then(adduser(data.users))
+        .then(() => {
+          update(ref(database, 'workspaces/' + postk), workspacedetails)
+        })
+        .then(console.log("Worksapce Added Successfully!"))
+        .catch((error) => {
+          console.log(error);
+        });
 
     }
   }

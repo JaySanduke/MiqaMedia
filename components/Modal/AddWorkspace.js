@@ -8,6 +8,7 @@ export default function AddWorkspace({ uid, addWorkspace }) {
   const [desc, setDesc] = React.useState("");
   // const [assignDate, setAssignDate] = React.useState("");
   const [users, setUsers] = React.useState([]);
+  const [usersd, setUsersd] = React.useState([]);
 
   function setWorkspacedetails() {
     const workspacedetails = {
@@ -17,7 +18,7 @@ export default function AddWorkspace({ uid, addWorkspace }) {
       users: users,
     };
 
-    addWorkspace(workspacedetails);
+    addWorkspace(workspacedetails, usersd);
     console.log(workspacedetails);
   }
 
@@ -27,8 +28,22 @@ export default function AddWorkspace({ uid, addWorkspace }) {
   const handleWorkspacedescChange = (e) => {
     setDesc(e.target.value);
   };
-  function handleWorkspaceusersChange(users) {
-    setUsers(users);
+  async function handleWorkspaceusersChange(users) {
+    if (users != undefined) {
+      // setUsers(users);
+
+      let temp = [];
+
+      for (let i in users) {
+        // setUsers((prev) => [...prev, i.label]);
+        console.log(users[i].label);
+        await temp.push(users[i].label);
+      }
+
+      console.log(temp);
+      setUsers(temp);
+      setUsersd(users);
+    }
   }
   // function handleWorkspacecreateDateChange(createddate) {
   //   setAssignDate(createddate);
