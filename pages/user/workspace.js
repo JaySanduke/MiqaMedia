@@ -23,7 +23,12 @@ export default function Workspace() {
   const [snapshot, loading, error] = useObject(
     ref(database, "users/" + uid + "/workspace")
   );
+  const [invites, inviteloading, inviteerror] = useObject(
+    ref(database, "users/" + uid + "/assignedworkspace")
+  );
   const [data, setData] = useState([]);
+
+  const [invite, setInvite] = useState([]);
 
   useEffect(() => {
     if (user && !uloading) {
@@ -34,6 +39,22 @@ export default function Workspace() {
   async function getWorkspace() {
     if (snapshot && !loading && !error) {
       console.log("function working--------");
+      const temp = [];
+
+      for (let i in snapshot.val()) {
+        console.log(i);
+        await onValue(ref(database, "workspaces/" + i), async (snapshot) => {
+          console.log(snapshot.val());
+          temp.push(snapshot.val());
+        });
+      }
+      return temp;
+    }
+  }
+
+  async function getInvite() {
+    if (invites && !inviteloading && !inviteerror) {
+      console.log("Invite loading--------");
       const temp = [];
 
       for (let i in snapshot.val()) {
@@ -59,6 +80,13 @@ export default function Workspace() {
     } else if (error) {
       console.log("Error: " + error);
     }
+    
+    if (invites && !inviteloading && !inviteerror) {
+      console.log(invites.val());
+      getInvite().then((res) => {
+        setInvite(res);
+      });
+    }
   }, [uid, loading, error]);
 
   return (
@@ -66,7 +94,7 @@ export default function Workspace() {
       {user && (
         <div className="flex flex-wrap">
           <CardWorkspaceTable uid={uid} wdata={data} />
-          <CardInviteWorkspace uid={uid} wdata={data} />
+          <CardInviteWorkspace uid={uid} wdata={invite} />
         </div>
       )}
     </>

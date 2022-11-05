@@ -2,7 +2,7 @@ import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import WorkspaceDropdown from "components/Dropdowns/WorkspaceDropdown";
 
-function WorkspaceInvite({ data, index, archieveWorkspace }) {
+function WorkspaceInvite({ data, index }) {
   return (
     <Draggable index={index} draggableId={data.wid.toString()}>
       {(provided) => (

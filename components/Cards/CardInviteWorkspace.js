@@ -15,7 +15,6 @@ import WorkspaceInvite from "components/Items/WorkspaceInvite";
 export default function CardInviteWorkspace({ color, uid, wdata }) {
   const [ready, setReady] = useState(false);
   const [boardData, setBoardData] = useState([]);
-
   const workspacedata = [];
 
   useEffect(() => {
@@ -34,105 +33,6 @@ export default function CardInviteWorkspace({ color, uid, wdata }) {
     setBoardData(obj);
     // console.log(obj);
   }, [uid, wdata]);
-
-  async function invitemail() {
-    fetch("/api/invitemail/invite", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: "",
-    }).then((res) =>
-      res.json().then((data) => {
-        console.log(data);
-      })
-    );
-  }
-
-  async function adduser(userlist) {
-    console.log(userlist);
-
-    // for (let i of userlist) {
-    //   console.log(i);
-    // }
-
-    invitemail();
-  }
-
-  function addWorkspace(data) {
-    if (uid) {
-      // const postk = push(ref(database, 'users/' + uid + '/workspace')).key
-
-      let a = data.title;
-      a = a.trim().split(" ").join("").toLowerCase();
-
-      const postk = a;
-
-      const workspacedetails = {
-        createddate: data.assignDate,
-        desc: data.desc,
-        owner: uid,
-        users: data.users,
-        wid: postk,
-        workspacename: data.title,
-      };
-
-      adduser(data.users);
-
-      // update(ref(database, 'users/' + uid + '/workspace'), {
-      //   [postk]: data.title,
-      // })
-      //   .then(adduser(data.users))
-      //   .then(() => {
-      //     update(ref(database, 'workspaces/' + postk), workspacedetails)
-      //   })
-      //   .then(console.log("Worksapce Added Successfully!"))
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
-    }
-  }
-
-  function archieveWorkspace(wid) {
-    // eslint-disable-next-line eqeqeq
-    if (wid && wid != "") {
-      console.log(wid);
-
-      const wpref = ref(database, "users/" + uid + "/workspace/" + wid);
-
-      onValue(
-        wpref,
-        (snapshot) => {
-          console.log(snapshot.val());
-          let val = snapshot.val();
-          update(ref(database, "users/" + uid + "/archieveworkspace/"), {
-            [wid]: val,
-          })
-            .then(() => {
-              update(ref(database, "workspaces/" + wid), {
-                archieved: true,
-              });
-            })
-            .then(
-              remove(wpref)
-                .then(
-                  console.log(
-                    "Workspace with id " +
-                      wid +
-                      " archieved successfully and added to archieve."
-                  )
-                )
-                .catch((error) => {
-                  console.log(
-                    "Error in archieving workspace with error:" + error + "."
-                  );
-                })
-            );
-        },
-        { onlyOnce: true }
-      );
-    }
-  }
 
   const onDragEnd = (result) => {
     if (!result.destination) return;
@@ -260,7 +160,6 @@ export default function CardInviteWorkspace({ color, uid, wdata }) {
                                   key={item.wid}
                                   data={item}
                                   index={iIndex}
-                                  archieveWorkspace={archieveWorkspace}
                                 />
                               );
                             })}
