@@ -36,7 +36,7 @@ export default function ResetPassword() {
                       type="email"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="New Password"
-                      onChange={(e) => setEmail(e.target.value)}
+                      // onChange={(e) => setEmail(e.target.value)}
                     />
                   </div>
 
@@ -60,7 +60,7 @@ export default function ResetPassword() {
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                       type="button"
                       onClick={() => {
-                        resetpassword();
+                        // resetpassword();
                       }}
                     >
                       Reset Password
