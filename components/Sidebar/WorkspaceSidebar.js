@@ -107,7 +107,7 @@ export default function WorkspaceSidebar() {
                 </Link>
               </li>
 
-              <li className="items-center">
+              {/* <li className="items-center">
                 <Link href="/user/settings">
                   <a
                     href="#pablo"
@@ -129,9 +129,9 @@ export default function WorkspaceSidebar() {
                     Settings
                   </a>
                 </Link>
-              </li>
+              </li> */}
 
-              <li className="items-center">
+              {/* <li className="items-center">
                 <Link href="/user/workspace">
                   <a
                     href="#pablo"
@@ -153,7 +153,7 @@ export default function WorkspaceSidebar() {
                     Workspace
                   </a>
                 </Link>
-              </li>
+              </li> */}
 
               <li className="items-center">
                 <Link href="/user/tables">
