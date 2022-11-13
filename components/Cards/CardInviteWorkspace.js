@@ -6,16 +6,15 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { useEffect, useState } from "react";
 import WorkspaceItem from "components/Items/WorkspaceItem";
 import AddWorkspace from "components/Modal/AddWorkspace";
+import WorkspaceInvite from "components/Items/WorkspaceInvite";
 
 import { database } from "../../components/firebase";
 
 import { ref, push, update, remove, onValue, get } from "firebase/database";
-import WorkspaceInvite from "components/Items/WorkspaceInvite";
 
-export default function CardInviteWorkspace({ color, uid, wdata }) {
+export default function CardInviteWorkspace({ color, uid }) {
   const [ready, setReady] = useState(false);
   const [boardData, setBoardData] = useState([]);
-  const workspacedata = [];
 
   useEffect(() => {
     if (process.browser) {
@@ -24,28 +23,53 @@ export default function CardInviteWorkspace({ color, uid, wdata }) {
   }, []);
 
   useEffect(() => {
-    console.log(wdata);
-    for (let i in wdata) {
-      workspacedata.push(wdata[i]);
-    }
+    if (uid) {
+      onValue(ref(database, "users/" + uid + "/invites"), async (invites) => {
+        if (invites.exists()) {
+          console.log(invites.val());
+          var invitedata = [];
+          for (let i in invites.val()) {
+            console.log(invites.val()[i].workspaceid);
+            await get(ref(database, "workspaces/" + invites.val()[i].workspaceid)).then(async (snapshot) => {
+              if (snapshot.exists()) {
+                console.log(snapshot.val());
+                await invitedata.push({
+                  owner: invites.val()[i].ownerdetails,
+                  createddate: invites.val()[i].createdate,
+                  status: invites.val()[i].status,
+                  workspaceid: invites.val()[i].workspaceid,
+                  workspacename: snapshot.val().workspacename,
+                  workspacedesc: snapshot.val().desc,
+                })
+              }
+            });
+          }
 
-    const obj = [{ workspaces: workspacedata }];
-    setBoardData(obj);
-    // console.log(obj);
-  }, [uid, wdata]);
+          await console.log(invitedata);
+          const obj = await [{ invites: invitedata }];
+          // // console.log(obj);
+          await setBoardData(obj);
+        }
+        else {
+          setBoardData([]);
+          console.log("No Invites data available");
+        }
+      });
+    }
+  }, [uid]);
 
   const onDragEnd = (result) => {
     if (!result.destination) return;
     let newBoardData = boardData;
     var dragItem =
-      newBoardData[parseInt(result.source.droppableId)].workspaces[
-        result.source.index
+      newBoardData[parseInt(result.source.droppableId)].invites[
+      result.source.index
       ];
-    newBoardData[parseInt(result.source.droppableId)].workspaces.splice(
+    newBoardData[parseInt(result.source.droppableId)].invites.splice(
       result.source.index,
       1
     );
-    newBoardData[parseInt(result.destination.droppableId)].workspaces.splice(
+    newBoardData[parseInt(result.destination.droppableId)].invites.splice(
       result.destination.index,
       0,
       dragItem
@@ -70,7 +94,7 @@ export default function CardInviteWorkspace({ color, uid, wdata }) {
                   (color === "light" ? "text-blueGray-700" : "text-white")
                 }
               >
-                Workspaces Invite
+                invites Invite
               </h3>
             </div>
           </div>
@@ -153,13 +177,14 @@ export default function CardInviteWorkspace({ color, uid, wdata }) {
                           {...provided.droppableProps}
                           ref={provided.innerRef}
                         >
-                          {board.workspaces.length > 0 &&
-                            board.workspaces.map((item, iIndex) => {
+                          {board.invites.length > 0 &&
+                            board.invites.map((item, iIndex) => {
                               return (
                                 <WorkspaceInvite
                                   key={item.wid}
                                   data={item}
                                   index={iIndex}
+                                  uid={uid}
                                 />
                               );
                             })}

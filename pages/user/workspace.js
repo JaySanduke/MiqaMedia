@@ -22,13 +22,7 @@ export default function Workspace() {
   const [uid, setUid] = useState("");
   // const [snapshot, loading, error] = useObject(
   //   ref(database, "users/" + uid + "/workspace")
-  // );
-  // const [invites, inviteloading, inviteerror] = useObject(
-  //   ref(database, "users/" + uid + "/assignedworkspace")
-  // );
-  // const [data, setData] = useState([]);
-
-  // const [invite, setInvite] = useState([]);
+  // )
 
   useEffect(() => {
     if (user && !uloading) {
@@ -72,33 +66,33 @@ export default function Workspace() {
   // }
 
   // useEffect(() => {
-    // if (!loading && snapshot && !error) {
-    //   console.log(snapshot.val());
-    //   // setData(snapshot.val());
-    //   getWorkspace().then((res) => {
-    //     console.log(res);
-    //     setData(res);
-    //   });
-    // } else if (loading) {
-    //   console.log("data loading ...");
-    // } else if (error) {
-    //   console.log("Error: " + error);
-    // }
-    
-    // if (invites && !inviteloading && !inviteerror) {
-    //   console.log(invites.val());
-    //   getInvite().then((res) => {
-    //     setInvite(res);
-    //   });
-    // }
+  // if (!loading && snapshot && !error) {
+  //   console.log(snapshot.val());
+  //   // setData(snapshot.val());
+  //   getWorkspace().then((res) => {
+  //     console.log(res);
+  //     setData(res);
+  //   });
+  // } else if (loading) {
+  //   console.log("data loading ...");
+  // } else if (error) {
+  //   console.log("Error: " + error);
+  // }
+
+  // if (invites && !inviteloading && !inviteerror) {
+  //   console.log(invites.val());
+  //   getInvite().then((res) => {
+  //     setInvite(res);
+  //   });
+  // }
   // }, [uid, loading, error]);
 
   return (
     <>
-        <div className="flex flex-wrap">
-          {uid && <CardWorkspaceTable uid={uid}/>}
-          {/* <CardInviteWorkspace uid={uid} wdata={invite} /> */}
-        </div>
+      <div className="flex flex-wrap">
+        {uid && <CardWorkspaceTable uid={uid} user={user} />}
+        {uid && <CardInviteWorkspace uid={uid} />}
+      </div>
     </>
   );
 }

@@ -11,16 +11,28 @@ import { database } from "../../components/firebase";
 
 import { ref, push, update, remove, onValue, get } from "firebase/database";
 
-export default function CardWorkspaceTable({ color, uid }) {
+export default function CardWorkspaceTable({ color, uid, user }) {
   const [ready, setReady] = useState(false);
   const [boardData, setBoardData] = useState([]);
 
-  
+  const [userdetails, setUserdetails] = useState([]);
+
   useEffect(() => {
     if (process.browser) {
       setReady(true);
     }
   }, []);
+
+  useEffect(() => {
+    if(user){
+      setUserdetails({
+        uid: user.uid,
+        email: user.email,
+        name: user.displayName,
+        photo: user.photoURL,
+      });
+    }
+  }, [user]);
 
   useEffect(() => {
     if (uid) {
@@ -81,7 +93,7 @@ export default function CardWorkspaceTable({ color, uid }) {
 
         update(ref(database, 'users/' + userlist[i].value + '/invites'), {
           [wid]: {
-            owner: uid,
+            ownerdetails: userdetails,
             workspaceid: wid,
             createddate: Date.now(),
             status: "pending"
