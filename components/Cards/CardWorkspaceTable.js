@@ -79,11 +79,16 @@ export default function CardWorkspaceTable({ color, uid }) {
       for (let i in userlist) {
         console.log(userlist[i].value);
 
-        update(ref(database, 'users/' + userlist[i].value + '/assignedworkspace'), {
-          [wid]: wid
+        update(ref(database, 'users/' + userlist[i].value + '/invites'), {
+          [wid]: {
+            owner: uid,
+            workspaceid: wid,
+            createddate: Date.now(),
+            status: "pending"
+          }
         })
           .then(() => {
-            console.log('workspace added to user');
+            console.log('Workspace added to user');
           })
       }
     }
