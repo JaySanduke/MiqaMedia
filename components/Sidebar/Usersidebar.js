@@ -137,7 +137,7 @@ export default function UserSidebar() {
                 </Link>
               </li>
 
-              <li className="items-center">
+              {/* <li className="items-center">
                 <Link href="/user/settings">
                   <a
                     href="#pablo"
@@ -159,7 +159,7 @@ export default function UserSidebar() {
                     Settings
                   </a>
                 </Link>
-              </li>
+              </li> */}
 
               <li className="items-center">
                 <Link href="/user/workspace">
