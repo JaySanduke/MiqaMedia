@@ -11,7 +11,7 @@ import { database } from "../../components/firebase";
 
 import { ref, push, update, remove, onValue, get } from "firebase/database";
 
-export default function CardWorkspaceTable({ color, uid, wdata }) {
+export default function CardWorkspaceTable({ color, uid }) {
   const [ready, setReady] = useState(false);
   const [boardData, setBoardData] = useState([]);
 
@@ -24,34 +24,54 @@ export default function CardWorkspaceTable({ color, uid, wdata }) {
   }, []);
 
   useEffect(() => {
-    console.log(wdata);
-    for (let i in wdata) {
-      workspacedata.push(wdata[i]);
+    if (uid) {
+      onValue(ref(database, "users/" + uid + "/workspace"), async (snapshot) => {
+        if (snapshot.exists()) {
+          console.log(snapshot.val());
+          for (let i in snapshot.val()) {
+            await get(ref(database, "workspaces/" + i)).then(async (snapshot) => {
+              if (snapshot.exists()) {
+                console.log(snapshot.val());
+                workspacedata.push(snapshot.val());
+              }
+            });
+          }
+          await console.log(workspacedata);
+          const obj = await [{ workspaces: workspacedata }];
+          await console.log(obj);
+          await setBoardData(obj);
+        }
+      });
     }
+  }, [uid]);
 
-    const obj = [{ workspaces: workspacedata }];
-    setBoardData(obj);
-    // console.log(obj);
+  // useEffect(() => {
+  //   console.log(wdata);
+  //   for (let i in wdata) {
+  //     workspacedata.push(wdata[i]);
+  //   }
 
-  }, [uid, wdata]);
+  //   const obj = [{ workspaces: workspacedata }];
+  //   setBoardData(obj);
+  //   console.log(obj);
+  // }, [uid, wdata]);
 
-  async function invitemail() {
-    fetch("/api/invitemail/invite", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: '',
-    })
-      .then((res) => res.json()
-        .then((data) => {
-          console.log(data);
-        }))
-  }
+  // async function invitemail() {
+  //   fetch("/api/invitemail/invite", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: '',
+  //   })
+  //     .then((res) => res.json()
+  //       .then((data) => {
+  //         console.log(data);
+  //       }))
+  // }
 
   async function adduser(userlist, wid) {
-
-    if (userlist != undefined) {
+    if (userlist !== undefined) {
       for (let i in userlist) {
         console.log(userlist[i].value);
 
@@ -61,7 +81,6 @@ export default function CardWorkspaceTable({ color, uid, wdata }) {
           .then(() => {
             console.log('workspace added to user');
           })
-
       }
     }
   }
@@ -251,7 +270,7 @@ export default function CardWorkspaceTable({ color, uid, wdata }) {
                     >Action</th>
                   </tr>
                 </thead>
-                {boardData.map((board, bIndex) => {
+                {boardData && boardData.map((board, bIndex) => {
                   return (
                     <Droppable droppableId={bIndex.toString()}>
                       {(provided, snapshot) => (

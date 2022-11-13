@@ -23,12 +23,12 @@ export default function Workspace() {
   const [snapshot, loading, error] = useObject(
     ref(database, "users/" + uid + "/workspace")
   );
-  const [invites, inviteloading, inviteerror] = useObject(
-    ref(database, "users/" + uid + "/assignedworkspace")
-  );
+  // const [invites, inviteloading, inviteerror] = useObject(
+  //   ref(database, "users/" + uid + "/assignedworkspace")
+  // );
   const [data, setData] = useState([]);
 
-  const [invite, setInvite] = useState([]);
+  // const [invite, setInvite] = useState([]);
 
   useEffect(() => {
     if (user && !uloading) {
@@ -42,9 +42,9 @@ export default function Workspace() {
       const temp = [];
 
       for (let i in snapshot.val()) {
-        console.log(i);
+        // console.log(i);
         await onValue(ref(database, "workspaces/" + i), async (snapshot) => {
-          console.log(snapshot.val());
+          // console.log(snapshot.val());
           temp.push(snapshot.val());
         });
       }
@@ -52,51 +52,53 @@ export default function Workspace() {
     }
   }
 
-  async function getInvite() {
-    if (invites && !inviteloading && !inviteerror) {
-      console.log("Invite loading--------");
-      const temp = [];
+  // async function getInvite() {
+  //   if (invites && !inviteloading && !inviteerror) {
+  //     console.log("Invite loading--------");
+  //     const temp = [];
 
-      for (let i in snapshot.val()) {
-        console.log(i);
-        await onValue(ref(database, "workspaces/" + i), async (snapshot) => {
-          console.log(snapshot.val());
-          temp.push(snapshot.val());
-        });
-      }
-      return temp;
-    }
-  }
+  //     for (let i in snapshot.val()) {
+  //       // console.log(i);
+  //       await onValue(ref(database, "workspaces/" + i), async (snapshot) => {
+  //         // console.log(snapshot.valz());
+  //         temp.push(snapshot.val());
+  //       })
+  //       // .then(() => {
+  //       //   console.log(temp);
+  //       // })
+  //     }
+  //     return temp;
+  //   }
+  // }
 
   useEffect(() => {
-    if (!loading && snapshot && !error) {
-      console.log(snapshot.val());
-      // setData(snapshot.val());
-      getWorkspace().then((res) => {
-        setData(res);
-      });
-    } else if (loading) {
-      console.log("data loading ...");
-    } else if (error) {
-      console.log("Error: " + error);
-    }
+    // if (!loading && snapshot && !error) {
+    //   console.log(snapshot.val());
+    //   // setData(snapshot.val());
+    //   getWorkspace().then((res) => {
+    //     console.log(res);
+    //     setData(res);
+    //   });
+    // } else if (loading) {
+    //   console.log("data loading ...");
+    // } else if (error) {
+    //   console.log("Error: " + error);
+    // }
     
-    if (invites && !inviteloading && !inviteerror) {
-      console.log(invites.val());
-      getInvite().then((res) => {
-        setInvite(res);
-      });
-    }
+    // if (invites && !inviteloading && !inviteerror) {
+    //   console.log(invites.val());
+    //   getInvite().then((res) => {
+    //     setInvite(res);
+    //   });
+    // }
   }, [uid, loading, error]);
 
   return (
     <>
-      {user && (
         <div className="flex flex-wrap">
-          <CardWorkspaceTable uid={uid} wdata={data} />
-          <CardInviteWorkspace uid={uid} wdata={invite} />
+          {uid && <CardWorkspaceTable uid={uid}/>}
+          {/* <CardInviteWorkspace uid={uid} wdata={invite} /> */}
         </div>
-      )}
     </>
   );
 }
