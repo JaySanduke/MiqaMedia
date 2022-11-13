@@ -15,8 +15,7 @@ export default function CardWorkspaceTable({ color, uid }) {
   const [ready, setReady] = useState(false);
   const [boardData, setBoardData] = useState([]);
 
-  const workspacedata = [];
-
+  
   useEffect(() => {
     if (process.browser) {
       setReady(true);
@@ -27,6 +26,7 @@ export default function CardWorkspaceTable({ color, uid }) {
     if (uid) {
       onValue(ref(database, "users/" + uid + "/workspace"), async (snapshot) => {
         if (snapshot.exists()) {
+          var workspacedata = [];
           console.log(snapshot.val());
           for (let i in snapshot.val()) {
             await get(ref(database, "workspaces/" + i)).then(async (snapshot) => {
@@ -40,6 +40,10 @@ export default function CardWorkspaceTable({ color, uid }) {
           const obj = await [{ workspaces: workspacedata }];
           await console.log(obj);
           await setBoardData(obj);
+        }
+        else {
+          setBoardData([]);
+          console.log("No data available");
         }
       });
     }
@@ -108,7 +112,7 @@ export default function CardWorkspaceTable({ color, uid }) {
       update(ref(database, 'users/' + uid + '/workspace'), {
         [postk]: data.title,
       })
-        .then(adduser(data.users))
+        // .then(adduser(data.users))
         .then(() => {
           update(ref(database, 'workspaces/' + postk), workspacedetails)
         })

@@ -20,13 +20,13 @@ const auth = getAuth(app);
 export default function Workspace() {
   const [user, uloading] = useAuthState(auth);
   const [uid, setUid] = useState("");
-  const [snapshot, loading, error] = useObject(
-    ref(database, "users/" + uid + "/workspace")
-  );
+  // const [snapshot, loading, error] = useObject(
+  //   ref(database, "users/" + uid + "/workspace")
+  // );
   // const [invites, inviteloading, inviteerror] = useObject(
   //   ref(database, "users/" + uid + "/assignedworkspace")
   // );
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
 
   // const [invite, setInvite] = useState([]);
 
@@ -36,21 +36,21 @@ export default function Workspace() {
     }
   }, [user, uloading]);
 
-  async function getWorkspace() {
-    if (snapshot && !loading && !error) {
-      console.log("function working--------");
-      const temp = [];
+  // async function getWorkspace() {
+  //   if (snapshot && !loading && !error) {
+  //     console.log("function working--------");
+  //     const temp = [];
 
-      for (let i in snapshot.val()) {
-        // console.log(i);
-        await onValue(ref(database, "workspaces/" + i), async (snapshot) => {
-          // console.log(snapshot.val());
-          temp.push(snapshot.val());
-        });
-      }
-      return temp;
-    }
-  }
+  //     for (let i in snapshot.val()) {
+  //       // console.log(i);
+  //       await onValue(ref(database, "workspaces/" + i), async (snapshot) => {
+  //         // console.log(snapshot.val());
+  //         temp.push(snapshot.val());
+  //       });
+  //     }
+  //     return temp;
+  //   }
+  // }
 
   // async function getInvite() {
   //   if (invites && !inviteloading && !inviteerror) {
@@ -71,7 +71,7 @@ export default function Workspace() {
   //   }
   // }
 
-  useEffect(() => {
+  // useEffect(() => {
     // if (!loading && snapshot && !error) {
     //   console.log(snapshot.val());
     //   // setData(snapshot.val());
@@ -91,7 +91,7 @@ export default function Workspace() {
     //     setInvite(res);
     //   });
     // }
-  }, [uid, loading, error]);
+  // }, [uid, loading, error]);
 
   return (
     <>

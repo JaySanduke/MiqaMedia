@@ -9,13 +9,11 @@ import ArchiveItem from "components/Items/ArchiveItem";
 
 import { database } from "../firebase";
 
-import { ref, update, remove, onValue } from "firebase/database";
+import { ref, get, update, remove, onValue } from "firebase/database";
 
-export default function CardArchiveTable({ color, tableData, uid }) {
+export default function CardArchiveTable({ color, uid }) {
   const [ready, setReady] = useState(false);
-  const [boardData, setBoardData] = useState(BoardData);
-
-  const archievewp = [];
+  const [boardData, setBoardData] = useState([]);
 
   useEffect(() => {
     if (process.browser) {
@@ -24,17 +22,31 @@ export default function CardArchiveTable({ color, tableData, uid }) {
   }, []);
 
   useEffect(() => {
-
-    for (let i in tableData) {
-      archievewp.push(tableData[i]);
+    if (uid) {
+      onValue(ref(database, 'users/' + uid + '/archieveworkspace'), async (snapshot) => {
+        if (snapshot.exists()) {
+          var archievewp = [];
+          console.log(snapshot.val());
+          for (let i in snapshot.val()) {
+            await get(ref(database, "workspaces/" + i)).then(async (snapshot) => {
+              if (snapshot.exists()) {
+                console.log(snapshot.val());
+                archievewp.push(snapshot.val());
+              }
+            });
+          }
+          await console.log(archievewp);
+          const obj = await [{ workspaces: archievewp }];
+          await console.log(obj);
+          await setBoardData(obj);
+        }
+        else {
+          setBoardData([]);
+          console.log("No data available");
+        }
+      });
     }
-
-    const obj = [{ workspaces: archievewp }];
-    setBoardData(obj);
-    console.log(obj);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tableData]);
+  }, [uid]);
 
 
   function unarchieve(wid) {
