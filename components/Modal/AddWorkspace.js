@@ -36,8 +36,8 @@ export default function AddWorkspace({ uid, addWorkspace }) {
 
       for (let i in users) {
         // setUsers((prev) => [...prev, i.label]);
-        console.log(users[i].label);
-        await temp.push(users[i].label);
+        console.log(users[i]);
+        await temp.push(users[i].value);
       }
 
       console.log(temp);
@@ -70,10 +70,8 @@ export default function AddWorkspace({ uid, addWorkspace }) {
                 </div>
                 {/*body*/}
                 <div class="w-full max-w">
-                  <form id="workspaceform" name="workspace form" onSubmit={() => {
-                    setShowModal(false);
-                    setWorkspacedetails();
-                  }} class="bg-white rounded px-6 py-6 mx-4">
+                  <form  id="addwform"
+                    name="addwform" class="bg-white rounded px-6 py-6 mx-4">
                     <div class="mb-6">
                       <label
                         class="block text-gray-700 text-sm mb-2"
@@ -88,7 +86,7 @@ export default function AddWorkspace({ uid, addWorkspace }) {
                         type="text"
                         placeholder="Workspace Title"
                         onChange={handleWorkspacetitleChange}
-                        pattern="[A-Za-z]{1,15}"
+                        pattern="[A-Z a-z]{1,15}"
                         required
                       />
                     </div>
@@ -129,7 +127,6 @@ export default function AddWorkspace({ uid, addWorkspace }) {
                       <WorkspaceUser
                         uid={uid}
                         workspaceuser={handleWorkspaceusersChange}
-                        required
                       />
                     </div>
 
@@ -141,13 +138,10 @@ export default function AddWorkspace({ uid, addWorkspace }) {
                         Workspace User Email ID
                       </label>
                       <input
-                        // maxLength={50}
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="username"
                         type="text"
                         placeholder="Workspace User Email ID"
-                        onChange={handleWorkspacedescChange}
-                        required
                       />
                     </div>
 
@@ -161,9 +155,12 @@ export default function AddWorkspace({ uid, addWorkspace }) {
                       </button>
                       <button
                         className="bg-indigo-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                        type="submit"
-                        form="workspaceform"
-                      // onClick=
+                        type="button"
+                        form="addwform"
+                        onClick={async () => {
+                          setWorkspacedetails();
+                          setShowModal(false);
+                        }}
                       >
                         Save Workspace
                       </button>

@@ -1,12 +1,9 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import EditWorkspaceUser from "components/Dropdowns/UserDropdown/EditWorkspaceUser";
+import { isEmpty } from "@firebase/util";
 
-export default function ViewEditWorkspace({
-  workspacedata,
-  updateWorkspace,
-  wid
-}) {
+export default function ViewEditWorkspace({ uid, workspacedata, updateWorkspace, wid }) {
   const [workspacename, setWorkspaceName] = useState('');
   const [workspacedesc, setWorkspaceDesc] = useState('');
   const [workspaceuser, setWorkspaceUser] = useState('');
@@ -14,7 +11,7 @@ export default function ViewEditWorkspace({
   useEffect(() => {
     setWorkspaceName(workspacedata.workspacename);
     setWorkspaceDesc(workspacedata.desc);
-    setWorkspaceUser(workspacedata.users); 
+    setWorkspaceUser(workspacedata.users);
   }, [workspacedata]);
 
   function setWorkspacedetails() {
@@ -93,7 +90,7 @@ export default function ViewEditWorkspace({
                 >
                   Workspace Users
                 </label>
-                <EditWorkspaceUser uvalue={workspaceuser} userChange={handleworkspaceuserChange} />
+                {uid && workspaceuser !== null && <EditWorkspaceUser uid={uid} uvalue={workspaceuser} userChange={handleworkspaceuserChange} />}
               </div>
             </form>
           </div>

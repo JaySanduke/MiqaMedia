@@ -10,19 +10,11 @@ import { getAuth } from "firebase/auth";
 import { app } from "../../components/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-import { ref, onValue } from "firebase/database";
-import { useObject } from "react-firebase-hooks/database";
-
-import { database } from "../../components/firebase";
-
 const auth = getAuth(app);
 
 export default function Workspace() {
   const [user, uloading] = useAuthState(auth);
   const [uid, setUid] = useState("");
-  // const [snapshot, loading, error] = useObject(
-  //   ref(database, "users/" + uid + "/workspace")
-  // )
 
   useEffect(() => {
     if (user && !uloading) {

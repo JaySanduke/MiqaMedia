@@ -4,12 +4,12 @@ import React from "react";
 
 import Auth from "layouts/Auth.js";
 
-import "../../components/firebase";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, updateCurrentUser, updateProfile } from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
 
-import { database } from "../../components/firebase";
+import { database,app } from "../../components/firebase";
 
+const auth = getAuth(app);
 export default function Register() {
 
   const [email, setEmail] = React.useState("");
@@ -19,17 +19,27 @@ export default function Register() {
   const [name, setName] = React.useState("");
 
   const register = () => {
-    const auth = getAuth();
     createUserWithEmailAndPassword (auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
         const userID = user.uid;
-        console.log(userID);
+        console.log(userCredential);
         set(ref(database, 'users/' + userID), {
           name: name,
           email: email,
           uid : userID
-        }).then(() => {
+        })
+        .then(() => {
+          updateProfile(auth.currentUser, {
+            displayName: name,
+          }).then(() => {
+            console.log("Profile dispaly name updated");
+          }).catch((error) => {
+            console.log(error);
+          });
+          
+        })
+        .then(() => {
           window.location.href = "/user/dashboard";
         });
       })
@@ -38,6 +48,8 @@ export default function Register() {
         const errorCode = error.code;
         // eslint-disable-next-line no-unused-vars
         const errorMessage = error.message;
+
+        console.log(error);
       });
   }
 
@@ -68,7 +80,7 @@ export default function Register() {
                 <div className="text-blueGray-400 text-center mb-3 font-bold">
                   <small>Or sign up with credentials</small>
                 </div>
-                <form>
+                <form name="registerform" id="registerform" onSubmit={()=>register()}>
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -77,7 +89,7 @@ export default function Register() {
                       Name
                     </label>
                     <input
-                      type="email"
+                      type="text"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Name"
                       onChange={(e) => setName(e.target.value)}
@@ -134,6 +146,7 @@ export default function Register() {
                       <input
                         id="customCheckLogin"
                         type="checkbox"
+                        required
                         className="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
                       />
                       <span className="ml-2 text-sm font-semibold text-blueGray-600">
@@ -153,7 +166,10 @@ export default function Register() {
                     <button
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                       type="button"
-                      onClick={()=>{register()}}
+                      form="registerform"
+                      onClick={()=>{
+                        register();
+                      }}
                     >
                       Create Account
                     </button>

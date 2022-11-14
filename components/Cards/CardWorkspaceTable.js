@@ -119,12 +119,12 @@ export default function CardWorkspaceTable({ color, uid, user }) {
         "createddate": data.assignDate,
         "desc": data.desc,
         "owner": uid,
-        "users": data.users,
+        "assignedusers": data.users,
         "wid": postk,
         "workspacename": data.title,
       };
 
-      adduser(userdata, postk);
+      // adduser(userdata, postk);
 
       update(ref(database, 'users/' + uid + '/workspace'), {
         [postk]: data.title,

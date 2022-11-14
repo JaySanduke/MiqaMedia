@@ -4,8 +4,6 @@ import PropTypes from "prop-types";
 // components
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { useEffect, useState } from "react";
-import WorkspaceItem from "components/Items/WorkspaceItem";
-import AddWorkspace from "components/Modal/AddWorkspace";
 import WorkspaceInvite from "components/Items/WorkspaceInvite";
 
 import { database } from "../../components/firebase";
@@ -35,7 +33,7 @@ export default function CardInviteWorkspace({ color, uid }) {
                 console.log(snapshot.val());
                 await invitedata.push({
                   owner: invites.val()[i].ownerdetails,
-                  createddate: invites.val()[i].createdate,
+                  createddate: invites.val()[i].createddate,
                   status: invites.val()[i].status,
                   workspaceid: invites.val()[i].workspaceid,
                   workspacename: snapshot.val().workspacename,

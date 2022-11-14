@@ -75,7 +75,7 @@ export default function ViewWorkspace() {
     <>
       <div className="flex flex-wrap mt-4">
         <div className="w-full mb-12 px-4">
-          <ViewEditWorkspace wid={wid} workspacedata={workspacedata} updateWorkspace={updateWorkspace} />
+          <ViewEditWorkspace uid={uid} wid={wid} workspacedata={workspacedata} updateWorkspace={updateWorkspace} />
         </div>
       </div>
     </>
