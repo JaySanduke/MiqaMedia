@@ -69,17 +69,17 @@ export default function VieworEditTask({ tid, taskdata, updateTask }) {
             <h3 className="text-3xl font-semibold px-8">View & Edit Task</h3>
           </div>
           {/*body*/}
-          <div class="w-full px-4 max-w">
-            <form class="bg-white rounded px-8 pt-6 pb-8 mb-4">
-              <div class="mb-4">
+          <div className="w-full px-4 max-w">
+            <form className="bg-white rounded px-8 pt-6 pb-8 mb-4">
+              <div className="mb-4">
                 <label
-                  class="block text-gray-700 text-sm font-bold mb-2"
+                  className="block text-gray-700 text-sm font-bold mb-2"
                   for="title"
                 >
                   Task Title
                 </label>
                 <input
-                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="username"
                   type="text"
                   placeholder="Task Title"
@@ -87,15 +87,15 @@ export default function VieworEditTask({ tid, taskdata, updateTask }) {
                   value={title}
                 />
               </div>
-              <div class="mb-6">
+              <div className="mb-6">
                 <label
-                  class="block text-gray-700 text-sm font-bold mb-2"
+                  className="block text-gray-700 text-sm font-bold mb-2"
                   for="description"
                 >
                   Task Description
                 </label>
                 <input
-                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="username"
                   type="text"
                   placeholder="Task Description"
@@ -104,9 +104,9 @@ export default function VieworEditTask({ tid, taskdata, updateTask }) {
                 />
               </div>
               <div className="flex">
-                <div class="mb-6 mr-4 flex-1">
+                <div className="mb-6 mr-4 flex-1">
                   <label
-                    class="block text-gray-700 text-sm font-bold mb-2"
+                    className="block text-gray-700 text-sm font-bold mb-2"
                     for="status"
                   >
                     Task Status
@@ -115,9 +115,9 @@ export default function VieworEditTask({ tid, taskdata, updateTask }) {
                     <StatusDropdown value={status} statusChange={handlestatusChange} />
                   }
                 </div>
-                <div class="mb-6 flex-1">
+                <div className="mb-6 flex-1">
                   <label
-                    class="block text-gray-700 text-sm font-bold mb-2"
+                    className="block text-gray-700 text-sm font-bold mb-2"
                     for="status"
                   >
                     Task Users
@@ -128,9 +128,9 @@ export default function VieworEditTask({ tid, taskdata, updateTask }) {
                 </div>
               </div>
               <div className="flex">
-                <div class="mb-6 mr-4 flex-1">
+                <div className="mb-6 mr-4 flex-1">
                   <label
-                    class="block text-gray-700 text-sm font-bold mb-4"
+                    className="block text-gray-700 text-sm font-bold mb-4"
                     for="assign-date"
                   >
                     Task Assign Date
@@ -139,9 +139,9 @@ export default function VieworEditTask({ tid, taskdata, updateTask }) {
                     <AssignDatePicker avalue={assignDate} assigndate={handleassignDateChange} />
                   }
                 </div>
-                <div class="mb-6 flex-1">
+                <div className="mb-6 flex-1">
                   <label
-                    class="block text-gray-700 text-sm font-bold mb-4"
+                    className="block text-gray-700 text-sm font-bold mb-4"
                     for="completion-date"
                   >
                     Task Completion Date

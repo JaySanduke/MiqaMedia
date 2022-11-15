@@ -6,6 +6,7 @@ import FormControl from '@mui/material/FormControl';
 import ListItemText from '@mui/material/ListItemText';
 import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
+import { useEffect } from 'react';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -31,8 +32,16 @@ const names = [
   'Kelly Snyder',
 ];
 
-export default function TaskUser({ taskuser }) {
+export default function TaskUser({ wuser, taskuser }) {
   const [personName, setPersonName] = React.useState([]);
+  const [allusers, setAllUsers] = React.useState([]);
+
+  useEffect(() => {
+    if (wuser) {
+      setAllUsers(wuser);
+    }
+
+  }, [wuser]);
 
   const handleChange = (event) => {
     const {
@@ -61,7 +70,7 @@ export default function TaskUser({ taskuser }) {
           renderValue={(selected) => selected.join(', ')}
           MenuProps={MenuProps}
         >
-          {names.map((name) => (
+          {allusers.map((name) => (
             <MenuItem key={name} value={name}>
               <Checkbox checked={personName.indexOf(name) > -1} />
               <ListItemText primary={name} />

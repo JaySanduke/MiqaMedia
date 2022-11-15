@@ -50,17 +50,17 @@ export default function ViewEditWorkspace({ uid, workspacedata, updateWorkspace,
             </h3>
           </div>
           {/*body*/}
-          <div class="w-full text-center items-center max-w-sm">
-            <form class="bg-white text-center items-center rounded px-8 py-3">
-              <div class="mb-4">
+          <div className="w-full text-center items-center max-w-sm">
+            <form className="bg-white text-center items-center rounded px-8 py-3">
+              <div className="mb-4">
                 <label
-                  class="block text-gray-700 text-sm font-bold mb-2"
+                  className="block text-gray-700 text-sm font-bold mb-2"
                   for="workspacetitle"
                 >
                   Workspace Title
                 </label>
                 <input
-                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="username"
                   type="text"
                   placeholder="Workspace Title"
@@ -68,15 +68,15 @@ export default function ViewEditWorkspace({ uid, workspacedata, updateWorkspace,
                   value={workspacename}
                 />
               </div>
-              <div class="mb-6">
+              <div className="mb-6">
                 <label
-                  class="block text-gray-700 text-sm font-bold mb-2"
+                  className="block text-gray-700 text-sm font-bold mb-2"
                   for="workspacedescription"
                 >
                   Workspace Description
                 </label>
                 <input
-                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="username"
                   type="text"
                   placeholder="Workspace Description"
@@ -84,9 +84,9 @@ export default function ViewEditWorkspace({ uid, workspacedata, updateWorkspace,
                   value={workspacedesc}
                 />
               </div>
-              <div class="mb-2">
+              <div className="mb-2">
                 <label
-                  class="block text-gray-700 text-sm font-bold mb-2"
+                  className="block text-gray-700 text-sm font-bold mb-2"
                 >
                   Workspace Users
                 </label>

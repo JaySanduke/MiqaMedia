@@ -69,19 +69,19 @@ export default function AddWorkspace({ uid, addWorkspace }) {
                   <h3 className="text-3xl font-semibold px-8">Add Workspace</h3>
                 </div>
                 {/*body*/}
-                <div class="w-full max-w">
+                <div className="w-full max-w">
                   <form  id="addwform"
-                    name="addwform" class="bg-white rounded px-6 py-6 mx-4">
-                    <div class="mb-6">
+                    name="addwform" className="bg-white rounded px-6 py-6 mx-4">
+                    <div className="mb-6">
                       <label
-                        class="block text-gray-700 text-sm mb-2"
+                        className="block text-gray-700 text-sm mb-2"
                         for="workspacetitle"
                       >
                         Workspace Title
                       </label>
                       <input
                         // maxLength={15}
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="username"
                         type="text"
                         placeholder="Workspace Title"
@@ -90,16 +90,16 @@ export default function AddWorkspace({ uid, addWorkspace }) {
                         required
                       />
                     </div>
-                    <div class="mb-6">
+                    <div className="mb-6">
                       <label
-                        class="block text-gray-700 text-sm mb-2"
+                        className="block text-gray-700 text-sm mb-2"
                         for="workspacedescription"
                       >
                         Workspace Description
                       </label>
                       <input
                         // maxLength={50}
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="username"
                         type="text"
                         placeholder="Workspace Description"
@@ -107,9 +107,9 @@ export default function AddWorkspace({ uid, addWorkspace }) {
                         required
                       />
                     </div>
-                    {/* <div class="mb-6">
+                    {/* <div className="mb-6">
                       <label
-                        class="block text-gray-700 text-sm font-bold mb-4"
+                        className="block text-gray-700 text-sm font-bold mb-4"
                         for="workspaceAssign-date"
                       >
                         Workspace Assign Date
@@ -117,9 +117,9 @@ export default function AddWorkspace({ uid, addWorkspace }) {
                       <WorkspaceDatePicker />
                     </div> */}
 
-                    <div class="mb-6">
+                    <div className="mb-6">
                       <label
-                        class="block text-gray-700 text-sm mb-4"
+                        className="block text-gray-700 text-sm mb-4"
                         for="status"
                       >
                         Workspace Users
@@ -130,15 +130,15 @@ export default function AddWorkspace({ uid, addWorkspace }) {
                       />
                     </div>
 
-                    <div class="mb-6">
+                    <div className="mb-6">
                       <label
-                        class="block text-gray-700 text-sm mb-2"
+                        className="block text-gray-700 text-sm mb-2"
                         for="workspacedescription"
                       >
                         Workspace User Email ID
                       </label>
                       <input
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="username"
                         type="text"
                         placeholder="Workspace User Email ID"

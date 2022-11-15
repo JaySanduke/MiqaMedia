@@ -23,6 +23,7 @@ export default function CompletionDatePicker({cvalue, completiondate}) {
           onChange={handleChange}
           // minDateTime={new Date()}
           renderInput={(params) => <TextField {...params} />}
+          required
         />
       </Stack>
     </LocalizationProvider>

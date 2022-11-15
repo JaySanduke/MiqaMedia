@@ -70,17 +70,17 @@ export default function ViewEditSubTask({ sid, subtaskdata, updateSubTask }) {
             </h3>
           </div>
           {/*body*/}
-          <div class="w-full px-4 max-w">
-            <form class="bg-white rounded px-8 pt-6 pb-8 mb-4">
-              <div class="mb-4">
+          <div className="w-full px-4 max-w">
+            <form className="bg-white rounded px-8 pt-6 pb-8 mb-4">
+              <div className="mb-4">
                 <label
-                  class="block text-gray-700 text-sm font-bold mb-2"
+                  className="block text-gray-700 text-sm font-bold mb-2"
                   for="title"
                 >
                   Sub Task Title
                 </label>
                 <input
-                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="username"
                   type="text"
                   placeholder="Sub Task Title"
@@ -88,15 +88,15 @@ export default function ViewEditSubTask({ sid, subtaskdata, updateSubTask }) {
                   value={title}
                 />
               </div>
-              <div class="mb-6">
+              <div className="mb-6">
                 <label
-                  class="block text-gray-700 text-sm font-bold mb-2"
+                  className="block text-gray-700 text-sm font-bold mb-2"
                   for="description"
                 >
                   Sub Task Description
                 </label>
                 <input
-                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="username"
                   type="text"
                   placeholder="Sub Task Description"
@@ -105,9 +105,9 @@ export default function ViewEditSubTask({ sid, subtaskdata, updateSubTask }) {
                 />
               </div>
               <div className="flex">
-                <div class="mb-6 mr-4 flex-1">
+                <div className="mb-6 mr-4 flex-1">
                   <label
-                    class="block text-gray-700 text-sm font-bold mb-4"
+                    className="block text-gray-700 text-sm font-bold mb-4"
                     for="assign-date"
                   >
                     Sub Task Assign Date
@@ -119,9 +119,9 @@ export default function ViewEditSubTask({ sid, subtaskdata, updateSubTask }) {
                     />
                   )}
                 </div>
-                <div class="mb-6 flex-1">
+                <div className="mb-6 flex-1">
                   <label
-                    class="block text-gray-700 text-sm font-bold mb-4"
+                    className="block text-gray-700 text-sm font-bold mb-4"
                     for="completion-date"
                   >
                     Sub Task Completion Date
@@ -135,9 +135,9 @@ export default function ViewEditSubTask({ sid, subtaskdata, updateSubTask }) {
                 </div>
               </div>
               <div className="flex">
-                <div class="mb-6 mr-4 flex-1">
+                <div className="mb-6 mr-4 flex-1">
                   <label
-                    class="block text-gray-700 text-sm font-bold mb-2"
+                    className="block text-gray-700 text-sm font-bold mb-2"
                     for="status"
                   >
                     Sub Task Status
@@ -149,9 +149,9 @@ export default function ViewEditSubTask({ sid, subtaskdata, updateSubTask }) {
                     />
                   )}
                 </div>
-                <div class="mb-6 flex-1">
+                <div className="mb-6 flex-1">
                   <label
-                    class="block text-gray-700 text-sm font-bold mb-2"
+                    className="block text-gray-700 text-sm font-bold mb-2"
                     for="status"
                   >
                     Sub Task Users

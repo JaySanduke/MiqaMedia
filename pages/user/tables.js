@@ -82,6 +82,7 @@ export default function Tables() {
         "created_at": data.assignDate,
         "completion_date": data.completionDate,
         "id": postk,
+        "owner": uid,
         "title": data.title,
         "desc": data.desc,
         "status": data.status,
@@ -110,13 +111,11 @@ export default function Tables() {
     <>
       <div className="flex flex-wrap mt-4">
         <div className="w-full mb-12">
-          {data.tasks &&
-            <CardTable color="light" wpid={wpid} tabledata={data.tasks} addTask={addTask} deleteTask={deleteTask} />
-          }
+          {/* {data.tasks && */}
+            <CardTable color="light" uid={uid} wpid={wpid} owner={data.owner} tabledata={data.tasks} wuser={data.users} addTask={addTask} deleteTask={deleteTask} />
+          {/* } */}
         </div>
-        {data.tasks &&
-          <CardTable color="dark" tabledata={data.tasks} addTask={addTask} deleteTask={deleteTask} />
-        }
+          {/* <CardTable color="dark" tabledata={data.tasks} addTask={addTask} deleteTask={deleteTask} /> */}
       </div>
     </>
   );

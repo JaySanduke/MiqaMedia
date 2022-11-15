@@ -4,7 +4,7 @@ import AssignDatePicker from "components/DatePicker/AssignDatePicker";
 import CompletionDatePicker from "components/DatePicker/CompletionDatePicker";
 import TaskUser from "components/Dropdowns/UserDropdown/TaskUser";
 
-export default function AddTask({ addTask }) {
+export default function AddTask({ wuser, addTask }) {
   const [showModal, setShowModal] = React.useState(false);
 
   const [title, setTitle] = useState("");
@@ -14,8 +14,8 @@ export default function AddTask({ addTask }) {
   const [assignDate, setAssignDate] = useState("");
   const [completionDate, setCompletionDate] = useState("");
 
-  function setTaskdetails() {
-    const taskdetails = {
+  async function setTaskdetails() {
+    const taskdetails = await {
       title: title,
       desc: desc,
       status: status,
@@ -24,9 +24,18 @@ export default function AddTask({ addTask }) {
       completionDate: completionDate,
     };
 
-    addTask(taskdetails);
-
+    await addTask(taskdetails);
     console.log(taskdetails);
+
+    await setShowModal(false);
+
+    await setTitle("");
+    await setDesc("");
+    await setStatus("");
+    await setAssignee([]);
+    await setAssignDate("");
+    await setCompletionDate("");
+    
   }
 
   const handletitleChange = (e) => {
@@ -68,23 +77,20 @@ export default function AddTask({ addTask }) {
                   <h3 className="text-3xl font-semibold px-8">Add Task</h3>
                 </div>
                 {/*body*/}
-                <div class="w-full px-4 max-w">
+                <div className="w-full px-4 max-w">
                   <form
-                    onSubmit={() => {
-                      setShowModal(false);
-                      setTaskdetails();
-                    }}
-                    class="bg-white rounded px-8 pt-4 pb-4"
+                    onSubmit={() => setTaskdetails()}
+                    className="bg-white rounded px-8 pt-4 pb-4"
                   >
-                    <div class="mb-4">
+                    <div className="mb-4">
                       <label
-                        class="block text-gray-700 text-sm font-bold mb-2"
-                        for="title"
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                        htmlFor="title"
                       >
                         Task Title
                       </label>
                       <input
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="username"
                         type="text"
                         placeholder="Task Title"
@@ -92,15 +98,15 @@ export default function AddTask({ addTask }) {
                         required
                       />
                     </div>
-                    <div class="mb-6">
+                    <div className="mb-6">
                       <label
-                        class="block text-gray-700 text-sm font-bold mb-2"
-                        for="description"
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                        htmlFor="description"
                       >
                         Task Description
                       </label>
                       <input
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="username"
                         type="text"
                         placeholder="Task Description"
@@ -109,39 +115,39 @@ export default function AddTask({ addTask }) {
                       />
                     </div>
                     <div className="flex">
-                      <div class="mb-6 mr-4 flex-1">
+                      <div className="mb-6 mr-4 flex-1">
                         <label
-                          class="block text-gray-700 text-sm font-bold mb-2"
-                          for="status"
+                          className="block text-gray-700 text-sm font-bold mb-2"
+                          htmlFor="status"
                         >
                           Task Status
                         </label>
                         <StatusDropdown statusChange={handlestatusChange} />
                       </div>
-                      <div class="mb-6 flex-1">
+                      <div className="mb-6 flex-1">
                         <label
-                          class="block text-gray-700 text-sm font-bold mb-2"
-                          for="status"
+                          className="block text-gray-700 text-sm font-bold mb-2"
+                          htmlFor="status"
                         >
                           Task Users
                         </label>
-                        <TaskUser taskuser={handleassigneeChange} />
+                        <TaskUser wuser={wuser} taskuser={handleassigneeChange} />
                       </div>
                     </div>
                     <div className="flex">
-                      <div class="mb-6 mr-4 flex-1">
+                      <div className="mb-6 mr-4 flex-1">
                         <label
-                          class="block text-gray-700 text-sm font-bold mb-4"
-                          for="assign-date"
+                          className="block text-gray-700 text-sm font-bold mb-4"
+                          htmlFor="assign-date"
                         >
                           Task Assign Date
                         </label>
                         <AssignDatePicker assigndate={handleassignDateChange} />
                       </div>
-                      <div class="mb-6 flex-1">
+                      <div className="mb-6 flex-1">
                         <label
-                          class="block text-gray-700 text-sm font-bold mb-4"
-                          for="completion-date"
+                          className="block text-gray-700 text-sm font-bold mb-4"
+                          htmlFor="completion-date"
                         >
                           Task Completion Date
                         </label>

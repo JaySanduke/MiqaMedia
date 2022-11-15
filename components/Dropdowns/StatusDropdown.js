@@ -5,8 +5,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-export default function StatusDropdown({value, statusChange}) {
-  const [status, setStatus] = React.useState(value);
+export default function StatusDropdown({ value, statusChange }) {
+  const [status, setStatus] = React.useState(value == undefined ? '' : value);
 
   const handleChange = (event) => {
     statusChange(event.target.value);
@@ -23,6 +23,7 @@ export default function StatusDropdown({value, statusChange}) {
           value={status}
           label="Select Status"
           onChange={handleChange}
+          required
         >
           <MenuItem value={"Backlog"}>Backlog</MenuItem>
           <MenuItem value={"In Progress"}>In Progress</MenuItem>

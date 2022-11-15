@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import TableItem from "components/Items/TableItem";
 import AddTask from "components/Modal/AddTask.";
 
-export default function CardTable({ color, addTask, deleteTask, tabledata, wpid }) {
+export default function CardTable({ color, uid, wpid, owner, tabledata, wuser, addTask, deleteTask }) {
   const [ready, setReady] = useState(false);
   const [boardData, setBoardData] = useState([]);
 
@@ -17,19 +17,18 @@ export default function CardTable({ color, addTask, deleteTask, tabledata, wpid 
       setReady(true);
     }
   }, []);
-  
+
   useEffect(() => {
+    if (tabledata !== undefined) {
+      for (let i in tabledata) {
+        tdata.push(tabledata[i]);
+      }
+      // console.log(tdata);
 
-    for (let i in tabledata) {
-      tdata.push(tabledata[i]);
+      const obj = [{ tasks: tdata }];
+      setBoardData(obj);
+      // console.log(obj);
     }
-    // console.log(tdata);
-
-    const obj = [{ tasks: tdata }];
-    setBoardData(obj);
-    // console.log(obj);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tabledata]);
 
   const onDragEnd = (result) => {
@@ -71,15 +70,17 @@ export default function CardTable({ color, addTask, deleteTask, tabledata, wpid 
                 Total Tasks
               </h3>
             </div>
-            <h3
-              className={
-                "font-semibold text-lg " +
-                (color === "light" ? "text-blueGray-700" : "text-white")
-              }
-            >
-              <AddTask addTask={addTask} />
-              {/* <DatePicker/> */}
-            </h3>
+            {owner === uid &&
+              <h3
+                className={
+                  "font-semibold text-lg " +
+                  (color === "light" ? "text-blueGray-700" : "text-white")
+                }
+              >
+                <AddTask wuser={wuser} addTask={addTask} />
+                {/* <DatePicker/> */}
+              </h3>
+            }
           </div>
         </div>
         <div className="block w-full overflow-x-auto">
@@ -181,13 +182,25 @@ export default function CardTable({ color, addTask, deleteTask, tabledata, wpid 
                           {board.tasks.length > 0 &&
                             board.tasks.map((item, iIndex) => {
                               return (
-                                <TableItem
-                                  key={item.id}
-                                  wpid={wpid}
-                                  data={item}
-                                  index={iIndex}
-                                  deleteTask={deleteTask}
-                                />
+                                item.owner != uid && item.assignees != undefined ?
+                                  item.assignees.includes(uid) &&
+                                  <TableItem
+                                    key={item.id}
+                                    wpid={wpid}
+                                    data={item}
+                                    index={iIndex}
+                                    deleteTask={deleteTask}
+                                  />
+
+                                  :
+                                  <TableItem
+                                    key={item.id}
+                                    wpid={wpid}
+                                    data={item}
+                                    index={iIndex}
+                                    deleteTask={deleteTask}
+                                  />
+
                               );
                             })}
                           {provided.placeholder}

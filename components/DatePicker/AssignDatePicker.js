@@ -23,6 +23,7 @@ export default function AssignDatePicker({avalue, assigndate}) {
           // minDateTime={new Date()}
           onChange={handleChange}
           renderInput={(params) => <TextField {...params} />}
+          required
         />
       </Stack>
     </LocalizationProvider>
