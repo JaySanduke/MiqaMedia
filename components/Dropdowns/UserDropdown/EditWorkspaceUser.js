@@ -14,6 +14,7 @@ export default function EditorkspaceUser({ uid, uvalue, userChange }) {
 
   const [snapshot, loading, error] = useObject(ref(database, "users"));
   const [allusers, setAllUsers] = useState([]);
+  const [selecteduser, setSelectedUser] = useState([{ label: 'Test', value: 'TRJ2Pe5pNGdG5F57iZkxp0okIVC3', email: 'test@gmail.com' }]);
 
   useEffect(() => {
     console.log(uvalue);
@@ -24,7 +25,7 @@ export default function EditorkspaceUser({ uid, uvalue, userChange }) {
       let temp = [];
       for (let id in snapshot.val()) {
         console.log(id)
-        if (id !== uid && uvalue.includes(id) == false) {
+        if (id !== uid) {
           await temp.push({
             label: snapshot.val()[id].name,
             value: snapshot.val()[id].uid,
