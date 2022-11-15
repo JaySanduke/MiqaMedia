@@ -69,6 +69,7 @@ export default function TaskUser({ wuser, taskuser }) {
           input={<OutlinedInput label="Task Users" />}
           renderValue={(selected) => selected.join(', ')}
           MenuProps={MenuProps}
+          required
         >
           {allusers.map((name) => (
             <MenuItem key={name} value={name}>

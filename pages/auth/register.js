@@ -7,7 +7,8 @@ import Auth from "layouts/Auth.js";
 import { getAuth, createUserWithEmailAndPassword, updateCurrentUser, updateProfile } from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
 
-import { database,app } from "../../components/firebase";
+import { database, app } from "../../components/firebase";
+import Link from "next/link";
 
 const auth = getAuth(app);
 export default function Register() {
@@ -19,7 +20,7 @@ export default function Register() {
   const [name, setName] = React.useState("");
 
   const register = () => {
-    createUserWithEmailAndPassword (auth, email, password)
+    createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
         const userID = user.uid;
@@ -27,21 +28,21 @@ export default function Register() {
         set(ref(database, 'users/' + userID), {
           name: name,
           email: email,
-          uid : userID
+          uid: userID
         })
-        .then(() => {
-          updateProfile(auth.currentUser, {
-            displayName: name,
-          }).then(() => {
-            console.log("Profile dispaly name updated");
-          }).catch((error) => {
-            console.log(error);
+          .then(() => {
+            updateProfile(auth.currentUser, {
+              displayName: name,
+            }).then(() => {
+              console.log("Profile dispaly name updated");
+            }).catch((error) => {
+              console.log(error);
+            });
+
+          })
+          .then(() => {
+            window.location.href = "/user/dashboard";
           });
-          
-        })
-        .then(() => {
-          window.location.href = "/user/dashboard";
-        });
       })
       .catch((error) => {
         // eslint-disable-next-line no-unused-vars
@@ -80,7 +81,7 @@ export default function Register() {
                 <div className="text-blueGray-400 text-center mb-3 font-bold">
                   <small>Or sign up with credentials</small>
                 </div>
-                <form name="registerform" id="registerform" onSubmit={()=>register()}>
+                <form name="registerform" id="registerform" onSubmit={() => register()}>
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -138,7 +139,7 @@ export default function Register() {
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Confirm Password"
                       onChange={(e) => setPasswordConfirm(e.target.value)}
-                    /> 
+                    />
                   </div>
 
                   <div>
@@ -167,7 +168,7 @@ export default function Register() {
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                       type="button"
                       form="registerform"
-                      onClick={()=>{
+                      onClick={() => {
                         register();
                       }}
                     >
@@ -175,6 +176,15 @@ export default function Register() {
                     </button>
                   </div>
                 </form>
+              </div>
+            </div>
+            <div className="flex flex-wrap mt-6 relative">
+              <div className="w-1/2 text-right">
+                <Link href="/auth/login">
+                  <a href="#pablo" className="text-blueGray-200">
+                    <small>Log In</small>
+                  </a>
+                </Link>
               </div>
             </div>
           </div>

@@ -9,7 +9,10 @@ import AddWorkspace from "components/Modal/AddWorkspace";
 
 import { database } from "../../components/firebase";
 
-import { ref, push, update, remove, onValue, get } from "firebase/database";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { ref, push, update, remove, onValue, get, set } from "firebase/database";
+
+const auth = getAuth();
 
 export default function CardWorkspaceTable({ color, uid, user }) {
   const [ready, setReady] = useState(false);
@@ -24,7 +27,7 @@ export default function CardWorkspaceTable({ color, uid, user }) {
   }, []);
 
   useEffect(() => {
-    if(user){
+    if (user) {
       setUserdetails({
         uid: user.uid,
         email: user.email,
@@ -72,19 +75,50 @@ export default function CardWorkspaceTable({ color, uid, user }) {
   //   console.log(obj);
   // }, [uid, wdata]);
 
-  // async function invitemail() {
-  //   fetch("/api/invitemail/invite", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: '',
-  //   })
-  //     .then((res) => res.json()
-  //       .then((data) => {
-  //         console.log(data);
-  //       }))
-  // }
+  useEffect(() => {
+    console.log("------------------ Invite Mail -----------------");
+    const obj = ['fiqijovilop@jollyfree.com'];
+    invitemail(obj);
+  }, []);
+
+  async function invitemail(useremaillist) {
+    useremaillist.forEach((useremail) => {
+      console.log(useremail);
+      const password = "123456";
+
+      // createUserWithEmailAndPassword (auth, useremail, password)
+      // .then((userCredential) => {
+      //   const user = userCredential.user;
+      //   const userID = user.uid;
+      //   console.log(userCredential);
+      //   set(ref(database, 'users/' + userID), {
+      //     // name: name,
+      //     email: useremail,
+      //     uid : userID
+      //   })
+      // })
+      // .then(() => {
+      fetch("/api/invitemail/invite", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: useremail,
+          temppassword: password,
+        }),
+      })
+        .then((res) => res.json()
+          .then((data) => {
+            console.log(data);
+          }))
+    })
+      // .catch((error) => {
+      //   console.log(error);
+      // });
+    // });
+
+  }
 
   async function adduser(userlist, wid) {
     if (userlist !== undefined) {
@@ -106,16 +140,16 @@ export default function CardWorkspaceTable({ color, uid, user }) {
     }
   }
 
-  function addWorkspace(data, userdata) {
+  async function addWorkspace(data, userdata, inviteuser) {
     if (uid) {
       // const postk = push(ref(database, 'users/' + uid + '/workspace')).key
 
-      let a = data.title;
-      a = a.trim().split(' ').join('').toLowerCase();
+      let a = await data.title;
+      a = await a.trim().split(' ').join('').toLowerCase();
 
-      const postk = a;
+      const postk = await a;
 
-      const workspacedetails = {
+      const workspacedetails = await {
         "createddate": data.assignDate,
         "desc": data.desc,
         "owner": uid,
@@ -124,12 +158,12 @@ export default function CardWorkspaceTable({ color, uid, user }) {
         "workspacename": data.title,
       };
 
-      // adduser(userdata, postk);
+      await adduser(userdata, postk);
+      // await invitemail(inviteuser);
 
       update(ref(database, 'users/' + uid + '/workspace'), {
         [postk]: data.title,
       })
-        // .then(adduser(data.users))
         .then(() => {
           update(ref(database, 'workspaces/' + postk), workspacedetails)
         })
@@ -137,7 +171,6 @@ export default function CardWorkspaceTable({ color, uid, user }) {
         .catch((error) => {
           console.log(error);
         });
-
     }
   }
 

@@ -8,6 +8,7 @@ export default function AddWorkspace({ uid, addWorkspace }) {
   const [desc, setDesc] = React.useState("");
   // const [assignDate, setAssignDate] = React.useState("");
   const [users, setUsers] = React.useState([]);
+  const [inviteusers, setInviteUsers] = React.useState([]);
   const [usersd, setUsersd] = React.useState([]);
 
   function setWorkspacedetails() {
@@ -18,7 +19,7 @@ export default function AddWorkspace({ uid, addWorkspace }) {
       users: users,
     };
 
-    addWorkspace(workspacedetails, usersd);
+    addWorkspace(workspacedetails, usersd, inviteusers);
     console.log(workspacedetails);
   }
 
@@ -43,6 +44,11 @@ export default function AddWorkspace({ uid, addWorkspace }) {
       console.log(temp);
       setUsers(temp);
       setUsersd(users);
+    }
+  }
+  async function handleWorkspaceInviteuserChange(users) {
+    if (users != undefined) {
+      
     }
   }
   // function handleWorkspacecreateDateChange(createddate) {
@@ -142,6 +148,7 @@ export default function AddWorkspace({ uid, addWorkspace }) {
                         id="username"
                         type="text"
                         placeholder="Workspace User Email ID"
+                        onChange={handleWorkspaceInviteuserChange}
                       />
                     </div>
 

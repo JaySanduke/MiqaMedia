@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 
 import { app } from "../../components/firebase";
@@ -14,32 +14,35 @@ export default function Login() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const login = () => {
-    const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
+  const login = async () => {
+    const auth = await getAuth();
+    await signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in 
         // const user = userCredential.user;
-        
-        window.location.href= "/user/dashboard";
+
+        window.location.href = "/user/dashboard";
         // ...
       })
       .catch((error) => {
         console.log(error.code)
-        if(error.code == "auth/user-not-found"){
+        if (error.code == "auth/user-not-found") {
           alert("User not found Please register")
         }
-        else if(error.code == "auth/wrong-password"){
+        else if (error.code == "auth/wrong-password") {
           alert("Wrong password!")
         }
       });
+
+    // await setEmail("");
+    // await setPassword("");
   }
 
   useEffect(() => {
     const auth = getAuth();
     auth.onAuthStateChanged((user) => {
-      if(user) {
-        window.location.href= "/user/dashboard";
+      if (user) {
+        window.location.href = "/user/dashboard";
       }
     });
   }, []);
@@ -115,7 +118,7 @@ export default function Login() {
                     <button
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                       type="button"
-                      onClick={()=>{login()}}
+                      onClick={() => login()}
                     >
                       Sign In
                     </button>
@@ -125,17 +128,18 @@ export default function Login() {
             </div>
             <div className="flex flex-wrap mt-6 relative">
               <div className="w-1/2">
-                <a
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                  className="text-blueGray-200"
-                >
-                  <small>Forgot password?</small>
-                </a>
+                <Link href="/auth/reset">
+                  <a
+                    href="#ForgotPassword"
+                    className="text-blueGray-200"
+                  >
+                    <small>Forgot password?</small>
+                  </a>
+                </Link>
               </div>
               <div className="w-1/2 text-right">
                 <Link href="/auth/register">
-                  <a href="#pablo" className="text-blueGray-200">
+                  <a href="#CreateAccount" className="text-blueGray-200">
                     <small>Create new account</small>
                   </a>
                 </Link>
