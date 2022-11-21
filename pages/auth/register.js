@@ -5,7 +5,9 @@ import React from "react";
 import Auth from "layouts/Auth.js";
 
 import { getAuth, createUserWithEmailAndPassword, updateCurrentUser, updateProfile } from "firebase/auth";
-import { getDatabase, ref, set } from "firebase/database";
+import { get, ref, set } from "firebase/database";
+
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 import { database, app } from "../../components/firebase";
 import Link from "next/link";
@@ -54,6 +56,51 @@ export default function Register() {
       });
   }
 
+  async function googleSignIn() {
+    const auth = await getAuth(app);
+    const provider = new GoogleAuthProvider();
+    await signInWithPopup(auth, provider)
+      .then(async (userCredential) => {
+        // Signed in  
+        const user = userCredential.user;
+
+        await get(ref(database, "users/" + user.uid))
+          .then(async (snapshot) => {
+            if (snapshot.exists()) {
+              await console.log("Google User already exists");
+              await console.log(snapshot.val());
+
+              window.location.href = await "/user/dashboard";
+            }
+            else {
+              console.log("Google User does not exist registering in the database");
+              await set(ref(database, "users/" + user.uid), {
+                name: user.displayName,
+                email: user.email,
+                uid: user.uid
+              });
+            }
+          })
+          .catch((error) => {
+            // Handle Errors here.
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            // The email of the user's account used.
+            const email = error.customData.email;
+            // The AuthCredential type that was used.
+            const credential = GoogleAuthProvider.credentialFromError(error);
+            // ...
+
+            console.log(
+              "error code: " + errorCode, '\n',
+              "error message: " + errorMessage, '\n',
+              "email: " + email, '\n',
+              "credential: " + credential);
+
+          });
+      })
+  }
+
   return (
     <>
       <div className="container mx-auto px-4 h-full">
@@ -70,6 +117,7 @@ export default function Register() {
                   <button
                     className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center text-xs ease-linear transition-all duration-150"
                     type="button"
+                    onClick={() => googleSignIn()}
                   >
                     <img alt="..." className="w-5 mr-1" src="/img/google.svg" />
                     Google
