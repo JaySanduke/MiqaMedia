@@ -19,18 +19,6 @@ const MenuProps = {
   },
 };
 
-const names = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
-];
 
 export default function TaskUser({ wuser, taskuser }) {
   const [personName, setPersonName] = React.useState([]);
@@ -69,7 +57,6 @@ export default function TaskUser({ wuser, taskuser }) {
           input={<OutlinedInput label="Task Users" />}
           renderValue={(selected) => selected.join(', ')}
           MenuProps={MenuProps}
-          required
         >
           {allusers.map((name) => (
             <MenuItem key={name} value={name}>

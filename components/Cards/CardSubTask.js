@@ -9,7 +9,7 @@ import BoardData from "data/subtask-data.json";
 import SubTaskItem from "components/Items/SubTaskItem";
 import AddSubTask from "components/Modal/AddSubTask";
 
-export default function CardSubTask({ wid, tid, color, tabledata, addSubtask, deleteSubtask }) {
+export default function CardSubTask({ uid, owner, wid, tid, tuser, color, tabledata, addSubtask, deleteSubtask }) {
   const [ready, setReady] = useState(false);
   const [boardData, setBoardData] = useState([]);
 
@@ -32,7 +32,7 @@ export default function CardSubTask({ wid, tid, color, tabledata, addSubtask, de
     setBoardData(obj);
     // console.log(obj);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tabledata]);
 
   const onDragEnd = (result) => {
@@ -76,15 +76,15 @@ export default function CardSubTask({ wid, tid, color, tabledata, addSubtask, de
                 Total Sub Tasks
               </h3>
             </div>
-            <h3
+            {owner === uid && <h3
               className={
                 "font-semibold text-lg " +
                 (color === "light" ? "text-blueGray-700" : "text-white")
               }
             >
-              <AddSubTask addSubtask={addSubtask}/>
+              <AddSubTask tuser={tuser} addSubtask={addSubtask} />
               {/* <DatePicker/> */}
-            </h3>
+            </h3>}
           </div>
         </div>
         <div className="block w-full overflow-x-auto">
@@ -187,14 +187,25 @@ export default function CardSubTask({ wid, tid, color, tabledata, addSubtask, de
                           {board.subtasks.length > 0 &&
                             board.subtasks.map((item, iIndex) => {
                               return (
-                                <SubTaskItem
-                                  key={item.id}
-                                  data={item}
-                                  index={iIndex}
-                                  deleteSubtask={deleteSubtask}
-                                  wid={wid}
-                                  tid={tid}
-                                />
+                                item != uid && item.assignees != undefined ?
+                                  item.assignees.includes(uid) &&
+                                  <SubTaskItem
+                                    key={item.id}
+                                    data={item}
+                                    index={iIndex}
+                                    deleteSubtask={deleteSubtask}
+                                    wid={wid}
+                                    tid={tid}
+                                  />
+                                  :
+                                  <SubTaskItem
+                                    key={item.id}
+                                    data={item}
+                                    index={iIndex}
+                                    deleteSubtask={deleteSubtask}
+                                    wid={wid}
+                                    tid={tid}
+                                  />
                               );
                             })}
                           {provided.placeholder}

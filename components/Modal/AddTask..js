@@ -3,6 +3,7 @@ import StatusDropdown from "components/Dropdowns/StatusDropdown";
 import AssignDatePicker from "components/DatePicker/AssignDatePicker";
 import CompletionDatePicker from "components/DatePicker/CompletionDatePicker";
 import TaskUser from "components/Dropdowns/UserDropdown/TaskUser";
+import TaskUserSelect from "components/Dropdowns/UserDropdown/TaskUserSelect";
 
 export default function AddTask({ wuser, addTask }) {
   const [showModal, setShowModal] = React.useState(false);
@@ -131,7 +132,8 @@ export default function AddTask({ wuser, addTask }) {
                         >
                           Task Users
                         </label>
-                        <TaskUser wuser={wuser} taskuser={handleassigneeChange} />
+                        <TaskUserSelect wuser={wuser} taskuser={handleassigneeChange} />
+                        {/* <TaskUser wuser={wuser} taskuser={handleassigneeChange} /> */}
                       </div>
                     </div>
                     <div className="flex">

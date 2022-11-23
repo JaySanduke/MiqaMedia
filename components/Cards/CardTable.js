@@ -191,7 +191,6 @@ export default function CardTable({ color, uid, wpid, owner, tabledata, wuser, a
                                     index={iIndex}
                                     deleteTask={deleteTask}
                                   />
-
                                   :
                                   <TableItem
                                     key={item.id}

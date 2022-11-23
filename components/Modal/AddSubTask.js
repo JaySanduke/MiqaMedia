@@ -3,8 +3,9 @@ import StatusDropdown from "components/Dropdowns/StatusDropdown";
 import AssignDatePicker from "components/DatePicker/AssignDatePicker";
 import CompletionDatePicker from "components/DatePicker/CompletionDatePicker";
 import SubTaskUser from "components/Dropdowns/UserDropdown/SubTaskUser";
+import SubTaskUserSelect from "components/Dropdowns/UserDropdown/SubTaskUserSelect";
 
-export default function AddSubTask({ addSubtask }) {
+export default function AddSubTask({ tuser, addSubtask }) {
     const [showModal, setShowModal] = React.useState(false);
 
     const [title, setTitle] = useState('');
@@ -124,7 +125,8 @@ export default function AddSubTask({ addSubtask }) {
                                                 >
                                                     Sub Task Users
                                                 </label>
-                                                <SubTaskUser subtaskuser={handleassigneeChange} />
+                                                <SubTaskUserSelect tuser={tuser} subtaskuser={handleassigneeChange} />
+                                                {/* <SubTaskUser subtaskuser={handleassigneeChange} /> */}
                                             </div>
                                         </div>
                                         <div className="flex">

@@ -32,12 +32,25 @@ export default async function handler(req, res) {
                 }
             });
 
+            const htmltemplate = `
+            <div style="background-color: #f5f5f5; padding: 20px; border-radius: 10px; width: 100%; height: 100%;">
+                <div style="background-color: #fff; padding: 20px; border-radius: 10px; width: 100%; height: 100%;">
+                    <div style="text-align: center;">
+                        <img src={public/img/brand/icon.png} alt="miqamedia-logo" style="width: 20px; height: auto;">
+                    </div>
+                    <div style="text-align: center; margin-top: 20px;">
+                        <h1 style="font-size: 30px; font-weight: 600; color: #000;">Your OTP is: ${otp}</h1>
+                    </div>
+                </div>
+            </div>
+            `;
+
             const info = await transporter.sendMail({
                 from: '"Miqa Media" <support@miqamedia.com>', // sender address
                 to: email, // list of receivers'
                 subject: "Reset password OTP (One Time Password)", // Subject line
                 // text: "OTP: " + otp, // plain text body
-                html: "<p>Hello</p>", // html body
+                html: htmltemplate, // html body
             });
 
             // Preview only available when sending through an Ethereal account

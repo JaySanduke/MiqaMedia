@@ -31,7 +31,7 @@ export default function SubTask() {
   const [uid, setUid] = useState('');
   const [wpid, setWid] = useState(router.query.wid);
   const [tid, setTid] = useState(router.query.tid);
-  const [snapshot, loading, error] = useObject(ref(database, 'workspaces/' + wpid + '/tasks/' + tid + '/subtasks/'));
+  const [snapshot, loading, error] = useObject(ref(database, 'workspaces/' + wpid + '/tasks/' + tid));
   const [tabledata, setTabledata] = useState([]);
 
   const [subdomain, setSubDomain] = useState(false);
@@ -90,6 +90,7 @@ export default function SubTask() {
         "created_at": data.assignDate,
         "completion_date": data.completionDate,
         "id": postk,
+        "owner": uid,
         "title": data.title,
         "desc": data.desc,
         "status": data.status,
@@ -118,10 +119,10 @@ export default function SubTask() {
     <>
       <div className="flex flex-wrap mt-4">
         <div className="w-full mb-12 px-4">
-          <CardSubTask wid={wpid} tid={tid} tabledata={tabledata} addSubtask={addSubtask} deleteSubtask={deleteSubtask} />
+          <CardSubTask owner={tabledata.owner} uid={uid} wid={wpid} tid={tid} tuser={tabledata.assignees} tabledata={tabledata.subtasks} addSubtask={addSubtask} deleteSubtask={deleteSubtask} />
         </div>
         <div className="w-full mb-12 px-4">
-          <CardSubTask color="dark" wid={wpid} tid={tid} tabledata={tabledata} addSubtask={addSubtask} deleteSubtask={deleteSubtask} />
+          <CardSubTask color="dark" owner={tabledata.owner} uid={uid} wid={wpid} tid={tid} tuser={tabledata.assignees} tabledata={tabledata.subtasks} addSubtask={addSubtask} deleteSubtask={deleteSubtask} />
         </div>
       </div>
     </>
