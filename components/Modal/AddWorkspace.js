@@ -1,5 +1,6 @@
 import React from "react";
 import WorkspaceUser from "components/Dropdowns/UserDropdown/WorkspaceUserSelect";
+import MutlipleEmails from "components/mutliple-emails";
 
 export default function AddWorkspace({ uid, addWorkspace }) {
   const [showModal, setShowModal] = React.useState(false);
@@ -48,7 +49,6 @@ export default function AddWorkspace({ uid, addWorkspace }) {
   }
   async function handleWorkspaceInviteuserChange(users) {
     if (users != undefined) {
-      
     }
   }
   // function handleWorkspacecreateDateChange(createddate) {
@@ -76,43 +76,49 @@ export default function AddWorkspace({ uid, addWorkspace }) {
                 </div>
                 {/*body*/}
                 <div className="w-full max-w">
-                  <form  id="addwform"
-                    name="addwform" className="bg-white rounded px-6 py-6 mx-4">
-                    <div className="mb-6">
-                      <label
-                        className="block text-gray-700 text-sm mb-2"
-                        for="workspacetitle"
-                      >
-                        Workspace Title
-                      </label>
-                      <input
-                        // maxLength={15}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="username"
-                        type="text"
-                        placeholder="Workspace Title"
-                        onChange={handleWorkspacetitleChange}
-                        pattern="[A-Z a-z]{1,15}"
-                        required
-                      />
+                  <form
+                    id="addwform"
+                    name="addwform"
+                    className="bg-white rounded px-6 py-6 mx-4"
+                  >
+                    <div className="flex">
+                      <div className="mr-4 mb-6">
+                        <label
+                          className="block text-gray-700 text-sm mb-2"
+                          for="workspacetitle"
+                        >
+                          Workspace Title
+                        </label>
+                        <input
+                          // maxLength={15}
+                          className="shadow appearance-none border w-80 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          id="username"
+                          type="text"
+                          placeholder="Workspace Title"
+                          onChange={handleWorkspacetitleChange}
+                          pattern="[A-Z a-z]{1,15}"
+                          required
+                        />
+                      </div>
+                      <div className="mb-6 mr-4">
+                        <label
+                          className="block text-gray-700 text-sm mb-2"
+                          for="workspacedescription"
+                        >
+                          Workspace Description
+                        </label>
+                        <input
+                          // maxLength={50}
+                          className="shadow appearance-none border w-80 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          id="username"
+                          type="text"
+                          placeholder="Workspace Description"
+                          onChange={handleWorkspacedescChange}
+                          required
+                        />
+                      </div>
                     </div>
-                    <div className="mb-6">
-                      <label
-                        className="block text-gray-700 text-sm mb-2"
-                        for="workspacedescription"
-                      >
-                        Workspace Description
-                      </label>
-                      <input
-                        // maxLength={50}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="username"
-                        type="text"
-                        placeholder="Workspace Description"
-                        onChange={handleWorkspacedescChange}
-                        required
-                      />
-                    </div>
+
                     {/* <div className="mb-6">
                       <label
                         className="block text-gray-700 text-sm font-bold mb-4"
@@ -122,36 +128,33 @@ export default function AddWorkspace({ uid, addWorkspace }) {
                       </label>
                       <WorkspaceDatePicker />
                     </div> */}
+                    <div className="flex">
+                      <div className="mb-6 mr-4">
+                        <label
+                          className="block text-gray-700 text-sm mb-2"
+                          for="status"
+                        >
+                          Workspace Users
+                        </label>
+                        <WorkspaceUser
+                          uid={uid}
+                          workspaceuser={handleWorkspaceusersChange}
+                        />
+                      </div>
 
-                    <div className="mb-6">
-                      <label
-                        className="block text-gray-700 text-sm mb-4"
-                        for="status"
-                      >
-                        Workspace Users
-                      </label>
-                      <WorkspaceUser
-                        uid={uid}
-                        workspaceuser={handleWorkspaceusersChange}
-                      />
+                      <div className="mb-6 mr-4">
+                        <label
+                          className="block text-gray-700 text-sm mb-2"
+                          for="workspacedescription"
+                        >
+                          Workspace User Email ID
+                        </label>
+                        <MutlipleEmails
+                          uid={uid}
+                          workspaceuseremails={handleWorkspaceInviteuserChange}
+                        />
+                      </div>
                     </div>
-
-                    <div className="mb-6">
-                      <label
-                        className="block text-gray-700 text-sm mb-2"
-                        for="workspacedescription"
-                      >
-                        Workspace User Email ID
-                      </label>
-                      <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="username"
-                        type="text"
-                        placeholder="Workspace User Email ID"
-                        onChange={handleWorkspaceInviteuserChange}
-                      />
-                    </div>
-
                     <div className="flex items-center justify-between">
                       <button
                         className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"

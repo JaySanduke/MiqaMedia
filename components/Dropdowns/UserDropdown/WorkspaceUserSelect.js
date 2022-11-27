@@ -54,7 +54,11 @@ export default function WorkspaceUser({ uid, workspaceuser }) {
 
   return (
     <>
-      <Select options={allusers} isMulti onChange={(user)=>handleChange(user)}/>
+      <Select
+        options={allusers}
+        isMulti
+        onChange={(user) => handleChange(user)}
+      />
     </>
   );
 }
