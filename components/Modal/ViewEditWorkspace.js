@@ -1,12 +1,14 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import EditWorkspaceUser from "components/Dropdowns/UserDropdown/EditWorkspaceUser";
-import { isEmpty } from "@firebase/util";
+import RemoveWorkspaceUser from "components/Dropdowns/UserDropdown/RemoveWorkspaceUser";
 
-export default function ViewEditWorkspace({ uid, workspacedata, updateWorkspace, wid }) {
+export default function ViewEditWorkspace({ uid, owner, workspacedata, updateWorkspace, wid }) {
   const [workspacename, setWorkspaceName] = useState('');
   const [workspacedesc, setWorkspaceDesc] = useState('');
-  const [workspaceuser, setWorkspaceUser] = useState('');
+  const [workspaceuser, setWorkspaceUser] = useState([]);
+
+  const [userrm, setUserRm] = useState([]);
 
   useEffect(() => {
     setWorkspaceName(workspacedata.workspacename);
@@ -19,11 +21,11 @@ export default function ViewEditWorkspace({ uid, workspacedata, updateWorkspace,
       name: workspacename,
       desc: workspacedesc,
       users: workspaceuser,
+      userrm: userrm,
     }
 
-    updateWorkspace(workspacedetails, wid);
-
     console.log(workspacedetails);
+    updateWorkspace(workspacedetails, wid);
   }
 
   const handleworkspacenameChange = (e) => {
@@ -35,6 +37,9 @@ export default function ViewEditWorkspace({ uid, workspacedata, updateWorkspace,
   function handleworkspaceuserChange(workspaceusers) {
     setWorkspaceUser(workspaceusers);
   };
+  function handleworkspaceRmuserChange(workspaceusers) {
+    setUserRm(workspaceusers);
+  }
 
   return (
     <>
@@ -88,9 +93,17 @@ export default function ViewEditWorkspace({ uid, workspacedata, updateWorkspace,
                 <label
                   className="block text-gray-700 text-sm font-bold mb-2"
                 >
-                  Workspace Users
+                  Workspace Add Users
                 </label>
-                {uid && workspaceuser !== null && <EditWorkspaceUser uid={uid} uvalue={workspaceuser} userChange={handleworkspaceuserChange} />}
+                {uid && workspacedata && <EditWorkspaceUser uid={uid} owner={owner} uvalue={workspaceuser} userChange={handleworkspaceuserChange} />}
+              </div>
+              <div className="mb-2">
+                <label
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                >
+                  Workspace Remove Users
+                </label>
+                {uid && workspacedata && <RemoveWorkspaceUser uid={uid} owner={owner} uvalue={workspaceuser} userChange={handleworkspaceRmuserChange} />}
               </div>
             </form>
           </div>
