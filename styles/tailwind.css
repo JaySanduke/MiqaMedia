@@ -1647,6 +1647,10 @@ select {
   margin-bottom: 2rem;
 }
 
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
+
 .mb-12 {
   margin-bottom: 3rem;
 }
@@ -1859,10 +1863,6 @@ select {
   height: 350px;
 }
 
-.h-500-px {
-  height: 500px;
-}
-
 .h-600-px {
   height: 600px;
 }
@@ -1917,6 +1917,10 @@ select {
 
 .w-64 {
   width: 16rem;
+}
+
+.w-80 {
+  width: 20rem;
 }
 
 .w-auto {

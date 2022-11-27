@@ -75,49 +75,27 @@ export default function CardWorkspaceTable({ color, uid, user }) {
   //   console.log(obj);
   // }, [uid, wdata]);
 
-  useEffect(() => {
-    console.log("------------------ Invite Mail -----------------");
-    const obj = ['fiqijovilop@jollyfree.com'];
-    // invitemail(obj);
-  }, []);
+  async function invitemail(useremaillist, wid) {
+    await console.log(useremaillist);
+    await fetch("/api/invitemail/invite", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        invitemaillist: useremaillist,
+        // workspaceid: wid,
 
-  async function invitemail(useremaillist) {
-    useremaillist.forEach((useremail) => {
-      console.log(useremail);
-      const password = "123456";
-
-      // createUserWithEmailAndPassword (auth, useremail, password)
-      // .then((userCredential) => {
-      //   const user = userCredential.user;
-      //   const userID = user.uid;
-      //   console.log(userCredential);
-      //   set(ref(database, 'users/' + userID), {
-      //     // name: name,
-      //     email: useremail,
-      //     uid : userID
-      //   })
-      // })
-      // .then(() => {
-      fetch("/api/invitemail/invite", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: useremail,
-          temppassword: password,
-        }),
-      })
-        .then((res) => res.json()
-          .then((data) => {
-            console.log(data);
-          }))
+      }),
     })
-      // .catch((error) => {
-      //   console.log(error);
-      // });
-    // });
-
+      .then((res) => res.json())
+      .then(async (data) => {
+        console.log(data);
+        await alert("Invitation sent successfully");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   async function adduser(userlist, wid) {
@@ -144,33 +122,33 @@ export default function CardWorkspaceTable({ color, uid, user }) {
     if (uid) {
       // const postk = push(ref(database, 'users/' + uid + '/workspace')).key
 
-      let a = await data.title;
-      a = await a.trim().split(' ').join('').toLowerCase();
+      // let a = await data.title;
+      // a = await a.trim().split(' ').join('').toLowerCase();
 
-      const postk = await a;
+      // const postk = await a;
 
-      const workspacedetails = await {
-        "createddate": data.assignDate,
-        "desc": data.desc,
-        "owner": uid,
-        "assignedusers": data.users,
-        "wid": postk,
-        "workspacename": data.title,
-      };
+      // const workspacedetails = await {
+      //   "createddate": data.assignDate,
+      //   "desc": data.desc,
+      //   "owner": uid,
+      //   "assignedusers": data.users,
+      //   "wid": postk,
+      //   "workspacename": data.title,
+      // };
 
-      await adduser(userdata, postk);
-      // await invitemail(inviteuser);
+      // await adduser(userdata, postk);
+      await invitemail(inviteuser);
 
-      update(ref(database, 'users/' + uid + '/workspace'), {
-        [postk]: data.title,
-      })
-        .then(() => {
-          update(ref(database, 'workspaces/' + postk), workspacedetails)
-        })
-        .then(console.log("Worksapce Added Successfully!"))
-        .catch((error) => {
-          console.log(error);
-        });
+      // update(ref(database, 'users/' + uid + '/workspace'), {
+      //   [postk]: data.title,
+      // })
+      //   .then(() => {
+      //     update(ref(database, 'workspaces/' + postk), workspacedetails)
+      //   })
+      //   .then(console.log("Worksapce Added Successfully!"))
+      //   .catch((error) => {
+      //     console.log(error);
+      //   });
     }
   }
 

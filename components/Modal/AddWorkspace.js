@@ -1,6 +1,6 @@
 import React from "react";
 import WorkspaceUser from "components/Dropdowns/UserDropdown/WorkspaceUserSelect";
-import MutlipleEmails from "components/mutliple-emails";
+import MutlipleEmails from "components/MultipleEmails";
 
 export default function AddWorkspace({ uid, addWorkspace }) {
   const [showModal, setShowModal] = React.useState(false);
@@ -48,7 +48,9 @@ export default function AddWorkspace({ uid, addWorkspace }) {
     }
   }
   async function handleWorkspaceInviteuserChange(users) {
-    if (users != undefined) {
+    if (users != null || users != undefined || users.length > 0) {
+      await console.log(users);
+      await setInviteUsers(users);
     }
   }
   // function handleWorkspacecreateDateChange(createddate) {
@@ -150,8 +152,7 @@ export default function AddWorkspace({ uid, addWorkspace }) {
                           Workspace User Email ID
                         </label>
                         <MutlipleEmails
-                          uid={uid}
-                          workspaceuseremails={handleWorkspaceInviteuserChange}
+                          inviteemails={handleWorkspaceInviteuserChange}
                         />
                       </div>
                     </div>
@@ -168,8 +169,8 @@ export default function AddWorkspace({ uid, addWorkspace }) {
                         type="button"
                         form="addwform"
                         onClick={async () => {
-                          setWorkspacedetails();
-                          setShowModal(false);
+                          await setWorkspacedetails();
+                          await setShowModal(false);
                         }}
                       >
                         Save Workspace
