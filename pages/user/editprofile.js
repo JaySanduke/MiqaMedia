@@ -22,13 +22,13 @@ export default function Profile() {
                   </div>
                   <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
                     <div className="py-6 px-3 mt-32 sm:mt-0 text-center">
-                    <Link href="/user/editprofile">
-                      <button
-                        className="bg-blueGray-700 active:bg-blueGray-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
-                        type="button"
-                      >
-                        Edit Profile
-                      </button>
+                      <Link href="/user/profile">
+                        <button
+                          className="bg-blueGray-700 active:bg-blueGray-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
+                          type="button"
+                        >
+                          Back
+                        </button>
                       </Link>
                     </div>
                   </div>
@@ -46,9 +46,7 @@ export default function Profile() {
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
                           10
                         </span>
-                        <span className="text-sm text-blueGray-400">
-                          Task
-                        </span>
+                        <span className="text-sm text-blueGray-400">Task</span>
                       </div>
                       <div className="lg:mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
@@ -63,22 +61,58 @@ export default function Profile() {
                 </div>
                 <div className="text-center mt-12">
                   <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
-                    Yash Soni
+                    <input
+                      // maxLength={15}
+                      className="shadow appearance-none border rounded  w-80 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      id="username"
+                      type="text"
+                      placeholder="Yash Soni"
+                      required
+                    />
                   </h3>
                   <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
-                    <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>{" "}
-                    Bhopal, India
+                    <input
+                      // maxLength={15}
+                      className="shadow appearance-none border rounded w-80 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      id="username"
+                      type="text"
+                      placeholder="Bhopal, India"
+                      required
+                    />
                   </div>
                   <div className="mb-2 text-blueGray-600 mt-10">
-                    <i className="fas fa-envelope mr-2 text-lg text-blueGray-400"></i>
-                    yashsoni@gmail.com
+                    <input
+                      // maxLength={15}
+                      className="shadow appearance-none border rounded  w-80 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      id="username"
+                      type="text"
+                      placeholder=" yashsoni@gmail.com"
+                      required
+                    />
                   </div>
                   <div className="mb-2 text-blueGray-600">
-                    <i className="fa fa-building mr-2 text-lg text-blueGray-400"></i>
-                    Tesla
+                    <input
+                      // maxLength={15}
+                      className="shadow appearance-none border rounded w-80 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      id="username"
+                      type="text"
+                      placeholder="Tesla"
+                      required
+                    />
+                  </div>
+                  <div className="py-6 px-3 mt-32 sm:mt-0 text-center">
+                    <Link href="/user/workspace">
+                      <button
+                        className="bg-blueGray-700 active:bg-blueGray-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
+                        type="button"
+                      >
+                        Save Profile
+                      </button>
+                    </Link>
                   </div>
                 </div>
-                <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
+
+                <div className="mb-10 py-10 border-t border-blueGray-200 text-center">
                   <div className="flex flex-wrap justify-center">
                     <div className="w-full lg:w-9/12 px-4">
                       <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
