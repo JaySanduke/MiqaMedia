@@ -78,7 +78,7 @@ export default function CardWorkspaceTable({ color, uid, user }) {
   useEffect(() => {
     console.log("------------------ Invite Mail -----------------");
     const obj = ['fiqijovilop@jollyfree.com'];
-    invitemail(obj);
+    // invitemail(obj);
   }, []);
 
   async function invitemail(useremaillist) {
