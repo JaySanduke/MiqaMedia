@@ -4,6 +4,7 @@ import { createPopper } from "@popperjs/core";
 import "../../components/firebase";
 import { getAuth, signOut } from "firebase/auth";
 import Router from "next/router";
+import Link from "next/link";
 
 const UserNavDropdown = () => {
   const [wauth, setWauth] = React.useState();
@@ -99,15 +100,17 @@ const UserNavDropdown = () => {
           "bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
         }
       >
+        <Link href="/user/profile/">
         <a
           href="#pablo"
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
-          onClick={(e) => e.preventDefault()}
+          // onClick={(e) => e.preventDefault()}
         >
           Profile
         </a>
+        </Link>
         <div className="h-0 my-2 border border-solid border-blueGray-100" />
         <a
           href="#pablo"
