@@ -8,6 +8,7 @@ import Link from "next/link";
 
 const UserNavDropdown = () => {
   const [wauth, setWauth] = React.useState();
+  const [subdomain, setSubDomain] = React.useState(false);
 
   // dropdown props
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
@@ -24,6 +25,45 @@ const UserNavDropdown = () => {
     setDropdownPopoverShow(false);
   };
 
+  useEffect(() => {
+    var auth = {}
+
+    const hostname = window.location.hostname;
+    var hsplit = hostname.split('.');
+    console.log('Domain: ' + hsplit[0]);
+    console.log('SubDomain: ' + hsplit[1]);
+
+    if (hsplit[0] === "localhost" || (hsplit[0] === "tdpvista" && hsplit[1] === "co" && hsplit[2] === "in")) {
+      setSubDomain(false);
+      auth = getAuth();
+      console.log(auth);
+      auth.onAuthStateChanged((user) => {
+        if (user == null) {
+          window.location.href = "/auth/login";
+        }
+      })
+    }
+    else if (hsplit[1] === "localhost" || (hsplit[1] === "tdpvista" && hsplit[1] === "co" && hsplit[2] === "in")) {
+      setSubDomain(true);
+      let oauth = localStorage.getItem("auth");
+      oauth = JSON.parse(JSON.parse(oauth));
+      console.log(oauth);
+
+      if (oauth == null || oauth == undefined) {
+        if (hsplit[1] === "localhost") {
+          window.location.href = "http://localhost:3000/auth/login";
+        }
+        else if (hsplit[1] === "tdpvista" && hsplit[2] === "co" && hsplit[3] === "in") {
+          window.location.href = "http://tdpvista.co.in/auth/login";
+        }
+      }
+      else {
+        auth = oauth;
+      }
+    }
+  }, [])
+
+
   const logout = async () => {
     const hostname = window.location.hostname;
     var hsplit = hostname.split('.');
@@ -36,41 +76,17 @@ const UserNavDropdown = () => {
     }
     else if (hsplit[1] === "localhost") {
       await localStorage.removeItem('auth');
-      await Router.replace('/auth/login');
+      window.location.href = await "http://localhost:3000/user/workspace";
+      const auth = await getAuth();
+      await signOut(auth);
+    }
+    else if (hsplit[1] === "tdpvista") {
+      await localStorage.removeItem('auth');
+      window.location.href = await "https://tdpvista.co.in/user/workspace";
+      const auth = await getAuth();
+      await signOut(auth);
     }
   }
-
-  useEffect(() => {
-    var auth = {}
-
-    const hostname = window.location.hostname;
-    var hsplit = hostname.split('.');
-    console.log('Domain: ' + hsplit[0]);
-    console.log('SubDomain: ' + hsplit[1]);
-
-    if (hsplit[0] === ("localhost" || "tdpvista")) {
-      auth = getAuth();
-      console.log(auth);
-      auth.onAuthStateChanged((user) => {
-        if (user == null) {
-          window.location.href = "/auth/login";
-        }
-      })
-    }
-    else if (hsplit[1] === "localhost") {
-      let oauth = localStorage.getItem("auth");
-      oauth = JSON.parse(JSON.parse(oauth));
-      console.log(oauth);
-
-      if (oauth == null) {
-        alert("Send to parent login page");
-
-      }
-      else {
-        auth = oauth;
-      }
-    }
-  }, [])
 
   return (
     <>
@@ -101,30 +117,36 @@ const UserNavDropdown = () => {
         }
       >
         <Link href="/user/profile/">
-        <a
-          href="#pablo"
-          className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-          }
-          // onClick={(e) => e.preventDefault()}
-        >
-          Profile
-        </a>
+          <a
+            href="#pablo"
+            className={
+              "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+            }
+            onClick={async (e) => {
+              await e.preventDefault();
+              await closeDropdownPopover();
+            }}
+          >
+            Profile
+          </a>
         </Link>
-        <div className="h-0 my-2 border border-solid border-blueGray-100" />
+        {/* <div className="h-0 my-2 border border-solid border-blueGray-100" /> */}
         <a
           href="#pablo"
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
-          onClick={() => { logout() }}
+          onClick={async () => {
+            await closeDropdownPopover();
+            await logout()
+          }}
         >
           <i
             className={
               "fas fa-sign-out-alt mr-2 text-sm"
             }
           ></i>{" "}
-          Log Out
+          {subdomain ? "Go to Workspace" : "Logout"}
         </a>
       </div>
     </>
