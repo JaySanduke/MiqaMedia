@@ -84,7 +84,8 @@ export default function CardWorkspaceTable({ color, uid, user }) {
       },
       body: JSON.stringify({
         invitemaillist: useremaillist,
-        // workspaceid: wid,
+        workspaceid: wid,
+        ownerdetails: userdetails,
 
       }),
     })
@@ -122,33 +123,33 @@ export default function CardWorkspaceTable({ color, uid, user }) {
     if (uid) {
       // const postk = push(ref(database, 'users/' + uid + '/workspace')).key
 
-      // let a = await data.title;
-      // a = await a.trim().split(' ').join('').toLowerCase();
+      let a = await data.title;
+      a = await a.trim().split(' ').join('').toLowerCase();
 
-      // const postk = await a;
+      const postk = await a;
 
-      // const workspacedetails = await {
-      //   "createddate": data.assignDate,
-      //   "desc": data.desc,
-      //   "owner": uid,
-      //   "assignedusers": data.users,
-      //   "wid": postk,
-      //   "workspacename": data.title,
-      // };
+      const workspacedetails = await {
+        "createddate": data.assignDate,
+        "desc": data.desc,
+        "owner": uid,
+        "assignedusers": data.users,
+        "wid": postk,
+        "workspacename": data.title,
+      };
 
-      // await adduser(userdata, postk);
+      await adduser(userdata, postk);
       await invitemail(inviteuser);
 
-      // update(ref(database, 'users/' + uid + '/workspace'), {
-      //   [postk]: data.title,
-      // })
-      //   .then(() => {
-      //     update(ref(database, 'workspaces/' + postk), workspacedetails)
-      //   })
-      //   .then(console.log("Worksapce Added Successfully!"))
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
+      await update(ref(database, 'users/' + uid + '/workspace'), {
+        [postk]: data.title,
+      })
+        .then(() => {
+          update(ref(database, 'workspaces/' + postk), workspacedetails)
+        })
+        .then(console.log("Worksapce Added Successfully!"))
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }
 

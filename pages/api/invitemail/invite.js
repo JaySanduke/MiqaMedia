@@ -1,7 +1,10 @@
 import nodemailer from "nodemailer";
 
+import { database } from "components/firebase";
+
 import { app } from "components/firebase";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { ref, push, update, remove, onValue, get, set } from "firebase/database";
 
 const otpGenerator = require('otp-generator')
 
@@ -20,7 +23,7 @@ export default async function handler(req, res) {
         try {
             const auth = await getAuth(app);
 
-            const { invitemaillist } = await req.body;
+            const { invitemaillist, workspaceid, ownerdetails } = await req.body;
 
             // html template for invitation mail
             const htmltemplate = `
@@ -62,6 +65,18 @@ export default async function handler(req, res) {
                             text: "Invitation#", // plain text body
                             html: htmltemplate, // html body
                         })
+
+                        await update(ref(database, 'users/' + userCredential.user.uid + '/invites'), {
+                            [workspaceid]: {
+                              ownerdetails: ownerdetails,
+                              workspaceid: workspaceid,
+                              createddate: Date.now(),
+                              status: "pending"
+                            }
+                          })
+                            .then(() => {
+                              console.log('Workspace added to user');
+                            })
                     })
             });
 
