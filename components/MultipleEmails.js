@@ -23,7 +23,6 @@ export default function MultipleEmails({inviteemails}) {
   return (
     <>
       <ReactMultiEmail
-        placeholder="Input your Email Address"
         emails={emails}
         onChange={(value) => handleChange(value)}
         getLabel={(
