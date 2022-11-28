@@ -25,24 +25,6 @@ export default async function handler(req, res) {
 
             const { invitemaillist, workspaceid, ownerdetails } = await req.body;
 
-            // html template for invitation mail
-            const htmltemplate = `
-            <div style="background-color: #f5f5f5; padding: 20px; border-radius: 10px; width: 100%; height: 100%;">
-                <div style="background-color: #fff; padding: 20px; border-radius: 10px; width: 100%; height: 100%;">
-                    <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
-                        <img src="https://firebasestorage.googleapis.com/v0/b/nextjs-1-0-0.appspot.com/o/Logo.png?alt=media&token
-                                                    
-                        <h1 style="font-size: 2rem; font-weight: 600; color: #000; margin: 0; margin-top: 20px;">Welcome to
-                            <span style="color: #ff0000;">Work</span><span style="color: #0000ff;">Space</span></h1>
-                            <p style="font-size: 1.2rem; font-weight: 400; color: #000; margin: 0; margin-top: 20px;">You have been invited to join a workspace on
-                            <span style="color: #ff0000;">Work</span><span style="color: #0000ff;">Space</span></p>
-                            <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 20px;">
-                                <a href="https://workspace-1-0-0.vercel.app/" style="text-decoration: none; background-color: #ff0000; color: #fff; padding: 10px 20px; border-radius: 5px; font-size: 1.2rem; font-weight: 600;">Join Workspace</a>
-                                </div>
-                                </div>
-                                </div>
-                                </div>
-                                `;
 
             const transporter = await nodemailer.createTransport({
                 host: 'mail.miqamedia.com',
@@ -63,7 +45,7 @@ export default async function handler(req, res) {
                             to: email, // list of receivers'
                             subject: "Invitation for a workspace:", // Subject line
                             text: "Invitation#", // plain text body
-                            html: htmltemplate, // html body
+                            html: ``, // html body {email, password}
                         })
 
                         await update(ref(database, 'users/' + userCredential.user.uid + '/invites'), {

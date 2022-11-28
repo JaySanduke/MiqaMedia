@@ -74,7 +74,6 @@ export default function Tables() {
   }, [uid, snapshot, loading, error]);
 
   function addTask(data) {
-
     if (uid) {
       const postk = push(ref(database, 'workspaces/' + wpid + '/tasks/')).key
 
