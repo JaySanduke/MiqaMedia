@@ -1,10 +1,9 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import User from "layouts/User";
 import Link from "next/link";
 
 import { app, database } from "../../components/firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { get, ref } from "firebase/database";
 
 const auth = getAuth(app);
@@ -68,7 +67,7 @@ export default function Profile() {
                     <div className="flex justify-center py-4 lg:pt-4 pt-8">
                       <div className="mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          0
+                          {userdetails ? Object.keys(userdetails.workspace).length : 0}
                         </span>
                         <span className="text-sm text-blueGray-400">
                           Workspaces
@@ -107,7 +106,7 @@ export default function Profile() {
                   </div>
                   <div className="mb-2 text-blueGray-600">
                     <i className="fa fa-building mr-2 text-lg text-blueGray-400"></i>
-                    {userdetails.company?userdetails.company:"Company Name"}  
+                    {userdetails.company ? userdetails.company : "Company Name"}
                   </div>
                 </div>
                 <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
