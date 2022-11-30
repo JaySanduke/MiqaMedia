@@ -28,6 +28,7 @@ export default function CardWorkspaceTable({ color, uid, user }) {
 
   useEffect(() => {
     if (user) {
+      console.log("user", user);
       setUserdetails({
         uid: user.uid,
         email: user.email,
@@ -42,18 +43,18 @@ export default function CardWorkspaceTable({ color, uid, user }) {
       onValue(ref(database, "users/" + uid + "/workspace"), async (snapshot) => {
         if (snapshot.exists()) {
           var workspacedata = [];
-          console.log(snapshot.val());
+          // console.log(snapshot.val());
           for (let i in snapshot.val()) {
             await get(ref(database, "workspaces/" + i)).then(async (snapshot) => {
               if (snapshot.exists()) {
-                console.log(snapshot.val());
+                // console.log(snapshot.val());
                 workspacedata.push(snapshot.val());
               }
             });
           }
           await console.log(workspacedata);
           const obj = await [{ workspaces: workspacedata }];
-          await console.log(obj);
+          // await console.log(obj);
           await setBoardData(obj);
         }
         else {
@@ -75,7 +76,7 @@ export default function CardWorkspaceTable({ color, uid, user }) {
   //   console.log(obj);
   // }, [uid, wdata]);
 
-  async function invitemail(useremaillist, wid) {
+  async function invitemail(useremaillist, wid, wname) {
     await console.log(useremaillist);
     await fetch("/api/invitemail/invite", {
       method: "POST",
@@ -85,6 +86,7 @@ export default function CardWorkspaceTable({ color, uid, user }) {
       body: JSON.stringify({
         invitemaillist: useremaillist,
         workspaceid: wid,
+        workspacename: wname,
         ownerdetails: userdetails,
 
       }),
@@ -99,7 +101,7 @@ export default function CardWorkspaceTable({ color, uid, user }) {
       });
   }
 
-  async function adduser(userlist, wid) {
+  async function adduser(userlist, wid, wname) {
     if (userlist !== undefined) {
       for (let i in userlist) {
         console.log(userlist[i].value);
@@ -108,6 +110,7 @@ export default function CardWorkspaceTable({ color, uid, user }) {
           [wid]: {
             ownerdetails: userdetails,
             workspaceid: wid,
+            workspacename: wname,
             createddate: Date.now(),
             status: "pending"
           }
@@ -137,8 +140,8 @@ export default function CardWorkspaceTable({ color, uid, user }) {
         "workspacename": data.title,
       };
 
-      await adduser(userdata, postk);
-      await invitemail(inviteuser);
+      await adduser(userdata, postk, data.title);
+      await invitemail(inviteuser, postk, data.title);
 
       await update(ref(database, 'users/' + uid + '/workspace'), {
         [postk]: data.title,
