@@ -28,7 +28,7 @@ export default function CardWorkspaceTable({ color, uid, user }) {
 
   useEffect(() => {
     if (user) {
-      console.log("user", user);
+      // console.log("user", user);
       setUserdetails({
         uid: user.uid,
         email: user.email,
@@ -52,7 +52,7 @@ export default function CardWorkspaceTable({ color, uid, user }) {
               }
             });
           }
-          await console.log(workspacedata);
+          // await console.log(workspacedata);
           const obj = await [{ workspaces: workspacedata }];
           // await console.log(obj);
           await setBoardData(obj);
@@ -78,31 +78,145 @@ export default function CardWorkspaceTable({ color, uid, user }) {
 
   async function invitemail(useremaillist, wid, wname) {
     await console.log(useremaillist);
-    await fetch("/api/invitemail/invite", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        invitemaillist: useremaillist,
-        workspaceid: wid,
-        workspacename: wname,
-        ownerdetails: userdetails,
+    var invitedu = await [];
 
-      }),
-    })
-      .then((res) => res.json())
-      .then(async (data) => {
-        console.log(data);
-        await alert("Invitation sent successfully");
+    if (useremaillist.length > 0 && useremaillist !== undefined) {
+
+      useremaillist.forEach(async (useremail) => {
+        await fetch("/api/invitemail/invite", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: useremail,
+            workspaceid: await wid,
+            workspacename: await wname,
+            ownerdetails: userdetails,
+
+          }),
+        })
+          .then((res) => res.json())
+          .then(async (data) => {
+            console.log(data);
+            if (data.status === "success") {
+              update(
+                ref(database, "users/" + data.user.uid),
+                {
+                  uid: data.user.uid,
+                  email: data.user.email,
+                  name: data.user.email.split("@")[0],
+                  invites: {
+                    [wid]: {
+                      ownerdetails: userdetails,
+                      workspaceid: wid,
+                      workspacename: wname,
+                      createddate: Date.now(),
+                      status: "pending",
+                    }
+                  }
+                }
+              )
+                .then(() => {
+                  console.log("Email sent");
+                })
+                .then(() => {
+                  console.log("Invitation sent successfully");
+                })
+                .then(() => {
+                  console.log("Workspace added to user!");
+                })
+              await invitedu.push(data.user.uid);
+            }
+            else if (data.error.error.code == "ESOCKET") {
+              console.log("Network error, Email not sent");
+              await fetch("/api/invitemail/invite", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  email: data.email,
+                  workspaceid: await wid,
+                  workspacename: await wname,
+                  ownerdetails: userdetails,
+                }),
+              })
+            }
+            else if (data.error.error.code == "auth/email-already-in-use") {
+              console.log("Email already in use");
+              get(ref(database, "users"))
+                .then(async (snapshot) => {
+                  console.log(snapshot.val());
+                  if (snapshot.exists()) {
+                    let users = snapshot.val();
+                    let found = {
+                      status: false,
+                      uid: "",
+                    };
+
+                    for (let i in users) {
+                      if (users[i].email == data.email) {
+                        found.status = true;
+                        found.uid = users[i].uid;
+                      }
+                    }
+
+                    if (found.status) {
+                      update(
+                        ref(database, "users/" + found.uid + "/invites"),
+                        {
+                          [wid]: {
+                            ownerdetails: userdetails,
+                            workspaceid: wid,
+                            workspacename: wname,
+                            createddate: Date.now(),
+                            status: "pending",
+                          },
+                        }
+                      )
+                        .then(() => {
+                          console.log("Invitation sent successfully");
+                        })
+                        .then(() => {
+                          console.log("Workspace added to user!");
+                        })
+                      await invitedu.push(found.uid);
+                    }
+                    else {
+                      console.log("User not found in database but email already in use so please login with user credentials");
+                      // await update(ref(database, "users/" + data.user.uid), {
+                      //   email: data.user.email,
+                      //   name: data.user.displayName,
+                      //   uid: data.user.uid,
+                      //   invites: {
+                      //     [wid]: {
+                      //       ownerdetails: userdetails,
+                      //       workspaceid: wid,
+                      //       createddate: Date.now(),
+                      //       status: "pending",
+                      //     }
+                      //   }
+                      // })
+                      //   .then(() => {
+                      //     console.log("Workspace added to user!");
+                      //   })
+                    }
+                  }
+                })
+            }
+          })
+          .catch((err) => {
+            console.log("error");
+            console.log(err);
+          })
       })
-      .catch((err) => {
-        console.log(err);
-      });
+    }
+    return await invitedu;
   }
 
   async function adduser(userlist, wid, wname) {
-    if (userlist !== undefined) {
+    if (userlist !== undefined && wid && wname) {
       for (let i in userlist) {
         console.log(userlist[i].value);
 
@@ -129,19 +243,25 @@ export default function CardWorkspaceTable({ color, uid, user }) {
       let a = await data.title;
       a = await a.trim().split(' ').join('').toLowerCase();
 
+      var finalusers = [];
+
       const postk = await a;
+
+      await adduser(userdata, postk, data.title);
+      await invitemail(inviteuser, postk, data.title)
+        .then(async (invitedusers) => {
+          console.log(invitedusers);
+          // final users
+        })
 
       const workspacedetails = await {
         "createddate": data.assignDate,
         "desc": data.desc,
         "owner": uid,
-        "assignedusers": data.users,
+        "assignedusers": await finalusers,
         "wid": postk,
         "workspacename": data.title,
       };
-
-      await adduser(userdata, postk, data.title);
-      await invitemail(inviteuser, postk, data.title);
 
       await update(ref(database, 'users/' + uid + '/workspace'), {
         [postk]: data.title,

@@ -21,9 +21,21 @@ export default function Login() {
       .then((userCredential) => {
         // Signed in 
         // const user = userCredential.user;
+        get(ref(database, 'users/' + userCredential.user.uid))
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              window.location.href = "/user/dashboard";
+              console.log("Logged in successfully");
+            } else {
+              set(ref(database, 'users/' + userCredential.user.uid), {
+                email: email,
+                name: email.split("@")[0],
+                uid: userCredential.user.uid,
+              })
+            }
+          })
 
-        window.location.href = "/user/dashboard";
-        console.log("Logged in successfully");
+
         // ...
       })
       .catch((error) => {

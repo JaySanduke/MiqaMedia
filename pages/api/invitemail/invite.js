@@ -1,9 +1,7 @@
 import nodemailer from "nodemailer";
 
 import { app } from "components/firebase";
-import { getDatabase } from "firebase/database";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { ref, push, update, remove, onValue, get, set } from "firebase/database";
 
 const otpGenerator = require("otp-generator");
 
@@ -19,9 +17,12 @@ export default async function handler(req, res) {
     }
     else if (req.method === "POST") {
         try {
+
             const auth = await getAuth(app);
 
-            const { invitemaillist, workspaceid, workspacename, ownerdetails } = await req.body;
+            const { email, workspaceid, workspacename, ownerdetails } = await req.body;
+
+            const password = await otpGenerator.generate(8, Options);
 
             const transporter = await nodemailer.createTransport({
                 host: 'mail.miqamedia.com',
@@ -32,18 +33,22 @@ export default async function handler(req, res) {
                     pass: 'Kw5xjXdizj6JguE'
                 }
             });
-            
-            var inviteinfo = [];
-            await invitemaillist.map(async (email) => {
-                let temp = [];
-                const password = await otpGenerator.generate(8, Options);
-                // await createUserWithEmailAndPassword(auth, email, password).then(
-                //     async (userCredential) => {
-                        const htmltemplate = `
+
+            var user = {};
+
+
+            await createUserWithEmailAndPassword(auth, email, password).then(
+                async (userCredential) => {
+                    user = userCredential.user;
+                    return userCredential.user;
+                }
+            )
+                .then(async (user) => {
+                    const htmltemplate = `
                         <div style="background-color: #f5f5f5; padding: 20px; border-radius: 10px; width: 100%; height: 100%;">
                             <div style="background-color: #fff; padding: 20px; border-radius: 10px; width: 100%; height: 100%;">
                                 <div style="text-align: center; margin-top: 20px;">
-                                    <h1 style="font-size: 12px; font-weight: 600; color: #000;">Your are invited in workspace ${workspacename} with workspace ID - ${workspaceid} by Owner ${ownerdetails.name == null ? ownerdetails.email : ownerdetails.name}</h1>
+                                    <h1 style="font-size: 12px; font-weight: 600; color: #000;">Your are invited in workspace: ${workspacename} with workspace ID - ${workspaceid} by Owner: ${ownerdetails.name == null ? ownerdetails.email : ownerdetails.name}</h1>
                                 </div>
                                 <div style="text-align: center; margin-top: 20px;">
                                      <h1 style="font-size: 12px; font-weight: 600; color: #000;">Your email is: ${email} & password is: ${password}.</h1>
@@ -52,52 +57,41 @@ export default async function handler(req, res) {
                         </div>
                         `;
 
-                        const info = await transporter.sendMail({
-                            from: '"Miqa Media" <support@miqamedia.com>', // sender address
-                            to: email, // list of receivers'
-                            subject: "Invitation for a workspace:", // Subject line
-                            text: "Invitation#", // plain text body
-                            html: htmltemplate, // html body {email, password}
-                        })
+                    const info = await transporter.sendMail({
+                        from: '"Miqa Media" <support@miqamedia.com>', // sender address
+                        to: email, // list of receivers'
+                        subject: "Invitation for a workspace:", // Subject line
+                        text: "Invitation#", // plain text body
+                        html: htmltemplate, // html body {email, password}
+                    })
 
-                        await temp.push({
-                            email: email,
-                            password: password,
-                            status: "success",
-                            "Message sent: %s": await info.messageId,
-                            "Preview URL: %s": await nodemailer.getTestMessageUrl(info)
-                        })
-                        // return {userCredential, inviteinfo};
-                    // })
-                // .then((userCredential) => {
-                //     update(
-                //         ref(database, "users/" + userCredential.user.uid + "/invites"),
-                //         {
-                //             [workspaceid]: {
-                //                 ownerdetails: ownerdetails,
-                //                 workspaceid: workspaceid,
-                //                 createddate: Date.now(),
-                //                 status: "pending",
-                //             },
-                //         }
-                //     ).then(() => {
-                //         console.log("Workspace added to user!");
-                //     })
+                    await console.log("Invitation sent successfully");
 
-                // })
-                return temp;
-            }).then((temp) => {
-                inviteinfo = temp;
-            })
-
-            // Preview only available when sending through an Ethereal account
-            // console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-
-            await res.status(200).json({
-                '---------------Invite Info--------------': null,
-                auth,
-                inviteinfo
-            })
+                    await res.status(200).json({
+                        email: email,
+                        password: password,
+                        user: user,
+                        status: "success",
+                        "Message sent: %s": await info.messageId,
+                    })
+                })
+                .catch((err) => {
+                    console.log(err);
+                    let error = {
+                        code: err.code,
+                        message: err.message,
+                    }
+                    res.status(400).json({
+                        email: email,
+                        password: password,
+                        user: user,
+                        error: {
+                            err,
+                            error
+                        },
+                        status: "fail",
+                    })
+                });
 
         }
         catch (err) {
