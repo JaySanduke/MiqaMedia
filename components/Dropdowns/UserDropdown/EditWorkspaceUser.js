@@ -10,60 +10,56 @@ import { useObject } from "react-firebase-hooks/database";
 import { database } from "components/firebase";
 
 
-export default function EditorkspaceUser({ uid, owner, uvalue, userChange }) {
+export default function EditWorkspaceUser({ uid, owner, wusers, userChange }) {
 
   const [snapshot, loading, error] = useObject(ref(database, "users"));
-  const [allusers, setAllUsers] = useState([]);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    console.log(uvalue);
-  }, [uvalue]);
+    console.log(wusers);
+  }, [wusers]);
 
-  async function getAllUsers(users) {
-    // if (snapshot && !loading && !error) {
-    console.log(users);
-    let temp = [];
+  async function getAllUsers(allusers) {
+    console.log(allusers);
+    let temp = await [];
     console.log(owner, uid);
-    console.log(uvalue);
-    for (let id in users) {
-      console.log(id)
-      if (id !== owner) {
-        if (uvalue) {
-          if (uvalue.includes(id) == false) {
+    console.log(wusers);
+    for (let id in allusers) {
+      if (id != owner || id != uid) {
+        if (wusers != undefined) {
+          if (!wusers.includes(id)) {
+            await console.log(allusers[id]);
             await temp.push({
-              label: users[id].name,
-              value: users[id].uid,
-              email: users[id].email,
+              label: allusers[id].name,
+              value: allusers[id].uid,
+              email: allusers[id].email,
             })
           }
         }
         else {
           await temp.push({
-            label: snapshot.val()[id].name,
-            value: snapshot.val()[id].uid,
-            email: snapshot.val()[id].email,
+            label: allusers[id].name,
+            value: allusers[id].uid,
+            email: allusers[id].email,
           })
         }
       }
     }
     return temp;
-    // }
   }
 
   useEffect(() => {
     if (snapshot && !loading && !error) {
       getAllUsers(snapshot.val()).then((res) => {
-        setAllUsers(res);
-      }).then(() => {
-        console.log(allusers)
-      });
+        setUsers(res);
+      })
     }
   }, [snapshot]);
 
   const handleChange = (users) => {
     console.log(users);
 
-    if (users != null) {
+    if (users != null && users.length > 0) {
       let temp = [];
       users.map((user) => {
         temp.push(user.value);
@@ -77,7 +73,7 @@ export default function EditorkspaceUser({ uid, owner, uvalue, userChange }) {
 
   return (
     <>
-      <Select options={allusers} isMulti onChange={(user) => handleChange(user)} />
+      <Select options={users} isMulti onChange={(users) => handleChange(users)} />
     </>
   );
 }

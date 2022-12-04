@@ -33,10 +33,10 @@ export default function Profile() {
         if (snapshot.exists()) {
           setUserdetails(snapshot.val());
           setUsername(user.displayName);
-          if (snapshot.val().address !== undefined) {
+          if (snapshot.val().address != undefined && snapshot.val().address !== null) {
             setAddress(snapshot.val().address);
           }
-          if (snapshot.val().company !== undefined) {
+          if (snapshot.val().company != undefined && snapshot.val().company !== null) {
             setCompany(snapshot.val().company);
           }
         } else {
@@ -48,7 +48,7 @@ export default function Profile() {
 
   async function editprofile() {
     if (user) {
-      await updateProfile(user,{
+      await updateProfile(user, {
         displayName: username
       })
       await update(ref(database, "users/" + user.uid), {
@@ -97,7 +97,7 @@ export default function Profile() {
                     <div className="flex justify-center py-4 lg:pt-4 pt-8">
                       <div className="mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                        {userdetails.workspace ? Object.keys(userdetails.workspace).length : 0}
+                          {userdetails.workspace ? Object.keys(userdetails.workspace).length : 0}
                         </span>
                         <span className="text-sm text-blueGray-400">
                           Workspace

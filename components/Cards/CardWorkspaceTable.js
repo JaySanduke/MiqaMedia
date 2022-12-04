@@ -105,7 +105,7 @@ export default function CardWorkspaceTable({ color, uid, user }) {
                 {
                   uid: data.user.uid,
                   email: data.user.email,
-                  name: data.user.email.split("@")[0],
+                  // name: data.user.email.split("@")[0],
                   invites: {
                     [wid]: {
                       ownerdetails: userdetails,

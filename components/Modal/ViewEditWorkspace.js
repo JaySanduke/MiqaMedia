@@ -1,27 +1,24 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import EditWorkspaceUser from "components/Dropdowns/UserDropdown/EditWorkspaceUser";
-import RemoveWorkspaceUser from "components/Dropdowns/UserDropdown/RemoveWorkspaceUser";
+import AddUsers from "components/Modal/AddUsers";
+import RemoveUsers from "components/Modal/RemoveUsers";
 
-export default function ViewEditWorkspace({ uid, owner, workspacedata, updateWorkspace, wid }) {
+export default function ViewEditWorkspace({ user, uid, owner, ownerdetails, workspacedata, updateWorkspace, wid }) {
   const [workspacename, setWorkspaceName] = useState('');
   const [workspacedesc, setWorkspaceDesc] = useState('');
-  const [workspaceuser, setWorkspaceUser] = useState([]);
 
-  const [userrm, setUserRm] = useState([]);
+  const [assignedusers, setAssignedUsers] = useState([]);
 
   useEffect(() => {
     setWorkspaceName(workspacedata.workspacename);
     setWorkspaceDesc(workspacedata.desc);
-    setWorkspaceUser(workspacedata.users);
+    setAssignedUsers(workspacedata.assignedusers);
   }, [workspacedata]);
 
   function setWorkspacedetails() {
     const workspacedetails = {
       name: workspacename,
       desc: workspacedesc,
-      users: workspaceuser,
-      userrm: userrm,
     }
 
     console.log(workspacedetails);
@@ -34,12 +31,6 @@ export default function ViewEditWorkspace({ uid, owner, workspacedata, updateWor
   const handleworkspacedescChange = (e) => {
     setWorkspaceDesc(e.target.value);
   };
-  function handleworkspaceuserChange(workspaceusers) {
-    setWorkspaceUser(workspaceusers);
-  };
-  function handleworkspaceRmuserChange(workspaceusers) {
-    setUserRm(workspaceusers);
-  }
 
   return (
     <>
@@ -89,7 +80,16 @@ export default function ViewEditWorkspace({ uid, owner, workspacedata, updateWor
                   value={workspacedesc}
                 />
               </div>
-              <div className="mb-2">
+              <div className="mb-6">
+                {user && workspacedata &&<AddUsers user={user} owner={owner} ownerdetails={ownerdetails} wid={wid} wname={workspacedata.workspacename} assignedusers={assignedusers} users={workspacedata.users} />}
+              </div>
+              <div className="mb-6">
+                {user && workspacedata.users != undefined && <RemoveUsers user={user} owner={owner} ownerdetails={ownerdetails} wid={wid} wname={workspacedata.workspacename} users={workspacedata.users} />}
+              </div>
+              {/* <div className="mb-6">
+                <AddUsers />
+              </div> */}
+              {/* <div className="mb-2">
                 <label
                   className="block text-gray-700 text-sm font-bold mb-2"
                 >
@@ -104,7 +104,7 @@ export default function ViewEditWorkspace({ uid, owner, workspacedata, updateWor
                   Workspace Remove Users
                 </label>
                 {uid && workspacedata && <RemoveWorkspaceUser uid={uid} owner={owner} uvalue={workspaceuser} userChange={handleworkspaceRmuserChange} />}
-              </div>
+              </div> */}
             </form>
           </div>
           {/*footer*/}
