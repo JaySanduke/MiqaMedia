@@ -4,15 +4,16 @@ import StatusDropdown from "components/Dropdowns/StatusDropdown";
 import AssignDatePicker from "components/DatePicker/AssignDatePicker";
 import CompletionDatePicker from "components/DatePicker/CompletionDatePicker";
 import EditTaskUser from "components/Dropdowns/UserDropdown/EditTaskUser";
+import AddUsers from "components/Modal/AddUsers";
+import RemoveUsers from "components/Modal/RemoveUsers";
 
 export default function VieworEditTask({ tid, taskdata, updateTask }) {
-
-  const [title, setTitle] = useState('');
-  const [desc, setDesc] = useState('');
-  const [status, setStatus] = useState('');
+  const [title, setTitle] = useState("");
+  const [desc, setDesc] = useState("");
+  const [status, setStatus] = useState("");
   const [assignee, setAssignee] = useState([]);
   const [assignDate, setAssignDate] = useState([]);
-  const [completionDate, setCompletionDate] = useState('');
+  const [completionDate, setCompletionDate] = useState("");
 
   useEffect(() => {
     setTitle(taskdata.title);
@@ -30,8 +31,8 @@ export default function VieworEditTask({ tid, taskdata, updateTask }) {
       status: status,
       assignee: assignee,
       assignDate: assignDate,
-      completionDate: completionDate
-    }
+      completionDate: completionDate,
+    };
 
     updateTask(taskdetails, tid);
 
@@ -46,16 +47,16 @@ export default function VieworEditTask({ tid, taskdata, updateTask }) {
   };
   function handlestatusChange(status) {
     setStatus(status);
-  };
+  }
   function handleassigneeChange(assignees) {
     setAssignee(assignees);
-  };
+  }
   function handleassignDateChange(createddate) {
     setAssignDate(createddate);
-  };
+  }
   function handlecompletionDateChange(completiondate) {
     setCompletionDate(completiondate);
-  };
+  }
 
   return (
     <>
@@ -111,9 +112,12 @@ export default function VieworEditTask({ tid, taskdata, updateTask }) {
                   >
                     Task Status
                   </label>
-                  {status &&
-                    <StatusDropdown value={status} statusChange={handlestatusChange} />
-                  }
+                  {status && (
+                    <StatusDropdown
+                      value={status}
+                      statusChange={handlestatusChange}
+                    />
+                  )}
                 </div>
                 <div className="mb-6 flex-1">
                   <label
@@ -122,9 +126,12 @@ export default function VieworEditTask({ tid, taskdata, updateTask }) {
                   >
                     Task Users
                   </label>
-                  {assignee &&
-                    <EditTaskUser value={assignee} edittaskuser={handleassigneeChange} />
-                  }
+                  {assignee && (
+                    <EditTaskUser
+                      value={assignee}
+                      edittaskuser={handleassigneeChange}
+                    />
+                  )}
                 </div>
               </div>
               <div className="flex">
@@ -135,9 +142,12 @@ export default function VieworEditTask({ tid, taskdata, updateTask }) {
                   >
                     Task Assign Date
                   </label>
-                  {assignDate &&
-                    <AssignDatePicker avalue={assignDate} assigndate={handleassignDateChange} />
-                  }
+                  {assignDate && (
+                    <AssignDatePicker
+                      avalue={assignDate}
+                      assigndate={handleassignDateChange}
+                    />
+                  )}
                 </div>
                 <div className="mb-6 flex-1">
                   <label
@@ -146,21 +156,31 @@ export default function VieworEditTask({ tid, taskdata, updateTask }) {
                   >
                     Task Completion Date
                   </label>
-                  {completionDate &&
-                    <CompletionDatePicker cvalue={completionDate} completiondate={handlecompletionDateChange} />
-                  }
+                  {completionDate && (
+                    <CompletionDatePicker
+                      cvalue={completionDate}
+                      completiondate={handlecompletionDateChange}
+                    />
+                  )}
+                </div>
+              </div>
+              <div className="flex">
+                <div className="mb-6 flex-1">
+                  <AddUsers />
+                </div>
+                <div className="mb-6 flex-1">
+                  <RemoveUsers />
                 </div>
               </div>
             </form>
           </div>
           {/*footer*/}
           <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-            
             <button
               className="bg-indigo-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
               type="button"
               onClick={() => {
-                setTaskdetails()
+                setTaskdetails();
               }}
             >
               Edit Task

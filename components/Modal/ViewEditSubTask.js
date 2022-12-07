@@ -4,6 +4,8 @@ import StatusDropdown from "components/Dropdowns/StatusDropdown";
 import EditSubTaskUser from "components/Dropdowns/UserDropdown/EditSubTaskUser";
 import AssignDatePicker from "components/DatePicker/AssignDatePicker";
 import CompletionDatePicker from "components/DatePicker/CompletionDatePicker";
+import AddUsers from "./AddUsers";
+import RemoveUsers from "./RemoveUsers";
 
 export default function ViewEditSubTask({ sid, subtaskdata, updateSubTask }) {
   const [title, setTitle] = useState("");
@@ -162,6 +164,14 @@ export default function ViewEditSubTask({ sid, subtaskdata, updateSubTask }) {
                       editsubtaskuser={handleassigneeChange}
                     />
                   )}
+                </div>
+              </div>
+              <div className="flex">
+                <div className="mb-6 flex-1">
+                  <AddUsers />
+                </div>
+                <div className="mb-6 flex-1">
+                  <RemoveUsers />
                 </div>
               </div>
             </form>
