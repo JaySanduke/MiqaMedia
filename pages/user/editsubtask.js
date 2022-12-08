@@ -30,7 +30,7 @@ export default function EditSubTask() {
   const [tid, setTid] = useState(router.query.tid);
   const [wpid, setWpid] = useState(router.query.wid);
   const [sid, setSid] = useState(router.query.sid);
-  const [snapshot, loading, error] = useObject(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/' + tid + '/subtasks'));
+  const [snapshot, loading, error] = useObject(ref(database, `workspaces/${wpid}/tasks/${tid}/subtasks/${sid}`));
   const [subtaskdata, setSubTaskData] = useState([]);
 
   const [subdomain, setSubDomain] = useState(false);
@@ -99,23 +99,13 @@ export default function EditSubTask() {
 
   function updateSubTask(data, id) {
 
-    // let taskdetails = {
-    //   title: data.title,
-    //   desc: data.desc,
-    //   created_at: data.assignDate,
-    //   completion_date: data.completionDate,
-    //   status: data.status,
-    //   assignees: [data.assignee],
-    // };
-
     if (uid && tid && id) {
-      update(ref(database, 'users/' + uid + '/workspace/' + wpid + '/tasks/' + tid + '/subtasks/' + id), {
+      update(ref(database, `workspaces/${wpid}/tasks/${tid}/subtasks/${id}`), {
         title: data.title,
         desc: data.desc,
         created_at: data.assignDate,
         completion_date: data.completionDate,
-        status: data.status,
-        assignees: data.assignee,
+        status: data.status
       })
         .then(
           router.push("/user/subtask?tid=" + tid).then(() => {
@@ -132,7 +122,7 @@ export default function EditSubTask() {
     <>
       <div className="flex flex-wrap mt-4">
         <div className="w-full mb-12 px-4">
-          <ViewEditSubTask sid={sid} subtaskdata={subtaskdata} updateSubTask={updateSubTask} />
+          <ViewEditSubTask wid={wpid} tid={tid} sid={sid} subtaskdata={subtaskdata} updateSubTask={updateSubTask} />
         </div>
       </div>
     </>

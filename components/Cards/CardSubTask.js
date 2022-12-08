@@ -24,7 +24,14 @@ export default function CardSubTask({ uid, owner, wid, tid, tuser, color, tabled
   useEffect(() => {
 
     for (let i in tabledata) {
-      tdata.push(tabledata[i]);
+      if (tabledata[i].owner != uid && tabledata[i].assignees != undefined) {
+        if (tabledata[i].assignees.includes(uid)) {
+          tdata.push(tabledata[i]);
+        }
+      }
+      else if (tabledata[i].owner == uid) {
+        tdata.push(tabledata[i]);
+      }
     }
     // console.log(tdata);
 
@@ -187,25 +194,14 @@ export default function CardSubTask({ uid, owner, wid, tid, tuser, color, tabled
                           {board.subtasks.length > 0 &&
                             board.subtasks.map((item, iIndex) => {
                               return (
-                                item != uid && item.assignees != undefined ?
-                                  item.assignees.includes(uid) &&
-                                  <SubTaskItem
-                                    key={item.id}
-                                    data={item}
-                                    index={iIndex}
-                                    deleteSubtask={deleteSubtask}
-                                    wid={wid}
-                                    tid={tid}
-                                  />
-                                  :
-                                  <SubTaskItem
-                                    key={item.id}
-                                    data={item}
-                                    index={iIndex}
-                                    deleteSubtask={deleteSubtask}
-                                    wid={wid}
-                                    tid={tid}
-                                  />
+                                <SubTaskItem
+                                  key={item.id}
+                                  data={item}
+                                  index={iIndex}
+                                  deleteSubtask={deleteSubtask}
+                                  wid={wid}
+                                  tid={tid}
+                                />
                               );
                             })}
                           {provided.placeholder}

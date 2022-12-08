@@ -21,7 +21,14 @@ export default function CardTable({ color, uid, wpid, owner, tabledata, wuser, a
   useEffect(() => {
     if (tabledata !== undefined) {
       for (let i in tabledata) {
-        tdata.push(tabledata[i]);
+        if (tabledata[i].owner != uid && tabledata[i].assignees != undefined) {
+          if (tabledata[i].assignees.includes(uid)) {
+            tdata.push(tabledata[i]);
+          }
+        }
+        else if (tabledata[i].owner == uid) {
+          tdata.push(tabledata[i]);
+        }
       }
       // console.log(tdata);
 
@@ -182,24 +189,13 @@ export default function CardTable({ color, uid, wpid, owner, tabledata, wuser, a
                           {board.tasks.length > 0 &&
                             board.tasks.map((item, iIndex) => {
                               return (
-                                item.owner != uid && item.assignees != undefined ?
-                                  item.assignees.includes(uid) &&
-                                  <TableItem
-                                    key={item.id}
-                                    wpid={wpid}
-                                    data={item}
-                                    index={iIndex}
-                                    deleteTask={deleteTask}
-                                  />
-                                  :
-                                  <TableItem
-                                    key={item.id}
-                                    wpid={wpid}
-                                    data={item}
-                                    index={iIndex}
-                                    deleteTask={deleteTask}
-                                  />
-
+                                <TableItem
+                                  key={item.id}
+                                  wpid={wpid}
+                                  data={item}
+                                  index={iIndex}
+                                  deleteTask={deleteTask}
+                                />
                               );
                             })}
                           {provided.placeholder}

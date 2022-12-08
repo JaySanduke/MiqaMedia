@@ -114,7 +114,7 @@ const WorkspaceDropdown = ({ wid, archieveWorkspace }) => {
           }
           onClick={(e) => closeDropdownPopover()}
         >
-          <Link href={{ pathname: '/user/vieweditworkspace/', query: { wid: wid } }} >
+          <Link href={{ pathname: '/user/viewedittask/', query: { wid: wid } }} >
             {/* <Link href='/user/viewedittask/' > */}
             <a
               href="#pablo"

@@ -1,13 +1,13 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import StatusDropdown from "components/Dropdowns/StatusDropdown";
-import EditSubTaskUser from "components/Dropdowns/UserDropdown/EditSubTaskUser";
+import EditSubTaskUser from "components/Dropdowns/UserDropdown/EditSubTaskUuser";
 import AssignDatePicker from "components/DatePicker/AssignDatePicker";
 import CompletionDatePicker from "components/DatePicker/CompletionDatePicker";
-import AddUsers from "./AddUsers";
-import RemoveUsers from "./RemoveUsers";
+import AddUsersSubtask from "./AddUsersSubtask";
+import RemoveUsersSubtask from "./RemoveUsersSubtask";
 
-export default function ViewEditSubTask({ sid, subtaskdata, updateSubTask }) {
+export default function ViewEditSubTask({ wid, tid, sid, subtaskdata, updateSubTask }) {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [status, setStatus] = useState([]);
@@ -29,7 +29,6 @@ export default function ViewEditSubTask({ sid, subtaskdata, updateSubTask }) {
       title: title,
       desc: desc,
       status: status,
-      assignee: assignee,
       assignDate: assignDate,
       completionDate: completionDate,
     };
@@ -130,27 +129,27 @@ export default function ViewEditSubTask({ sid, subtaskdata, updateSubTask }) {
                   </label>
                   {completionDate && (
                     <CompletionDatePicker
-                    cvalue={completionDate}
-                    completiondate={handlecompletionDateChange}
+                      cvalue={completionDate}
+                      completiondate={handlecompletionDateChange}
                     />
                   )}
                 </div>
               </div>
-              <div className="flex">
-                <div className="mb-6 mr-4 flex-1">
-                  <label
-                    className="block text-gray-700 text-sm font-bold mb-2"
-                    for="status"
-                  >
-                    Sub Task Status
-                  </label>
-                  {status && (
-                    <StatusDropdown
-                      value={status}
-                      statusChange={handlestatusChange}
-                    />
-                  )}
-                </div>
+              <div className="mb-6 mr-4 flex-1">
+                <label
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                  for="status"
+                >
+                  Sub Task Status
+                </label>
+                {status && (
+                  <StatusDropdown
+                    value={status}
+                    statusChange={handlestatusChange}
+                  />
+                )}
+              </div>
+              {/* <div className="flex">
                 <div className="mb-6 flex-1">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
@@ -165,13 +164,13 @@ export default function ViewEditSubTask({ sid, subtaskdata, updateSubTask }) {
                     />
                   )}
                 </div>
-              </div>
+              </div> */}
               <div className="flex">
                 <div className="mb-6 flex-1">
-                  <AddUsers />
+                  <AddUsersSubtask  wid={wid} tid={tid} sid={sid} assignedusers={assignee} />
                 </div>
                 <div className="mb-6 flex-1">
-                  <RemoveUsers />
+                  {assignee && <RemoveUsersSubtask wid={wid} tid={tid} sid={sid} assignedusers={assignee} />}
                 </div>
               </div>
             </form>

@@ -118,7 +118,7 @@ export default function AddSubTask({ tuser, addSubtask }) {
                                                 </label>
                                                 <StatusDropdown statusChange={handlestatusChange} />
                                             </div>
-                                            <div className="mb-6 flex-1">
+                                            {/* <div className="mb-6 flex-1">
                                                 <label
                                                     className="block text-gray-700 text-sm font-bold mb-2"
                                                     for="status"
@@ -126,8 +126,8 @@ export default function AddSubTask({ tuser, addSubtask }) {
                                                     Sub Task Users
                                                 </label>
                                                 <SubTaskUserSelect tuser={tuser} subtaskuser={handleassigneeChange} />
-                                                {/* <SubTaskUser subtaskuser={handleassigneeChange} /> */}
-                                            </div>
+                                                <SubTaskUser subtaskuser={handleassigneeChange} />
+                                            </div> */}
                                         </div>
                                         <div className="flex">
                                             <div className="mb-6 mr-4 flex-1">

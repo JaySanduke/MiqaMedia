@@ -3,17 +3,26 @@ import { useEffect, useState } from "react";
 import StatusDropdown from "components/Dropdowns/StatusDropdown";
 import AssignDatePicker from "components/DatePicker/AssignDatePicker";
 import CompletionDatePicker from "components/DatePicker/CompletionDatePicker";
-import EditTaskUser from "components/Dropdowns/UserDropdown/EditTaskUser";
-import AddUsers from "components/Modal/AddUsers";
-import RemoveUsers from "components/Modal/RemoveUsers";
+import EditTaskUser from "components/Dropdowns/UserDropdown/EditTaskUuser";
+import AddUsersTask from "components/Modal/AddUsersTask";
+import RemoveUsersTask from "components/Modal/RemoveUsersTask";
 
-export default function VieworEditTask({ tid, taskdata, updateTask }) {
+export default function ViewEditTask({ tid, taskdata, updateTask }) {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [status, setStatus] = useState("");
   const [assignee, setAssignee] = useState([]);
   const [assignDate, setAssignDate] = useState([]);
   const [completionDate, setCompletionDate] = useState("");
+
+  const [wid, setWid] = useState("");
+
+  useEffect(() => {
+    var host = window.location.hostname;
+    var workspaceid = host.split(".")[0];
+    console.log(workspaceid);
+    setWid(workspaceid);
+  }, []);
 
   useEffect(() => {
     setTitle(taskdata.title);
@@ -119,7 +128,7 @@ export default function VieworEditTask({ tid, taskdata, updateTask }) {
                     />
                   )}
                 </div>
-                <div className="mb-6 flex-1">
+                {/* <div className="mb-6 flex-1">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
                     for="status"
@@ -132,7 +141,7 @@ export default function VieworEditTask({ tid, taskdata, updateTask }) {
                       edittaskuser={handleassigneeChange}
                     />
                   )}
-                </div>
+                </div> */}
               </div>
               <div className="flex">
                 <div className="mb-6 mr-4 flex-1">
@@ -166,10 +175,10 @@ export default function VieworEditTask({ tid, taskdata, updateTask }) {
               </div>
               <div className="flex">
                 <div className="mb-6 flex-1">
-                  <AddUsers />
+                   <AddUsersTask wid={wid} tid={tid} assignedusers={assignee} />
                 </div>
                 <div className="mb-6 flex-1">
-                  <RemoveUsers />
+                  {assignee && <RemoveUsersTask wid={wid} tid={tid} assignedusers={assignee} />}
                 </div>
               </div>
             </form>

@@ -121,9 +121,9 @@ export default function SubTask() {
         <div className="w-full mb-12 px-4">
           <CardSubTask owner={tabledata.owner} uid={uid} wid={wpid} tid={tid} tuser={tabledata.assignees} tabledata={tabledata.subtasks} addSubtask={addSubtask} deleteSubtask={deleteSubtask} />
         </div>
-        <div className="w-full mb-12 px-4">
+        {/* <div className="w-full mb-12 px-4">
           <CardSubTask color="dark" owner={tabledata.owner} uid={uid} wid={wpid} tid={tid} tuser={tabledata.assignees} tabledata={tabledata.subtasks} addSubtask={addSubtask} deleteSubtask={deleteSubtask} />
-        </div>
+        </div> */}
       </div>
     </>
   );

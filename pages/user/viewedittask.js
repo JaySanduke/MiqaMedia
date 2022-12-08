@@ -92,15 +92,6 @@ export default function ViewEditTask() {
 
   function updateTask(data, id) {
 
-    // let taskdetails = {
-    //   title: data.title,
-    //   desc: data.desc,
-    //   created_at: data.assignDate,
-    //   completion_date: data.completionDate,
-    //   status: data.status,
-    //   assignees: [data.assignee],
-    // };
-
     if (uid && tid && id) {
       update(ref(database, 'workspaces/' + wpid + '/tasks/' + id), {
         title: data.title,
@@ -108,7 +99,6 @@ export default function ViewEditTask() {
         created_at: data.assignDate,
         completion_date: data.completionDate,
         status: data.status,
-        assignees: data.assignee,
       })
         .then(
           router.push("/user/tables").then(() => {

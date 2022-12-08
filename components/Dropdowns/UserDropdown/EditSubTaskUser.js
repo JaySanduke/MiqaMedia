@@ -1,83 +1,68 @@
-import * as React from 'react';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import ListItemText from '@mui/material/ListItemText';
-import Select from '@mui/material/Select';
-import Checkbox from '@mui/material/Checkbox';
+import * as React from "react";
+import { useEffect, useState } from "react";
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
+import Select from "react-select";
 
-const names = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
-];
+// firebase
+import { ref, onValue } from "firebase/database";
+import { useObject } from "react-firebase-hooks/database";
 
-export default function EditSubTaskUser({ svalue, editsubtaskuser }) {
-  const [personName, setPersonName] = React.useState([]);
+import { database } from "components/firebase";
 
-  React.useEffect(() => {
-    console.log(svalue);
-    let arr = [];
-    for(let i in svalue){
-      arr.push(svalue[i])
-    };
-    setPersonName(arr)
-  },[svalue]);
 
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
+export default function EditSubTaskUser({ subtaskUsers, userChange }) {
 
-    // console.log(event.target.value)
-    editsubtaskuser(event.target.value);
+  const [snapshot, loading, error] = useObject(ref(database, "users"));
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    console.log(subtaskUsers);
+  }, [subtaskUsers]);
+
+  async function getAllUsers(allusers) {
+    console.log(allusers);
+    let temp = await [];
+    for (let id in allusers) {
+      if (subtaskUsers != undefined) {
+        if (subtaskUsers.includes(id)) {
+          await console.log(allusers[id]);
+          await temp.push({
+            label: allusers[id].name,
+            value: allusers[id].uid,
+            email: allusers[id].email,
+          })
+        }
+      }
+    }
+    return temp;
+  }
+
+  useEffect(() => {
+    if (snapshot && !loading && !error) {
+      getAllUsers(snapshot.val()).then((res) => {
+        setUsers(res);
+      })
+    }
+  }, [snapshot]);
+
+  const handleChange = (users) => {
+    console.log(users);
+
+    if (users != null && users.length > 0) {
+      let temp = [];
+      users.map((user) => {
+        temp.push(user.value);
+      });
+      users = temp;
+    }
+    console.log(users);
+
+    userChange(users);
   };
 
   return (
-    <div>
-      <FormControl sx={{ width: 400 }}>
-        <InputLabel id="demo-multiple-checkbox-label">Sub Task Users</InputLabel>
-        <Select
-          labelId="demo-multiple-checkbox-label"
-          id="demo-multiple-checkbox"
-          multiple
-          value={personName}
-          onChange={handleChange}
-          input={<OutlinedInput label="Sub Task Users" />}
-          renderValue={(selected) => selected.join(', ')}
-          MenuProps={MenuProps}
-        >
-          {names.map((name) => (
-            <MenuItem key={name} value={name}>
-              <Checkbox checked={personName.indexOf(name) > -1} />
-              <ListItemText primary={name} />
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    </div>
+    <>
+      <Select options={users} required isMulti onChange={(users) => handleChange(users)} />
+    </>
   );
 }
