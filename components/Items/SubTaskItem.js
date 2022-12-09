@@ -28,7 +28,7 @@ function SubTaskItem({ wid, tid, data, index, deleteSubtask }) {
             {data.status}
           </td>
           <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-            {data.assignees.length}
+            {data.assignees!=undefined?data.assignees.length:0}
           </td>
           <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
             {data.created_at}
