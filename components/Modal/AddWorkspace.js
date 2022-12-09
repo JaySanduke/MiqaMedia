@@ -20,8 +20,26 @@ export default function AddWorkspace({ uid, addWorkspace }) {
       users: users,
     };
 
-    addWorkspace(workspacedetails, usersd, inviteusers);
-    console.log(workspacedetails);
+    if (workspacedetails.title == "") {
+      alert("Please enter title");
+    }
+    else if (workspacedetails.desc == "") {
+      alert("Please enter description");
+    }
+    else if (workspacedetails.title == "" && workspacedetails.desc == "") {
+      alert("Please enter title and description");
+    }
+    else if (usersd.length == 0 && inviteusers.length == 0) {
+      alert("Please select users");
+    }
+    else if (workspacedetails.title == "" && workspacedetails.desc == "" && (usersd.length == 0 && inviteusers.length == 0)) {
+      alert("Please enter title, description and select users");
+    }
+    else if (workspacedetails.title != "" && workspacedetails.desc != "" && (usersd.length > 0 || inviteusers.length > 0)) {
+
+      addWorkspace(workspacedetails, users, inviteusers);
+      console.log(workspacedetails);
+    }
   }
 
   const handleWorkspacetitleChange = (e) => {

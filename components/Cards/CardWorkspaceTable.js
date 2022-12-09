@@ -78,11 +78,14 @@ export default function CardWorkspaceTable({ color, uid, user }) {
 
   async function invitemail(useremaillist, wid, wname) {
     await console.log(useremaillist);
-    
+
     if (useremaillist.length > 0 && useremaillist !== undefined) {
       var invitedu = [];
 
+      var count = 0;
+
       useremaillist.forEach(async (useremail) => {
+        count++;
         await fetch("/api/invitemail/invite", {
           method: "POST",
           headers: {
@@ -211,16 +214,19 @@ export default function CardWorkspaceTable({ color, uid, user }) {
             console.log(err);
           })
       })
-      return await invitedu;
+
+      if (count == useremaillist.length) {
+        return await invitedu;
+      }
     }
   }
 
   async function adduser(userlist, wid, wname) {
     if (userlist !== undefined && wid && wname) {
-      for (let i in userlist) {
-        console.log(userlist[i].value);
+      for (let i of userlist) {
+        console.log(i);
 
-        update(ref(database, 'users/' + userlist[i].value + '/invites'), {
+        update(ref(database, 'users/' + i + '/invites'), {
           [wid]: {
             ownerdetails: userdetails,
             workspaceid: wid,
@@ -237,7 +243,7 @@ export default function CardWorkspaceTable({ color, uid, user }) {
   }
 
   async function addWorkspace(data, userdata, inviteuser) {
-    if (uid) {
+    if (uid && (userdata.length > 0 || inviteuser.length > 0) && data.title != "" && data.description != "") {
       // const postk = push(ref(database, 'users/' + uid + '/workspace')).key
 
       let a = await data.title;
@@ -247,24 +253,32 @@ export default function CardWorkspaceTable({ color, uid, user }) {
 
       const postk = await a;
 
-      await adduser(userdata, postk, data.title);
+      var workspacedetails;
+
+      // await adduser(userdata, postk, data.title);
       await invitemail(inviteuser, postk, data.title)
         .then(async (invitedusers) => {
-          console.log(invitedusers);
-          // final users
-          if(userdata.length > 0 && invitedusers.length == 0){
+          await console.log(invitedusers);
+          // final users--------------fixxxxxxxxx
+          if (userdata.length > 0 && invitedusers.length == 0) {
             finalusers = await [...userdata];
+            return finalusers;
           }
-          else if(invitedusers.length > 0 && userdata == 0){
+          else if (invitedusers.length > 0 && userdata == 0) {
             finalusers = await [...invitedusers];
+            return finalusers;
           }
-          else if(userdata.length > 0 && invitedusers.length > 0){
+          else if (userdata.length > 0 && invitedusers.length > 0) {
             finalusers = await [...userdata, ...invitedusers];
+            return finalusers;
           }
 
         })
+        .then(async (finalu) => {
+          console.log(finalu);
+        })
 
-      const workspacedetails = await {
+      var workspacedetails = await {
         "createddate": data.assignDate,
         "desc": data.desc,
         "owner": uid,
@@ -273,16 +287,18 @@ export default function CardWorkspaceTable({ color, uid, user }) {
         "workspacename": data.title,
       };
 
-      await update(ref(database, 'users/' + uid + '/workspace'), {
-        [postk]: data.title,
-      })
-        .then(() => {
-          update(ref(database, 'workspaces/' + postk), workspacedetails)
-        })
-        .then(console.log("Worksapce Added Successfully!"))
-        .catch((error) => {
-          console.log(error);
-        });
+      console.log(workspacedetails);
+
+      // await update(ref(database, 'users/' + uid + '/workspace'), {
+      //   [postk]: data.title,
+      // })
+      //   .then(() => {
+      //     update(ref(database, 'workspaces/' + postk), workspacedetails)
+      //   })
+      //   .then(console.log("Worksapce Added Successfully!"))
+      //   .catch((error) => {
+      //     console.log(error);
+      //   });
     }
   }
 
