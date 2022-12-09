@@ -78,9 +78,9 @@ export default function CardWorkspaceTable({ color, uid, user }) {
 
   async function invitemail(useremaillist, wid, wname) {
     await console.log(useremaillist);
-    var invitedu = await [];
-
+    
     if (useremaillist.length > 0 && useremaillist !== undefined) {
+      var invitedu = [];
 
       useremaillist.forEach(async (useremail) => {
         await fetch("/api/invitemail/invite", {
@@ -211,8 +211,8 @@ export default function CardWorkspaceTable({ color, uid, user }) {
             console.log(err);
           })
       })
+      return await invitedu;
     }
-    return await invitedu;
   }
 
   async function adduser(userlist, wid, wname) {
@@ -252,6 +252,16 @@ export default function CardWorkspaceTable({ color, uid, user }) {
         .then(async (invitedusers) => {
           console.log(invitedusers);
           // final users
+          if(userdata.length > 0 && invitedusers.length == 0){
+            finalusers = await [...userdata];
+          }
+          else if(invitedusers.length > 0 && userdata == 0){
+            finalusers = await [...invitedusers];
+          }
+          else if(userdata.length > 0 && invitedusers.length > 0){
+            finalusers = await [...userdata, ...invitedusers];
+          }
+
         })
 
       const workspacedetails = await {
