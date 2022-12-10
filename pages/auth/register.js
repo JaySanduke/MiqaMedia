@@ -43,7 +43,7 @@ export default function Register() {
 
           })
           .then(() => {
-            window.location.href = "/user/dashboard";
+            window.location.href = "/user/workspace";
           });
       })
       .catch((error) => {
@@ -70,7 +70,7 @@ export default function Register() {
               await console.log("Google User already exists");
               await console.log(snapshot.val());
 
-              window.location.href = await "/user/dashboard";
+              window.location.href = await "/user/workspace";
             }
             else {
               console.log("Google User does not exist registering in the database");

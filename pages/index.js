@@ -6,12 +6,12 @@ import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import Footer from "components/Footers/Footer.js";
 
 export default function Index() {
-  useEffect(()=>{
+  useEffect(() => {
     var hostname = window.location.hostname;
     var subdomain = hostname.split(".");
     var id = subdomain[0];
     console.log(id);
-  },[]);
+  }, []);
   return (
     <>
       <IndexNavbar fixed />

@@ -1,44 +1,4 @@
-import React, { useState, useEffect } from "react";
-import User from "layouts/User";
-import Link from "next/link";
-
-import { app, database } from "../../components/firebase";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { get, ref } from "firebase/database";
-
-const auth = getAuth(app);
-
-export default function Profile() {
-  const [user, setUser] = useState(null);
-  const [uid, setUid] = useState("");
-
-  const [userdetails, setUserdetails] = useState({});
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-        setUid(user.uid);
-      }
-    });
-  }, []);
-
-  useEffect(() => {
-    if (uid) {
-      get(ref(database, "users/" + uid)).then((snapshot) => {
-        if (snapshot.exists()) {
-          setUserdetails(snapshot.val());
-        } else {
-          console.log("No data available");
-        }
-      });
-    }
-  }, [uid]);
-
-  return (
-    <>
-      {user && (
-        <div className="flex flex-wrap">
+<div className="flex flex-wrap">
           <section className="relative py-8">
             <div className="container mx-auto px-4">
               <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg">
@@ -80,7 +40,6 @@ export default function Profile() {
                       </div>
                     </div>
                   </div>
-
                   <div className="relative w-75 my-6 mx-auto max-w-3xl">
                     {/*content*/}
                     <div className="border-0 rounded-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
@@ -107,28 +66,8 @@ export default function Profile() {
                       </div>
                     </div>
                   </div>
-
-                  <div className="mb-10 py-10 border-t border-blueGray-200 text-center">
-                    <div className="flex flex-wrap justify-center">
-                      <div className="w-full lg:w-9/12 px-4">
-                        <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
-                          An artist of considerable range, Jenna the name taken
-                          by Melbourne-raised, Brooklyn-based Nick Murphy
-                          writes, performs and records all of his own music,
-                          giving it a warm, intimate feel with a solid groove
-                          structure. An artist of considerable range.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
           </section>
         </div>
-      )}
-    </>
-  );
-}
-
-Profile.layout = User;

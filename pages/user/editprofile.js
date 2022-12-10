@@ -103,20 +103,6 @@ export default function Profile() {
                           Workspace
                         </span>
                       </div>
-                      {/* <div className="mr-4 p-3 text-center">
-                        <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          10
-                        </span>
-                        <span className="text-sm text-blueGray-400">Task</span>
-                      </div>
-                      <div className="lg:mr-4 p-3 text-center">
-                        <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          89
-                        </span>
-                        <span className="text-sm text-blueGray-400">
-                          Subtask
-                        </span>
-                      </div> */}
                     </div>
                   </div>
                 </div>

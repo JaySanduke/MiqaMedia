@@ -24,7 +24,7 @@ export default function Login() {
         get(ref(database, 'users/' + userCredential.user.uid))
           .then((snapshot) => {
             if (snapshot.exists()) {
-              window.location.href = "/user/dashboard";
+              window.location.href = "/user/workspace";
               console.log("Logged in successfully");
             } else {
               set(ref(database, 'users/' + userCredential.user.uid), {
@@ -66,7 +66,7 @@ export default function Login() {
               await console.log("Google User already exists");
               await console.log(snapshot.val());
 
-              window.location.href = await "/user/dashboard";
+              window.location.href = await "/user/workspace";
             }
             else {
               console.log("Google User does not exist registering in the database");
@@ -101,7 +101,7 @@ export default function Login() {
     const auth = getAuth();
     auth.onAuthStateChanged((user) => {
       if (user) {
-        window.location.href = "/user/dashboard";
+        window.location.href = "/user/workspace";
       }
     });
   }, []);

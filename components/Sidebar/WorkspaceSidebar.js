@@ -83,13 +83,13 @@ export default function WorkspaceSidebar() {
             <hr className="my-4 md:min-w-full" />
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
-              <li className="items-center">
+              {/* <li className="items-center">
                 <Link href="/user/dashboard">
                   <a
                     href="#pablo"
                     className={
                       "text-xs uppercase py-3 font-bold block " +
-                      (router.pathname.indexOf("/user/dashboard") !== -1
+                      (router.pathname.indexOf("/user/workspace") !== -1
                         ? "text-lightBlue-500 hover:text-lightBlue-600"
                         : "text-blueGray-700 hover:text-blueGray-500")
                     }
@@ -97,7 +97,7 @@ export default function WorkspaceSidebar() {
                     <i
                       className={
                         "fas fa-tv mr-2 text-sm " +
-                        (router.pathname.indexOf("/user/dashboard") !== -1
+                        (router.pathname.indexOf("/user/workspace") !== -1
                           ? "opacity-75"
                           : "text-blueGray-300")
                       }
@@ -105,7 +105,7 @@ export default function WorkspaceSidebar() {
                     Dashboard
                   </a>
                 </Link>
-              </li>
+              </li> */}
 
               {/* <li className="items-center">
                 <Link href="/user/settings">

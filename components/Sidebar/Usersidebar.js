@@ -113,7 +113,7 @@ export default function UserSidebar() {
             <hr className="my-4 md:min-w-full" />
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
-              <li className="items-center">
+              {/* <li className="items-center">
                 <Link href="/user/dashboard">
                   <a
                     href="#pablo"
@@ -135,7 +135,7 @@ export default function UserSidebar() {
                     Dashboard
                   </a>
                 </Link>
-              </li>
+              </li> */}
 
               {/* <li className="items-center">
                 <Link href="/user/settings">
