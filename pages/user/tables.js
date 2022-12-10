@@ -62,7 +62,7 @@ export default function Tables() {
 
   useEffect(() => {
     if (!loading && snapshot) {
-      // console.log(snapshot.val());
+      console.log(snapshot.val());
       setData(snapshot.val());
     } else if (loading) {
       console.log("data loading ...");
@@ -116,7 +116,7 @@ export default function Tables() {
             color="light"
             uid={uid}
             wpid={wpid}
-            // owner={data.owner}
+            owner={data.owner}
             tabledata={data.tasks}
             wuser={data.users}
             addTask={addTask}
