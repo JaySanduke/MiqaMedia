@@ -14,6 +14,8 @@ import { ref, push, update, remove, onValue, get, set } from "firebase/database"
 
 const auth = getAuth();
 
+var invitedu = [];
+
 export default function CardWorkspaceTable({ color, uid, user }) {
   const [ready, setReady] = useState(false);
   const [boardData, setBoardData] = useState([]);
@@ -80,12 +82,10 @@ export default function CardWorkspaceTable({ color, uid, user }) {
     await console.log(useremaillist);
 
     if (useremaillist.length > 0 && useremaillist !== undefined) {
-      var invitedu = [];
 
       var count = 0;
 
       useremaillist.forEach(async (useremail) => {
-        count++;
         await fetch("/api/invitemail/invite", {
           method: "POST",
           headers: {
@@ -122,14 +122,11 @@ export default function CardWorkspaceTable({ color, uid, user }) {
               )
                 .then(() => {
                   console.log("Email sent");
-                })
-                .then(() => {
                   console.log("Invitation sent successfully");
-                })
-                .then(() => {
                   console.log("Workspace added to user!");
                 })
               await invitedu.push(data.user.uid);
+              count++;
             }
             else if (data.error.error.code == "ESOCKET") {
               console.log("Network error, Email not sent");
@@ -145,10 +142,11 @@ export default function CardWorkspaceTable({ color, uid, user }) {
                   ownerdetails: userdetails,
                 }),
               })
+              count++;
             }
             else if (data.error.error.code == "auth/email-already-in-use") {
               console.log("Email already in use");
-              get(ref(database, "users"))
+              await get(ref(database, "users"))
                 .then(async (snapshot) => {
                   console.log(snapshot.val());
                   if (snapshot.exists()) {
@@ -166,7 +164,7 @@ export default function CardWorkspaceTable({ color, uid, user }) {
                     }
 
                     if (found.status) {
-                      update(
+                      await update(
                         ref(database, "users/" + found.uid + "/invites"),
                         {
                           [wid]: {
@@ -185,6 +183,7 @@ export default function CardWorkspaceTable({ color, uid, user }) {
                           console.log("Workspace added to user!");
                         })
                       await invitedu.push(found.uid);
+                      count++;
                     }
                     else {
                       console.log("User not found in database but email already in use so please login with user credentials");
@@ -204,6 +203,7 @@ export default function CardWorkspaceTable({ color, uid, user }) {
                       //   .then(() => {
                       //     console.log("Workspace added to user!");
                       //   })
+                      count++;
                     }
                   }
                 })
@@ -215,9 +215,9 @@ export default function CardWorkspaceTable({ color, uid, user }) {
           })
       })
 
-      if (count == useremaillist.length) {
-        return await invitedu;
-      }
+      // if (count != 0 && count <= useremaillist.length) {
+      //   return await invitedu;
+      // }
     }
   }
 
@@ -245,7 +245,7 @@ export default function CardWorkspaceTable({ color, uid, user }) {
   async function addWorkspace(data, userdata, inviteuser) {
     if (uid && (userdata.length > 0 || inviteuser.length > 0) && data.title != "" && data.description != "") {
       // const postk = push(ref(database, 'users/' + uid + '/workspace')).key
-
+      console.log(userdata);
       let a = await data.title;
       a = await a.trim().split(' ').join('').toLowerCase();
 
@@ -257,25 +257,8 @@ export default function CardWorkspaceTable({ color, uid, user }) {
 
       // await adduser(userdata, postk, data.title);
       await invitemail(inviteuser, postk, data.title)
-        .then(async (invitedusers) => {
-          await console.log(invitedusers);
-          // final users--------------fixxxxxxxxx
-          if (userdata.length > 0 && invitedusers.length == 0) {
-            finalusers = await [...userdata];
-            return finalusers;
-          }
-          else if (invitedusers.length > 0 && userdata == 0) {
-            finalusers = await [...invitedusers];
-            return finalusers;
-          }
-          else if (userdata.length > 0 && invitedusers.length > 0) {
-            finalusers = await [...userdata, ...invitedusers];
-            return finalusers;
-          }
-
-        })
-        .then(async (finalu) => {
-          console.log(finalu);
+        .then(async () => {
+          await console.log(invitedu);
         })
 
       var workspacedetails = await {
